@@ -55,7 +55,7 @@ userSchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
 
-userSchema.set("toJSon", {
+userSchema.set("toJSON", {
   virtuals: true,
 });
 
