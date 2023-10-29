@@ -4,7 +4,7 @@ mongoose
   .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    // useFindAndModify: false,
+    dbName: "Blood-Pressure",
   })
   .then(() => {
     console.log("Connected to MongoDB");
