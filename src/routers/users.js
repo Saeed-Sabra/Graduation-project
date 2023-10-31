@@ -4,7 +4,6 @@ const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 router.post("/users/signup", async (req, res) => {
   const user = new User(req.body);
   try {
@@ -50,8 +49,6 @@ router.post("/users/login", async (req, res) => {
   }
 });
 
-
-
 router.get("/users/me", async (req, res) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
@@ -66,7 +63,6 @@ router.get("/users/me", async (req, res) => {
     res.status(500).send(error);
   }
 });
-
 
 // router.post("/user/login", async (req, res) => {
 //   try {

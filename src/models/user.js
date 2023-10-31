@@ -55,6 +55,16 @@ userSchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
 
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.tokens;
+
+  return userObject;
+};
+
 userSchema.set("toJSON", {
   virtuals: true,
 });
