@@ -1,6 +1,7 @@
 const express = require("express");
 require("./db/mongoose");
 const userRouter = require("./routers/users");
+const adminRouter = require("./routers/Admin");
 const authJwt = require("../middleware/jwt");
 const errorHandler = require("../middleware/error-handler");
 
@@ -11,6 +12,7 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(authJwt());
 app.use(userRouter);
+app.use(adminRouter);
 app.use(errorHandler);
 
 app.listen(port, () => {
