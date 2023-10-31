@@ -4,7 +4,7 @@ const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-router.post("/user/signup", async (req, res) => {
+router.post("/users/signup", async (req, res) => {
   const user = new User(req.body);
   try {
     if (!req.body.confirmPassword) {
@@ -22,7 +22,7 @@ router.post("/user/signup", async (req, res) => {
   }
 });
 
-router.post("/user/login", async (req, res) => {
+router.post("/users/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
