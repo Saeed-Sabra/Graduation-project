@@ -4,6 +4,18 @@ const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+router.get("/users", async (req, res) => {
+  const users = await User.find({}).select("-password");
+  try {
+    if (!users) {
+      return res.status(400).send("No Users Found!");
+    }
+    res.send(users);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 router.post("/users/signup", async (req, res) => {
   const user = new User(req.body);
   try {
@@ -16,7 +28,7 @@ router.post("/users/signup", async (req, res) => {
         .send({ error: "Passwords do not match. Please try again." });
     }
     await user.save();
-    res.send({ user });
+    res.status(201).send(user);
   } catch (e) {
     res.status(400).send(e);
   }
@@ -47,6 +59,22 @@ router.post("/users/login", async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
+});
+
+router.get("/users/get/count", async (req, res) => {
+  const usersCount = await User.countDocuments();
+
+  if (!usersCount) {
+    res.status(500).json({ success: false });
+  }
+  res.send({
+    usersCount,
+    success: true,
+  });
+});
+
+router.get("/users/me", async (req, res) => {
+  res.send(req.user);
 });
 
 // router.post("/user/login", async (req, res) => {
