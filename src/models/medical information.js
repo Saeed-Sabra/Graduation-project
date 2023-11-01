@@ -1,63 +1,68 @@
 const mongoose = require("mongoose");
 
-const MedSchema = new mongoose.Schema({
-  gender: {
-    type: String,
-    required: true,
+const MedSchema = new mongoose.Schema(
+  {
+    gender: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    Height: {
+      type: Number,
+      required: true,
+    },
+    Weight: {
+      type: Number,
+      required: true,
+    },
+    BMI: {
+      type: Number,
+      required: true,
+    },
+    HighBP: {
+      type: Number,
+      required: true,
+    },
+    lowBP: {
+      type: Number,
+      required: true,
+    },
+    BP: {
+      type: Number,
+      required: true,
+    },
+    Cholesterol: {
+      type: Number,
+      required: true,
+    },
+    Glucose: {
+      type: Number,
+      required: true,
+    },
+    Smoking: {
+      type: Number,
+      required: true,
+    },
+    Alcohol: {
+      type: Number,
+      required: true,
+    },
+    Activity: {
+      type: Number,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-  age: {
-    type: Number,
-    required: true,
-  },
-  Height: {
-    type: Number,
-    required: true,
-  },
-  Weight: {
-    type: Number,
-    required: true,
-  },
-  BMI: {
-    type: Number,
-    required: true,
-  },
-  HighBP: {
-    type: Number,
-    required: true,
-  },
-  lowBP: {
-    type: Number,
-    required: true,
-  },
-  BP: {
-    type: Number,
-    required: true,
-  },
-  Cholesterol: {
-    type: Number,
-    required: true,
-  },
-  Glucose: {
-    type: Number,
-    required: true,
-  },
-  Smoking: {
-    type: Number,
-    required: true,
-  },
-  Alcohol: {
-    type: Number,
-    required: true,
-  },
-  Activity: {
-    type: Number,
-    required: true,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 MedSchema.virtual("id").get(function () {
   return this._id.toHexString();
