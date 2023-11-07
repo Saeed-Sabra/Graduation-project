@@ -56,36 +56,34 @@ router.get("/admins/users/get/count", async (req, res) => {
   });
 });
 
-router.delete("/admins/users/delete/:id",async (req,res)=>{
-  try{
-    const user=await User.findByIdAndDelete(req.params.id);
+router.delete("/admins/users/delete/:id", async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
 
     if (!user) {
-      return res.status(400).send({message:"No user found!"});
+      return res.status(400).send({ message: "No user found!" });
     }
 
-    res.send({message:"user deleted success"});
-
-  }catch (error) {
+    res.send({ message: "user deleted success" });
+  } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.put("/admins/users/update/:id",async (req,res)=>{
-  try{
-    const user=await User.findByIdAndUpdate(req.params.id,req.body,{ new: true });
+router.put("/admins/users/update/:id", async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
 
     if (!user) {
-      return res.status(400).send({message:"No user found!"});
+      return res.status(400).send({ message: "No user found!" });
     }
 
     res.send(user);
-
-
-  }catch (error) {
+  } catch (error) {
     res.status(500).send(error);
   }
 });
-
 
 module.exports = router;

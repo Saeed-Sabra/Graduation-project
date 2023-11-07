@@ -1,8 +1,10 @@
 const User = require("../models/user");
+const MedInf = require("../models/medical information");
 const express = require("express");
 const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const axios = require("axios");
 
 router.post("/users/signup", async (req, res) => {
   const user = new User(req.body);
@@ -64,6 +66,25 @@ router.get("/users/me", async (req, res) => {
   }
 });
 
+router.post("/users/prediction", async (req, res) => {
+  try {
+    const data = [req.body]; // Wrap the request body in a list to match the expected format
+
+    // Send a POST request to the Python API
+    const response = await axios.post("http://127.0.0.1:5000/predict", data);
+
+    // Handle the response from Python
+    const predictions = response.data.prediction;
+
+    // const MidInf = new MedInf(req.body);
+    // await MidInf.save();
+
+    console.log(predictions);
+    res.json({ prediction: predictions });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 // router.post("/user/login", async (req, res) => {
 //   try {
 //     const user = await User.findByCredentials(
