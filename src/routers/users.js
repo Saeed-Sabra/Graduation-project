@@ -86,24 +86,83 @@ router.get("/users/me", async (req, res) => {
 //   }
 // });
 
+// {
+//   "Age(year)": 27,
+//   "Gender": 1,
+//   "Height(cm)": 150,
+//   "Weight(kg)": 57,
+//   "BMI(kg/m^2)": 25.33,
+//   "Systolic Blood Pressure(mmHg)": 121,
+//   "Diastolic Blood Pressure(mmHg)": 80,
+//   "BP": 50,
+//   "Cholesterol": 7,
+//   "Glucose": 0,
+//   "smoke": 0,
+//   "alco": 0,
+//   "active": 1
+// }
 
 router.post("/users/prediction", async (req, res) => {
   try {
-    const data = [req.body]; // Wrap the request body in a list to match the expected format
+    const {
+      Age,
+      Gender,
+      Height,
+      Weight,
+      HighBP,
+      LowBP,
+      Cholesterol,
+      Glucose,
+      Smoking,
+      Alcohol,
+      Activity,
+    } = req.body;
+
+    const BMI = Weight / ((Height / 100) * (Height / 100));
+
+    const BP = LowBP + (1 / 3) * (HighBP - LowBP);
+
+    // console.log(BMI);
+    // console.log(BP);
+
+    // const data = [{ BMI, BP, ...req.body }]; // Wrap the request body in a list to match the expected format
+
+    // const data = [req.body]; // Wrap the request body in a list to match the expected format
+
+    const data = {
+      Age,
+      Gender,
+      Height,
+      Weight,
+      BMI,
+      HighBP,
+      LowBP,
+      BP,
+      Cholesterol,
+      Glucose,
+      Smoking,
+      Alcohol,
+      Activity,
+    };
 
     // Send a POST request to the Python API
-    const response = await axios.post("http://127.0.0.1:5000/predict", data, {
+    const response = await axios.post("http://127.0.0.1:5000/predict", [data], {
       headers: { "Content-Type": "application/json" }, // Set the content type to JSON
     });
 
-    // const response = await axios.post("http://127.0.0.1:5000/predict", data, {
-    //   headers: { "Content-Type": "application/json" }, // Set the content type to JSON
-    // });
-
     // Handle the response from Python
     const predictions = response.data.predictions; // Update to match the response format
-    // const MidInf = new MedInf(req.body);
-    // await MidInf.save();
+
+    const token = req.header("Authorization").replace("Bearer ", "");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const MidInf = new MedInf({
+      ...data,
+      Result: predictions[0],
+      user: decoded.userId,
+    });
+
+    await MidInf.save();
 
     // Handle the predictions as needed
     console.log({ predictions });
@@ -114,18 +173,5 @@ router.post("/users/prediction", async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-// router.post("/user/login", async (req, res) => {
-//   try {
-//     const user = await User.findByCredentials(
-//       req.body.email,
-//       req.body.password
-//     );
-//     const token = await user.generateAuthToken();
-//     res.send({ user, token });
-//   } catch (e) {
-//     res.status(400).send(e);
-//   }
-// });
 
 module.exports = router;

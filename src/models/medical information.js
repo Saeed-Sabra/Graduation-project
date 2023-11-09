@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const MedSchema = new mongoose.Schema(
   {
-    gender: {
-      type: String,
+    Age: {
+      type: Number,
       required: true,
     },
-    age: {
+    Gender: {
       type: Number,
       required: true,
     },
@@ -26,7 +26,7 @@ const MedSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    lowBP: {
+    LowBP: {
       type: Number,
       required: true,
     },
@@ -54,9 +54,14 @@ const MedSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    Result: {
+      type: String,
+      required: true,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
   },
   {
@@ -75,11 +80,3 @@ MedSchema.set("toJSON", {
 const MedInf = mongoose.model("MedInf", MedSchema);
 
 module.exports = MedInf;
-
-//------------------save object in array-----------------------
-// const obj = req.body;
-// const arr = Object.entries(obj).map(([key, value]) => ({ key, value }));
-// console.log(arr); // [{ key: 'a', value: 1 }, { key: 'b', value: 2 }, { key: 'c', value: 3 }]
-//----------------------------------
-// const arr = Object.keys(obj).map((key) => obj[key]);
-// console.log(arr); // [1, 2, 3]

@@ -35,7 +35,7 @@ router.post("/admins/users/signup", async (req, res) => {
     if (req.body.password !== req.body.confirmPassword) {
       return res
         .status(400)
-        .send({ error: "Passwords do not match. Please try again." });
+        .send({ error: "Confirm Passwords do not match. Please try again." });
     }
     await user.save();
     res.status(201).send(user);

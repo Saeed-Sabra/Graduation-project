@@ -3,17 +3,17 @@ const express = require("express");
 const router = new express.Router();
 const jwt = require("jsonwebtoken");
 
-router.post("/users/info/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
+// router.post("/users/info/:id", async (req, res) => {
+//   try {
+//     const id = req.params.id;
 
-    const info = new MedInf({ ...req.body, user: id });
-    await info.save();
-    res.send(info);
-  } catch (error) {
-    res.status(400).send(e);
-  }
-});
+//     const info = new MedInf({ ...req.body, user: id });
+//     await info.save();
+//     res.send(info);
+//   } catch (error) {
+//     res.status(400).send(e);
+//   }
+// });
 
 router.get("/users/history", async (req, res) => {
   const token = req.header("Authorization").replace("Bearer ", "");
