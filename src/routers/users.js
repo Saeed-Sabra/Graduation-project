@@ -66,25 +66,55 @@ router.get("/users/me", async (req, res) => {
   }
 });
 
+// router.post("/users/prediction", async (req, res) => {
+//   try {
+//     const data = [req.body]; // Wrap the request body in a list to match the expected format
+
+//     // Send a POST request to the Python API
+//     const response = await axios.post("http://127.0.0.1:5000/predict", data);
+
+//     // Handle the response from Python
+//     const predictions = response.data.prediction;
+
+//     // const MidInf = new MedInf(req.body);
+//     // await MidInf.save();
+
+//     console.log(predictions);
+//     res.json({ prediction: predictions });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+
 router.post("/users/prediction", async (req, res) => {
   try {
     const data = [req.body]; // Wrap the request body in a list to match the expected format
 
     // Send a POST request to the Python API
-    const response = await axios.post("http://127.0.0.1:5000/predict", data);
+    const response = await axios.post("http://127.0.0.1:5000/predict", data, {
+      headers: { "Content-Type": "application/json" }, // Set the content type to JSON
+    });
+
+    // const response = await axios.post("http://127.0.0.1:5000/predict", data, {
+    //   headers: { "Content-Type": "application/json" }, // Set the content type to JSON
+    // });
 
     // Handle the response from Python
-    const predictions = response.data.prediction;
-
+    const predictions = response.data.predictions; // Update to match the response format
     // const MidInf = new MedInf(req.body);
     // await MidInf.save();
 
-    console.log(predictions);
-    res.json({ prediction: predictions });
+    // Handle the predictions as needed
+    console.log({ predictions });
+
+    // Send the predictions as the response
+    res.json({ predictions });
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
 // router.post("/user/login", async (req, res) => {
 //   try {
 //     const user = await User.findByCredentials(
