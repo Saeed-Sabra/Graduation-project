@@ -4,11 +4,12 @@ import Artical from '../Artical/Artical.jsx'
 import Instructions from '../Instructions/Instructions.jsx'
 import Footer from '../Footer/Footer.jsx'
 import BounceLoader from "react-spinners/BounceLoader";
+import style from './Home.module.css'
 
 export default function Home({user}) {
   
   const [loading,setLoading] = useState(false);
-  let [color, setColor] = useState("#36d7b7");
+  let [color, setColor] = useState("#36a6d6");
 
   useEffect(() =>{
     setLoading(true);
@@ -20,7 +21,7 @@ export default function Home({user}) {
     
     <div className='row'>
       {loading?
-            <BounceLoader
+            <BounceLoader className={style.loader}
             color={color}
             loading={loading}
             size={150}

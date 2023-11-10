@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 export default function Register() {
 let navigate = useNavigate()
   let schema = Yup.object({
-    name:Yup.string().required("Name is requiered").min(3,"Minimum 3 characters").max(10,"Maximum 3 characters"),
+    name:Yup.string().required("Name is requiered").min(3,"Minimum 3 characters").max(20,"Maximum 20 characters"),
     email:Yup.string().required("Email is requiered").email("Email Not Valid"),
     password:Yup.string().required("Password is requiered").matches(/^[A-Z][a-z0-9]{3,7}$/),
     confirmPassword:Yup.string().required("Confirm password is requiered").oneOf([Yup.ref('password')], "Not matched password")

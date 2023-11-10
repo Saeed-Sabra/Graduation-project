@@ -7,14 +7,22 @@ export default function Profile(props) {
 
     
     async function getData() {
-        let {data} = await axios.get('http://localhost:3000//users/me', {headers:{Authorization:`Bearer ${token}`}});
-        console.log(data);
+        let {data} = await axios.get('http://localhost:3000/users/me', {headers:{Authorization:`Bearer ${token}`}});
+        setUserInfo(data);
     }
     useEffect( ()=>{
-        getData()
+        getData();
     }
     ,[] )
   return (
-    <>test</>
+ <div className='row text-center mt-5'>
+  <div className="col-lg-12">
+      <img src="assets/profilePic.png" alt="profilePic" className='w-25 mb-3' />
+  </div>
+      <h2 className='d-inline'>Name:</h2>
+      <h4 className='d-inline'>{userInfo.name}</h4>
+      <h2>Email</h2>
+      <h4>{userInfo.email}</h4>
+ </div>
   )
 }
