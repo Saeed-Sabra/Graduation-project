@@ -25,7 +25,7 @@ let navigate = useNavigate()
 
 
   async function sendRegisterValues(values){
-    let {data} = await axios.post('http://localhost:3000/users/signup',values)
+    let {data} = await axios.post('http://localhost:3001/users/signup',values)
     if(data){
       navigate('/login')
     }else{

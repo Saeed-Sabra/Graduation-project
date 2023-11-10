@@ -25,7 +25,7 @@ export default function Login(props) {
 
   async function sendLoginValues(values) {
     let { data } = await axios.post(
-      "http://localhost:3000/users/login",
+      "http://localhost:3001/users/login",
       values
     );
     if (data) {

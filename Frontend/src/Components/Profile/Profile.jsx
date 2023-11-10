@@ -7,7 +7,7 @@ export default function Profile(props) {
 
     
     async function getData() {
-        let {data} = await axios.get('http://localhost:3000/users/me', {headers:{Authorization:`Bearer ${token}`}});
+        let {data} = await axios.get('http://localhost:3001/users/me', {headers:{Authorization:`Bearer ${token}`}});
         setUserInfo(data);
     }
     useEffect( ()=>{
