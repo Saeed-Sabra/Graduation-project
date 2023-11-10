@@ -1,0 +1,11 @@
+.section{
+    background-color: rgb(26, 121, 216);
+}
+
+.formSection{
+    padding: 10vh 0 ;
+}
+
+form{
+    width: 50vh;
+}
