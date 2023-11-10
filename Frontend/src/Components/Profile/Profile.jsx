@@ -19,8 +19,8 @@ export default function Profile(props) {
   <div className="col-lg-12">
       <img src="assets/profilePic.png" alt="profilePic" className='w-25 mb-3' />
   </div>
-      <h2 className='d-inline'>Name:</h2>
-      <h4 className='d-inline'>{userInfo.name}</h4>
+      <h2>Name:</h2>
+      <h4>{userInfo.name}</h4>
       <h2>Email</h2>
       <h4>{userInfo.email}</h4>
  </div>

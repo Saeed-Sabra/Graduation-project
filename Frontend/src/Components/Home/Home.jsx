@@ -15,26 +15,28 @@ export default function Home({user}) {
     setLoading(true);
     setTimeout(()=>{
       setLoading(false);
-    },3000)
+    },2000)
   },[])
   return (
-    
-    <div className='row'>
-      {loading?
-            <BounceLoader className={style.loader}
+    <div className={`${style.wrapper} row`}>
+      {loading ? (
+        <div className={style.loaderContainer}>
+          <BounceLoader
             color={color}
             loading={loading}
             size={150}
             aria-label="BounceLoader"
             data-testid="loader"
-          />:<>
-    <Header />
-    <Artical/>
-    <Instructions />
-    <Footer/>
-          </>
-        }
-
+          />
+        </div>
+      ) : (
+        <>
+          <Header />
+          <Artical />
+          <Instructions />
+          <Footer />
+        </>
+      )}
     </div>
-  )
+  );
 }

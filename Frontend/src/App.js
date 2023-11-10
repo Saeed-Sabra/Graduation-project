@@ -44,7 +44,7 @@ export default function App() {
       {path:"register", element:<Register/>},
       {path:"login",element:<Login info={saveCurrentUser}/>},
       {path:"diagnosis", element:<ProtectedRouter><Diagnosis/></ProtectedRouter>},
-      {path:"profile",element:<Profile info={saveCurrentUser}/>},
+      {path:"profile",element:<ProtectedRouter><Profile info={saveCurrentUser}/></ProtectedRouter>},
       {path:"notFound",element:<NotFound/>},
       {path:"about",element:<About/>},
       {path:"service",element:<Services/>},
