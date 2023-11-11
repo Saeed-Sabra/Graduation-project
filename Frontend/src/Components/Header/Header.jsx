@@ -1,5 +1,4 @@
 import React from 'react'
-import Login from '../Login/Login.jsx'
 import { Link } from 'react-router-dom'
 
 export default function Header({user}) {
@@ -17,7 +16,7 @@ export default function Header({user}) {
 
             <div className="col-lg-6">
                 <div className='mt-5 ms-5'>
-                    <img src="assets/4807695.png" alt="" />
+                    <img src="assets/4807695.png" alt="Header image icon"/>
                 </div>
             </div>
         </div>

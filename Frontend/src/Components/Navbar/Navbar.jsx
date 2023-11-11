@@ -26,7 +26,7 @@ export default function Navbar({user,logOut}) {
           <Link className="nav-link btn bg-primary text-white" to="register">Register</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="login">Login</Link>
+          <Link className="nav-link btn bg-primary text-white ms-2" to="login">Login</Link>
         </li>
           </>:<>
                 <li className="nav-item">
