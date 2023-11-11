@@ -17,6 +17,7 @@ import ProtectedRouter from './Components/ProtectedRouter/ProtectedRouter.jsx'
 import UserCreate from './Components/UserCreate/UserCreate.jsx';
 import UserEdit from './Components/UserEdit/UserEdit.jsx';
 import Profile from './Components/Profile/Profile.jsx';
+import Question from './Components/Question/Question.jsx';
 
 const dataProvider = jsonServerProvider('http://localhost:3000');
 
@@ -43,9 +44,10 @@ export default function App() {
       {index:true, element:<Home user={user}/>},
       {path:"register", element:<Register/>},
       {path:"login",element:<Login info={saveCurrentUser}/>},
-      {path:"diagnosis/:id", element:<ProtectedRouter><Diagnosis/></ProtectedRouter>},
+      {path:"diagnosis", element:<ProtectedRouter><Diagnosis/></ProtectedRouter>},
       {path:"profile",element:<ProtectedRouter><Profile info={saveCurrentUser}/></ProtectedRouter>},
       {path:"notFound",element:<NotFound/>},
+      // {path:"question/:id",element:<Question/>},
       {path:"about",element:<About/>},
       {path:"service",element:<Services/>},
     ]}

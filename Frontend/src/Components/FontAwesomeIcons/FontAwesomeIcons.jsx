@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faWarning, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faWarning);
+library.add(faWarning, faArrowRight);
 
-export {faWarning };
+export {faWarning, faArrowRight};

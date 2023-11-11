@@ -1,0 +1,16 @@
+.testSec{
+   height: 75vh;
+}
+
+.buttons{
+    margin-top: 5%;
+}
+
+.questionBox{
+    height: 40vh;
+    width: 90vh;
+}
+
+.option:hover img{
+    border: 2px solid blue;
+}
