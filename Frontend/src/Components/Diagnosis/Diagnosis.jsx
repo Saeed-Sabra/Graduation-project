@@ -1,244 +1,278 @@
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import { useFormik } from "formik";
+import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import style from './Diagnosis.module.css'
+import { AppBar, Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGrouF, RadioGroup, Slider, TextField, Toolbar, TyFograFhy, Typography } from "@mui/material";
+import { number, object } from "yup";
 
 export default function Diagnosis() {
-  const [finalResult, setFinalResult] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [progress, setProgress] = useState(0);
 
-  let { id } = useParams();
+  return(
+    <>
+    <AppBar>
 
-  let formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    onSubmit: snedPredictionData,
-  });
+    <Toolbar>
+      <Typography variant="h6">Diagnosis</Typography>
+    </Toolbar>
+    </AppBar>
 
-  async function snedPredictionData(values) {
-    const { data } = await axios.post(
-      "http://localhost:3001/users/prediction",
-      values
-    );
-    console.log(values);
-  }
+    <Card sx={{width:1200,height:1500, mt: 20, boxShadow: 3}}>
+    <CardContent>
+    <Formik
 
-  const handleNextQuestion = () => {
-    setCurrentQuestion(currentQuestion + 1);
-  
-    if (currentQuestion === 2) {
-      setProgress(25); 
-    } else if (currentQuestion === 4 ) {
-      setProgress(progress + 25);
-    }else if (currentQuestion === 6) {
-      setProgress(progress + 25);
-    }else if (currentQuestion === 8) {
-      setProgress(progress + 25);
-    }else if (currentQuestion === 10) {
-      setProgress(progress + 25);
-    }
-  };
+      validationSchema={object({
+        Age: number().required("Age is requiered").min(15,"minimum age must be 15").max(90,"maximum age must be 90"),
+        Gender: number().required("Gender is requiered"),
+        Height: number().required("Height is requiered"),
+        Weight: number().required("Weight is requiered"),
+        HighBF: number().required("High blood pressure is requiered"),
+        LowBF: number().required("Low blood pressure is requiered"),
+        Cholesterol: number().required("Cholesterol is requiered"),
+        Glucose: number().required("Glucose is requiered"),
+        Smoking: number().required("Smoking is requiered"),
+        Alcohol: number().required("Alcohol is requiered"),
+        Activity: number().required("Activity is requiered"),
+        
 
-  const handlePreviousQuestion = () => {
-    setCurrentQuestion(currentQuestion - 1);
-  
-    setProgress((prevProgress) => {
-      if (currentQuestion === 2) {
-        return 25; 
-      } else if (currentQuestion === 4 || currentQuestion === 6 || currentQuestion === 8 || currentQuestion === 10) {
-        return prevProgress - 25;
-      } else {
-        return prevProgress;
-      }
-    });
-  };
+      })}
+      
+       initialValues={{ 
+            Age:" ",
+            Gender:" ",
+            Height:" ",
+            Weight:" ",
+            HighBF:" ",
+            LowBF:" ",
+            Cholesterol:" ",
+            Glucose:" ",
+            Smoking:" ",
+            Alcohol:" ",
+            Activity:" "
+        }}
+ 
+       onSubmit={(values, { setSubmitting }) => {
+         setTimeout(() => {
+           alert(JSON.stringify(values, null, 2));
+           setSubmitting(false);
+         }, 400);
+       }}
+     >
+       {({
+         values,
+         errors,
+         touched,
+         handleChange,
+         handleBlur,
+         handleSubmit,
+         isSubmitting,
+       }) => (
+         <Form onSubmit={handleSubmit} autoComplete="off">
+          
 
-  const renderInput = (option) => {
-    if (option.type === "number") {
-      return (
 
-<div className="mb-3">
-  <input type="number" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-</div>
-      )
-
-    } else if (option.type === "text") {
-      return (
-        <input
-          type={option.type}
-          placeholder={option.placeholder}
-          onChange={(event) =>
-            formik.setFieldValue(
-              `question${currentQuestion}`,
-              event.target.value
-            )
-          }
+        <FormLabel component="legend">Select Gender</FormLabel>
+        <RadioGroup
+        aria-label="gender"
+        name="gender"
+        value={values.gender}
+        onChange={handleChange}
+        row
+      >
+        <FormControlLabel
+          value="female"
+          control={<Radio />}
+          label={<img src="assets/male.png" alt="Female" width={100}/>}
         />
-      );
-    } else if (option.type === "yesno") {
-      return (
-        <div>
-          <button
-            onClick={() =>
-              formik.setFieldValue(`question${currentQuestion}`, "Yes")
-            }
+        <FormControlLabel
+          value="male"
+          control={<Radio />}
+          label={<img src="assets/Female.png" alt="Male" width={100}/>}
+        />
+      </RadioGroup>
+
+
+
+
+        <FormLabel>How old are you?</FormLabel>
+            <TextField
+                  fullWidth
+                  name="Age"
+                  type="number"
+                  value={values.Age}
+                  onChange={handleChange}
+                  InputProps={{
+                    inputProps: {
+                      min: 15,
+                      max: 80,
+                    },
+                  }}
+                />
+           {errors.Age && touched.Age && errors.Age}
+
+          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5, mr:4}}>Choose your gender</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="radio-buttons-group"
+            value={values.Gender}
+            onChange={handleChange}
           >
-            Yes
-          </button>
-          <button
-            onClick={() =>
-              formik.setFieldValue(`question${currentQuestion}`, "No")
-            }
+            <FormControlLabel value="female" control={<Radio />} label="Female" />
+            <FormControlLabel value="male" control={<Radio />} label="Male" />
+          </RadioGroup>
+          {errors.Gender && touched.Gender && errors.Gender}
+
+
+          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your height</FormLabel>
+          <TextField
+                  fullWidth
+                  name="Height"
+                  type="number"
+                  value={values.Height}
+                  onChange={handleChange}
+                />
+           {errors.Height && touched.Height && errors.Height}
+
+
+           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your weight</FormLabel>
+            <TextField
+                  fullWidth
+                  name="Weight"
+                  type="number"
+                  value={values.Weight}
+                  onChange={handleChange}
+                />
+           {errors.Weight && touched.Weight && errors.Weight}
+
+
+           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your hight blood pressure</FormLabel>
+            <TextField
+                  fullWidth
+                  name="HighBP"
+                  type="number"
+                  value={values.HighBP}
+                  onChange={handleChange}
+                  InputProps={{
+                    inputProps: {
+                      min: 90,
+                      max: 190,
+                    },
+                  }}
+                />
+           {errors.HighBP && touched.HighBP && errors.HighBP}
+
+
+           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your low blood pressure</FormLabel>
+            <TextField
+                  name="LowBP"
+                  type="number"
+                  fullWidth
+                  value={values.LowBP}
+                  onChange={handleChange}
+                  InputProps={{
+                    inputProps: {
+                      min: 60,
+                      max: 130,
+                    },
+                  }}
+                />
+           {errors.LowBP && touched.LowBP && errors.LowBP}
+
+
+          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Your Cholesterol</FormLabel>
+           <TextField
+              fullWidth
+              name="Cholesterol"
+              value={values.Cholesterol}
+              defaultValue={1}
+              valueLabelDisplay="auto"
+              step={1}
+              marks
+              min={1}
+              max={3}
+              component={Slider}
+            /> 
+           {errors.Cholesterol && touched.Cholesterol && errors.Cholesterol}
+
+
+           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Your Glucose</FormLabel>
+           <TextField
+              name="Glucose"
+              value={values.Glucose}
+              defaultValue={1}
+              valueLabelDisplay="auto"
+              step={1}
+              marks
+              min={1}
+              max={3}
+              component={Slider}
+            /> 
+           {errors.Glucose && touched.Glucose && errors.Glucose}
+           
+
+           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Do you smoke</FormLabel>
+           <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="radio-buttons-group"
+            value={values.Gender}
+            onChange={handleChange}
           >
-            No
-          </button>
-        </div>
-      );
-    }
-  };
+            <FormControlLabel value="female" control={<Radio />} label="Yes" />
+            <FormControlLabel value="male" control={<Radio />} label="No" />
+          </RadioGroup>
+          {errors.Gender && touched.Gender && errors.Gender}
 
-  const questions = [
-    {
-      text: "How old are you?",
-      options: [{ id: 0, placeholder: "Enter your age", type: "number" }],
-    },
-    {
-      text: "Choose your gender",
-      options: [
-        { id: 0, image: "assets/Male.png", text: "Male" },
-        { id: 1, image: "assets/Female.png", text: "Female" },
-      ],
-    },
-    {
-      text: "What is your height?",
-      options: [{ id: 0, placeholder: "Enter your height", type: "number" }],
-    },
-    {
-      text: "What is your weight?",
-      options: [{ id: 0, placeholder: "Enter your weight", type: "number" }],
-    },
-    {
-      text: "Your high blood pressure?",
-      options: [{ id: 0, type: "number" }],
-    },
-    {
-      text: "Your low blood pressure?",
-      options: [{ id: 0, type: "number" }],
-    },
-    {
-      text: "Cholesterol?",
-      options: [{ id: 0, type: "number" }],
-    },
-    {
-      text: "Glucose",
-      options: [{ id: 0, type: "number" }],
-    },
-    {
-      text: "Do you smoke?",
-      options: [
-        { id: 0, image: "assets/yes.png" },
-        { id: 1, image: "assets/no.png" },
-      ],
-    },
-    {
-      text: "Do you drink Alcohol?",
-      options: [
-        { id: 0, image: "assets/yes.png" },
-        { id: 1, image: "assets/no.png" },
-      ],
-    },
-    {
-      text: "Do you do any activites?",
-      options: [
-        { id: 0, image: "assets/yes.png" },
-        { id: 1, image: "assets/no.png" },
-      ],
-    },
-  ];
+          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Do you drink Alcohol</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            name="radio-buttons-group"
+            value={values.Gender}
+            onChange={handleChange}
+          >
+            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="No" control={<Radio />} label="No" />
+          </RadioGroup>
+          {errors.Gender && touched.Gender && errors.Gender}
 
-  const clicked = (text) => {
-    console.log(`Clicked option : ${text}`);
-  };
 
-  return (
-    <div className={`${style.testSec} container w-100 text-center mt-5 bg-secondary bg-gradient rounded-3 d-flex flex-column align-items-center`}>
-      <h1>Blood Pressure Diagnosis</h1>
-  
-      <div className="progress mb-5 w-75" role="progressbar" aria-label="Basic example" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
-        <div className={`progress-bar w-${progress}`}></div>
-      </div>
-  
-      {finalResult ? (
-        <>
-          <div className="finalResult"></div>
-          <h1>Final Result</h1>
-          <h2>Your result is Stage 2</h2>
-        </>
-      ) : (
-        <>
-          <div className={style.questionBox}>
-            <h2>{questions[currentQuestion].text}</h2>
-  
-            <div className={`d-flex justify-content-center ${style.optionContainer}`}>
-              {questions[currentQuestion].options.map((option) => (
-                <div
-                  key={option.id}
-                  className={`${style.option} m-auto mt-4 w-25`}
-                  onClick={() => clicked(option.text)}
-                >
-                  <div style={{ cursor: "pointer" }}>
-                    {option.image && (
-                      <img
-                        src={option.image}
-                        style={{ width: "200px", height: "200px" }}
-                      />
-                    )}
-                    {/* renderInput is not defined in the provided code, make sure it's properly implemented */}
-                    {renderInput(option)}
-                    <p>{option.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-  
-          <div className={style.buttons}>
-            {currentQuestion === 10 ? (
-              <>
-                <div className="btn btn-primary p-2 text-center" onClick={handlePreviousQuestion}>
-                  <span className="text-white">Submit</span>
-                </div>
-                <div className="d-flex justify-content-start mt-3 mb-1">
-                  <div className="btn btn-primary me-auto p-2" onClick={handlePreviousQuestion}>
-                    <FontAwesomeIcon icon={faArrowLeft} className="text-danger text-white" />
-                    <span className="text-white ms-3">Previous Question</span>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="btn btn-primary me-5 p-2 text-center" onClick={handlePreviousQuestion}>
-                  <FontAwesomeIcon icon={faArrowLeft} className="text-danger text-white" />
-                  <span className="text-white ms-3">Previous Question</span>
-                </div>
-                <div className="btn btn-primary p-2" onClick={handleNextQuestion}>
-                  <span className="me-3">Next Question</span>
-                  <FontAwesomeIcon icon={faArrowRight} className="text-danger text-white" />
-                </div>
-              </>
-            )}
-          </div>
-        </>
-      )}
-    </div>
-  );
-  
-  
-  
+          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Do you do any activites</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            name="radio-buttons-group"
+            value={values.Gender}
+            onChange={handleChange}
+          >
+            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="No" control={<Radio />} label="No" />
+          </RadioGroup>
+          {errors.Gender && touched.Gender && errors.Gender}
+
+           <button type="submit" disabled={isSubmitting}>
+             Submit
+           </button>
+         </Form>
+       )}
+     </Formik>
+    </CardContent>
+  </Card>
+    </>
+  )
+
 }
+
+
+
+// Age:" ",
+// Gender:" ",
+// Height:" ",
+// Weight:" ",
+// HighBF:" ",
+// LowBF:" ",
+// Cholesterol:" ",
+// Glucose:" ",
+// Smoking:" ",
+// Alcohol:" ",
+// Activity:" "

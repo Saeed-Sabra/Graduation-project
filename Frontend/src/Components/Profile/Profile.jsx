@@ -17,7 +17,7 @@ export default function Profile(props) {
   return (
  <div className='row text-center mt-5'>
   <div className="col-lg-12">
-      <img src="assets/profilePic.png" alt="profilePic" className='w-25 mb-3' />
+      <img src="assets/nobody.png" alt="profilePic" className='w-25 mb-3' />
   </div>
       <h2>Name:</h2>
       <h4>{userInfo.name}</h4>

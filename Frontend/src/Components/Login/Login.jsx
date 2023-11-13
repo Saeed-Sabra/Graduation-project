@@ -63,14 +63,9 @@ export default function Login(props) {
 
                 <div className="mb-3">
                   <label className="form-label">Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    id="exampleInputPassword1"
-                  />
+                  <input type="password" name="password" className="form-control" 
+                  value={formik.values.password} 
+                  onChange={formik.handleChange} id="exampleInputPassword1"/>
                 </div>
                 {formik.errors.password ? (
                   <p className="alert alert-danger">{formik.errors.password}</p>

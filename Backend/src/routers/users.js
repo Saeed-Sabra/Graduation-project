@@ -20,7 +20,7 @@ router.post("/users/signup", async (req, res) => {
     await user.save();
     res.status(201).send({ user, successful: true });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(e);
   }
 });
 
@@ -47,7 +47,7 @@ router.post("/users/login", async (req, res) => {
       return res.status(400).send({ error: "Password is wrong!" });
     }
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 });
 

@@ -5,9 +5,20 @@ import Instructions from '../Instructions/Instructions.jsx'
 import Footer from '../Footer/Footer.jsx'
 import BounceLoader from "react-spinners/BounceLoader";
 import style from './Home.module.css'
+import { useNavigate } from 'react-router-dom'
+import Navbar from '../Navbar/Navbar.jsx'
 
-export default function Home({user}) {
-  
+export default function Home({user,setUser}) {
+
+  let navigate = useNavigate();
+
+  function logOut(){
+    localStorage.removeItem('UserToken');
+    setUser(null);
+    navigate('/login');
+  }
+
+
   const [loading,setLoading] = useState(false);
   let [color, setColor] = useState("#36a6d6");
 
@@ -31,6 +42,7 @@ export default function Home({user}) {
         </div>
       ) : (
         <>
+          <Navbar user={user} logOut={logOut}/>
           <Header />
           <Artical />
           <Instructions />
