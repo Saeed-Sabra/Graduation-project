@@ -18,9 +18,9 @@ router.post("/users/signup", async (req, res) => {
         .send({ error: "Passwords do not match. Please try again." });
     }
     await user.save();
-    res.status(201).send(user);
+    res.status(201).send({ user, successful: true });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(e);
   }
 });
 
@@ -29,7 +29,7 @@ router.post("/users/login", async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      return res.status(404).send("User not found!");
+      return res.status(404).send({ error: "User not found!" });
     }
 
     if (await bcrypt.compare(req.body.password, user.password)) {
@@ -42,12 +42,12 @@ router.post("/users/login", async (req, res) => {
       );
       user.tokens = user.tokens.concat({ token });
       await user.save();
-      res.send({ user, token });
+      res.send({ user, token, successful: true });
     } else {
-      return res.status(400).send("Password is wrong!");
+      return res.status(400).send({ error: "Password is wrong!" });
     }
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 });
 
@@ -58,7 +58,7 @@ router.get("/users/me", async (req, res) => {
 
     const me = await User.findOne({ _id: decoded.userId });
     if (!me) {
-      throw new Error("No user");
+      return res.status(400).send({ error: "No User!" });
     }
     res.send(me);
   } catch (error) {

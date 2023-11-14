@@ -7,7 +7,7 @@ router.get("/admins/users", async (req, res) => {
   const users = await User.find({}).select("-password");
   try {
     if (!users) {
-      return res.status(400).send("No Users Found!");
+      return res.status(400).send({ error: "No Users Found!" });
     }
     res.send(users);
   } catch (error) {
@@ -19,7 +19,7 @@ router.get("/admins/users/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
     if (!user) {
-      return res.status(400).send("No user found!");
+      return res.status(400).send({ error: "No User Found!" });
     }
     res.send(user);
   } catch (error) {
