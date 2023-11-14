@@ -66,6 +66,52 @@ router.get("/users/me", async (req, res) => {
   }
 });
 
+// router.put("/users/update", async (req, res) => {
+//   try {
+//     const token = req.header("Authorization").replace("Bearer ", "");
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+//     const user = await User.findById({ _id: decoded.userId });
+//     if (!user) {
+//       return res.status(404).send("User not found!");
+//     }
+//     if (!req.body) {
+//       return res.status(400).send("Please enter data to update");
+//     }
+//     if (req.body.name) {
+//       user.name = req.body.name;
+//     }
+
+//     if (req.body.email) {
+//       user.email = req.body.email;
+//     }
+
+//     if (req.body.phoneNumber) {
+//       user.phoneNumber = req.body.phoneNumber;
+//     }
+
+//     if (req.body.gender) {
+//       user.gender = req.body.gender;
+//     }
+
+//     if (req.body.age) {
+//       user.age = req.body.age;
+//     }
+//     if (req.body.password) {
+//       user.password = bcrypt.hashSync(req.body.password, 8);
+//     }
+//     if (!user.isModified()) {
+//       return res.status(400).json({ message: "No information updated." });
+//     }
+
+//     await user.save();
+//     res.status(200).send({ message: "User information updated:", user });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+
 // router.post("/users/prediction", async (req, res) => {
 //   try {
 //     const data = [req.body]; // Wrap the request body in a list to match the expected format
