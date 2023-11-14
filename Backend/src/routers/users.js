@@ -17,6 +17,13 @@ router.post("/users/signup", async (req, res) => {
         .status(400)
         .send({ error: "Passwords do not match. Please try again." });
     }
+    const token = jwt.sign({ email }, process.env.EMAILTOKEN, {
+      expiresIn: "1h",
+    });
+    const link = `${req.protocol}://${req.headers.host}/confirmEmail/${token}`;
+    // const link=`http://localhost:3001/confirmEmail/${token}`
+    const html = `<a href=${link}>verify email</a>`;
+    sendEmail(email, "confirm email", html);
     await user.save();
     res.status(201).send({ user, successful: true });
   } catch (e) {
@@ -24,12 +31,37 @@ router.post("/users/signup", async (req, res) => {
   }
 });
 
+router.get("/confirmEmail/:token", async (req, res) => {
+  try {
+    const token = req.params.token;
+    const decoded = jwt.verify(token, process.env.EMAILTOKEN);
+    const user = await User.findOneAndUpdate(
+      { email: decoded.email, confirmEmail: false },
+      { confirmEmail: true }
+    );
+
+    if (!user) {
+      return res.status(400).json({ message: "your email is not verified" });
+    }
+    if (user) {
+      return res.status(400).json({ message: "your email is verified" });
+      // return res.redirect(process.env.FRONTEND_LOGIN);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+});
 router.post("/users/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
       return res.status(404).send({ error: "User not found!" });
+    }
+
+    if (!user.confirmEmail) {
+      return res.status(400).json({ message: "plz confirm your eamil " });
     }
 
     if (await bcrypt.compare(req.body.password, user.password)) {
