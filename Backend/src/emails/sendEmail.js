@@ -1,6 +1,5 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs").promises;
-const ejs = require("ejs");
 
 async function sendEmail(to, subject, link, userName) {
   try {
