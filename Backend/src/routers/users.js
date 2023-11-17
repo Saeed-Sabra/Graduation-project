@@ -5,9 +5,11 @@ const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
+const sendEmail = require("../emails/sendEmail");
 
 router.post("/users/signup", async (req, res) => {
   const user = new User(req.body);
+  const email = req.body.email;
   try {
     if (!req.body.confirmPassword) {
       return res.status(400).send({ error: "Confirm password is required." });
@@ -18,18 +20,49 @@ router.post("/users/signup", async (req, res) => {
         .send({ error: "Passwords do not match. Please try again." });
     }
     await user.save();
+    const token = jwt.sign({ email }, process.env.EMAILTOKEN, {
+      expiresIn: "1h",
+    });
+    const link = `${req.protocol}://${req.headers.host}/users/confirmEmail/${token}`;
+    // link=`http://localhost:3001/users/confirmEmail/${token}`
+
+    sendEmail(email, "confirm email", link, user.name);
+    
     res.status(201).send({ user, successful: true });
   } catch (e) {
     res.status(500).send(e);
   }
 });
 
+router.get("/users/confirmEmail/:token", async (req, res) => {
+  try {
+    const token = req.params.token;
+    const decoded = jwt.verify(token, process.env.EMAILTOKEN);
+    const user = await User.findOneAndUpdate(
+      { email: decoded.email, confirmEmail: false },
+      { confirmEmail: true }
+    );
+
+    if (!user) {
+      return res.status(400).json({ message: "your email is not verified" });
+    }
+    if (user) {
+      return res.status(400).json({ message: "your email is verified" });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 router.post("/users/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
       return res.status(404).send({ error: "User not found!" });
+    }
+
+    if (!user.confirmEmail) {
+      return res.status(400).json({ message: "plz confirm your eamil " });
     }
 
     if (await bcrypt.compare(req.body.password, user.password)) {
@@ -65,42 +98,6 @@ router.get("/users/me", async (req, res) => {
     res.status(500).send(error);
   }
 });
-
-// router.post("/users/prediction", async (req, res) => {
-//   try {
-//     const data = [req.body]; // Wrap the request body in a list to match the expected format
-
-//     // Send a POST request to the Python API
-//     const response = await axios.post("http://127.0.0.1:5000/predict", data);
-
-//     // Handle the response from Python
-//     const predictions = response.data.prediction;
-
-//     // const MidInf = new MedInf(req.body);
-//     // await MidInf.save();
-
-//     console.log(predictions);
-//     res.json({ prediction: predictions });
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-// {
-//   "Age(year)": 27,
-//   "Gender": 1,
-//   "Height(cm)": 150,
-//   "Weight(kg)": 57,
-//   "BMI(kg/m^2)": 25.33,
-//   "Systolic Blood Pressure(mmHg)": 121,
-//   "Diastolic Blood Pressure(mmHg)": 80,
-//   "BP": 50,
-//   "Cholesterol": 7,
-//   "Glucose": 0,
-//   "smoke": 0,
-//   "alco": 0,
-//   "active": 1
-// }
 
 router.post("/users/prediction", async (req, res) => {
   try {
@@ -175,3 +172,84 @@ router.post("/users/prediction", async (req, res) => {
 });
 
 module.exports = router;
+
+// router.put("/users/update", async (req, res) => {
+//   try {
+//     const token = req.header("Authorization").replace("Bearer ", "");
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+//     const user = await User.findById({ _id: decoded.userId });
+//     if (!user) {
+//       return res.status(404).send("User not found!");
+//     }
+//     if (!req.body) {
+//       return res.status(400).send("Please enter data to update");
+//     }
+//     if (req.body.name) {
+//       user.name = req.body.name;
+//     }
+
+//     if (req.body.email) {
+//       user.email = req.body.email;
+//     }
+
+//     if (req.body.phoneNumber) {
+//       user.phoneNumber = req.body.phoneNumber;
+//     }
+
+//     if (req.body.gender) {
+//       user.gender = req.body.gender;
+//     }
+
+//     if (req.body.age) {
+//       user.age = req.body.age;
+//     }
+//     if (req.body.password) {
+//       user.password = bcrypt.hashSync(req.body.password, 8);
+//     }
+//     if (!user.isModified()) {
+//       return res.status(400).json({ message: "No information updated." });
+//     }
+
+//     await user.save();
+//     res.status(200).send({ message: "User information updated:", user });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+// router.post("/users/prediction", async (req, res) => {
+//   try {
+//     const data = [req.body]; // Wrap the request body in a list to match the expected format
+
+//     // Send a POST request to the Python API
+//     const response = await axios.post("http://127.0.0.1:5000/predict", data);
+
+//     // Handle the response from Python
+//     const predictions = response.data.prediction;
+
+//     // const MidInf = new MedInf(req.body);
+//     // await MidInf.save();
+
+//     console.log(predictions);
+//     res.json({ prediction: predictions });
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
+
+// {
+//   "Age(year)": 27,
+//   "Gender": 1,
+//   "Height(cm)": 150,
+//   "Weight(kg)": 57,
+//   "BMI(kg/m^2)": 25.33,
+//   "Systolic Blood Pressure(mmHg)": 121,
+//   "Diastolic Blood Pressure(mmHg)": 80,
+//   "BP": 50,
+//   "Cholesterol": 7,
+//   "Glucose": 0,
+//   "smoke": 0,
+//   "alco": 0,
+//   "active": 1
+// }

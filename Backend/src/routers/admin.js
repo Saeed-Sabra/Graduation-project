@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const MedInf = require("../models/medical information");
 
 router.get("/admins/users", async (req, res) => {
   const users = await User.find({}).select("-password");
@@ -85,5 +86,21 @@ router.put("/admins/users/update/:id", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+router.get("/admins/users/tests/:id", async (req, res) => {
+  try {
+    
+    const user = await User.findById(req.params.id);
+    const medicalInfo = await MedInf.find({user});
+
+    if (!medicalInfo) {
+      return res.status(404).send({ message: "No medical information found"});
+    }
+
+    res.status(200).send(medicalInfo);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+  });
 
 module.exports = router;

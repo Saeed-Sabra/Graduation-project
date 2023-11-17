@@ -7,6 +7,7 @@ function authJwt() {
     isRevoked: isRevoked,
   }).unless({
     path: [
+      { url: /\/users\/confirmEmail(.*)/, methods: ["GET", "OPTIONS"] },
       "/users/login",
       "/users/signup",
       "/users/me",

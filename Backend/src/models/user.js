@@ -22,6 +22,30 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+    phoneNumber: {
+      type: String,
+      // required: true,
+      trim: true,
+      validate(value) {
+        const phoneNum = /^\d{10}$/;
+        if (!phoneNum.test(value)) {
+          throw new Error(`${value} is not a valid phone number`);
+        }
+      },
+    },
+    gender: {
+      type: String,
+      // required:true,
+      enum: ["Male", "Female"],
+    },
+    age: {
+      type: Number,
+      // required:true,
+    },
+    confirmEmail: {
+      type: Boolean,
+      default: false,
+    },
     password: {
       type: String,
       required: true,
