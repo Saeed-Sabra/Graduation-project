@@ -14,7 +14,7 @@ export default function Diagnosis() {
     </Toolbar>
     </AppBar>
 
-    <Card sx={{width:1200,height:1000, mt: 20, boxShadow: 3}}>
+    <Card sx={{width:1100,height:500, mt: 20, boxShadow: 3}}>
     <CardContent>
       
     <Formik
@@ -80,7 +80,7 @@ export default function Diagnosis() {
             >
     
     <div>
-           <FormLabel>How old are you?</FormLabel>
+          <Typography variant="h6" sx={{mt: 5}} component="legend">How old are you?</Typography>
             <TextField
                   fullWidth
                   name="Age"
@@ -101,36 +101,48 @@ export default function Diagnosis() {
                   />
     </div>
         
-            <div>
-              <FormLabel>Select Gender</FormLabel>
-              <RadioGroup
-              row
-              name="Gender"
-              id="Gender"
-              type="number"
-              value={values.Gender === undefined ? '' : values.Gender}
-              onChange={handleChange}
-            >
-              <FormControlLabel
-                value={1}
-                control={<Radio />}
-                label={<img src="assets/Male.png" alt="Male" width={100} />}
-                name="Gender" 
-              />
-              <FormControlLabel
-                value={2}
-                control={<Radio />}
-                label={<img src="assets/Female.png" alt="Female" width={100} />}
-                name="Gender" 
-              />
-            </RadioGroup>
-            {errors.Gender && (
-              <div style={{ color: 'red' }}>{errors.Gender}</div>
-            )}
-                  </div>
+    <div>
+        <Typography variant="h6" component="legend" sx={{ mb: 5 }}>Select Your Gender</Typography>
+        <RadioGroup
+        sx={{ width: '150%', mt: 10 }}
+        row
+        name="Gender"
+        id="Gender"
+        value={values.Gender === undefined ? '' : String(values.Gender)}
+        onChange={(event) => {
+          // Convert the string value to a number
+          const numericValue = parseInt(event.target.value, 10);
+          // Set the numeric value in the state
+          handleChange({
+            target: {
+              name: 'Gender',
+              value: numericValue,
+            },
+          });
+        }}
+      >
+    <FormControlLabel
+      value={1}
+      control={<Radio />}
+      label={<img src="assets/Male.png" alt="Male" width={200} />}
+      name="Gender"
+    />
+    <FormControlLabel
+      value={2}
+      control={<Radio />}
+      label={<img src="assets/Female.png" alt="Female" width={200} />}
+      name="Gender"
+    />
+  </RadioGroup>
+  {errors.Gender && (
+    <div style={{ color: 'red' }}>{errors.Gender}</div>
+  )}
+</div>
+
 
 <div>
-          <FormLabel sx={{mt: 5}}>Enter your height</FormLabel>
+
+      <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your height</Typography>
           <TextField
                   fullWidth
                   name="Height"
@@ -145,8 +157,8 @@ export default function Diagnosis() {
 </div>
    
 
-                  <div>
-           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your weight</FormLabel>
+          <div>
+            <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your weight</Typography>
             <TextField
                   fullWidth
                   name="Weight"
@@ -164,7 +176,8 @@ export default function Diagnosis() {
 
 
 <div>
-           <FormLabel sx={{mt: 5}}>Enter your hight blood pressure</FormLabel>
+
+            <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your hight blood pressure</Typography>
             <TextField
                   fullWidth
                   name="HighBP"
@@ -185,8 +198,7 @@ export default function Diagnosis() {
 </div>
 
                     <div>
-
-           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your low blood pressure</FormLabel>
+                    <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your low blood pressure</Typography>
             <TextField
                   fullWidth
                   name="LowBP"
@@ -208,13 +220,23 @@ export default function Diagnosis() {
 
 
 <div>
-  <FormLabel>Cholestrol</FormLabel>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Cholestrol</Typography>
   <RadioGroup
   name="Cholesterol"
   id="Cholesterol"
   type="radio"
   value={values.Cholesterol === undefined ? '' : values.Cholesterol}
-  onChange={handleChange}
+  onChange={(event) => {
+    // Convert the string value to a number
+    const numericValue = parseInt(event.target.value, 10);
+    // Set the numeric value in the state
+    handleChange({
+      target: {
+        name: 'Cholesterol',
+        value: numericValue,
+      },
+    });
+  }}
 >
   <FormControlLabel
     value="1"
@@ -243,13 +265,23 @@ export default function Diagnosis() {
 
 
 <div>
-  <FormLabel>Gender</FormLabel>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Glucose</Typography>
   <RadioGroup
   name="Glucose"
   id="Glucose"
   type="radio"
   value={values.Glucose === undefined ? '' : values.Glucose}
-  onChange={handleChange}
+  onChange={(event) => {
+    // Convert the string value to a number
+    const numericValue = parseInt(event.target.value, 10);
+    // Set the numeric value in the state
+    handleChange({
+      target: {
+        name: 'Glucose',
+        value: numericValue,
+      },
+    });
+  }}
 >
   <FormControlLabel
     value="1"
@@ -278,13 +310,24 @@ export default function Diagnosis() {
 
 
 <div>
-  <FormLabel>Smoking?</FormLabel>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Do you smoke?</Typography>
   <RadioGroup
+  row
   name="Smoking"
   id="Smoking"
   type="radio"
   value={values.Smoking === undefined ? '' : values.Smoking}
-  onChange={handleChange}
+  onChange={(event) => {
+    // Convert the string value to a number
+    const numericValue = parseInt(event.target.value, 10);
+    // Set the numeric value in the state
+    handleChange({
+      target: {
+        name: 'Smoking',
+        value: numericValue,
+      },
+    });
+  }}
 >
   <FormControlLabel
     value="1"
@@ -306,13 +349,24 @@ export default function Diagnosis() {
 
 
 <div>
-  <FormLabel>Alcohol?</FormLabel>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Do you drink alcohol?</Typography>
   <RadioGroup
+  row
   name="Alcohol"
   id="Alcohol"
   type="radio"
   value={values.Alcohol === undefined ? '' : values.Alcohol}
-  onChange={handleChange}
+  onChange={(event) => {
+    // Convert the string value to a number
+    const numericValue = parseInt(event.target.value, 10);
+    // Set the numeric value in the state
+    handleChange({
+      target: {
+        name: 'Alcohol',
+        value: numericValue,
+      },
+    });
+  }}
 >
   <FormControlLabel
     value="1"
@@ -335,13 +389,24 @@ export default function Diagnosis() {
 
 
 <div>
-  <FormLabel>Activity?</FormLabel>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Do you do any activities?</Typography>
   <RadioGroup
+  row
   name="Activity"
   id="Activity"
   type="radio"
   value={values.Activity === undefined ? '' : values.Activity}
-  onChange={handleChange}
+  onChange={(event) => {
+    // Convert the string value to a number
+    const numericValue = parseInt(event.target.value, 10);
+    // Set the numeric value in the state
+    handleChange({
+      target: {
+        name: 'Activity',
+        value: numericValue,
+      },
+    });
+  }}
 >
   <FormControlLabel
     value="1"
@@ -411,6 +476,7 @@ const childrenArray = React.Children.toArray(props.children);
 
       {step > 0 && (
         <Button
+          sx={{mt: 10 , mr: 5}}
           disabled={props.isSubmitting}
           variant="contained"
           color="secondary"
@@ -422,9 +488,10 @@ const childrenArray = React.Children.toArray(props.children);
 
       {step < childrenArray.length - 1 && (
         <Button
-          disabled={props.isSubmitting}
-          variant="contained"
-          onClick={goNext}
+        sx={{mt: 10}}
+        disabled={props.isSubmitting}
+        variant="contained"
+        onClick={goNext}
         >
           Next
         </Button>
@@ -432,6 +499,7 @@ const childrenArray = React.Children.toArray(props.children);
 
       {step === childrenArray.length - 1 && (
         <Button
+          sx={{mt: 10}}
           type="submit"
           disabled={props.isSubmitting}
           variant="contained"
