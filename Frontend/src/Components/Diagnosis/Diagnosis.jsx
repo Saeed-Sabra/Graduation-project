@@ -1,6 +1,6 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import { AppBar, Button, Card, CardContent, FormControlLabel, FormLabel, Radio, RadioGroup, Slider, TextField, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Card, CardContent, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
 import { number, object } from "yup";
 
 export default function Diagnosis() {
@@ -14,8 +14,9 @@ export default function Diagnosis() {
     </Toolbar>
     </AppBar>
 
-    <Card sx={{width:1200,height:1500, mt: 20, boxShadow: 3}}>
+    <Card sx={{width:1200,height:1000, mt: 20, boxShadow: 3}}>
     <CardContent>
+      
     <Formik
 
       validationSchema={object().shape({
@@ -23,8 +24,8 @@ export default function Diagnosis() {
         Gender: number().positive().required("Gender is requiered"),
         Height: number().positive().required("Height is requiered"),
         Weight: number().positive().required("Weight is requiered"),
-        HighBF: number().positive().required("High blood pressure is requiered"),
-        LowBF: number().positive().required("Low blood pressure is requiered"),
+        HighBP: number().positive().required("High blood pressure is requiered"),
+        LowBP: number().positive().required("Low blood pressure is requiered"),
         Cholesterol: number().required("Cholesterol is requiered"),
         Glucose: number().required("Glucose is requiered"),
         Smoking: number().required("Smoking is requiered"),
@@ -33,17 +34,17 @@ export default function Diagnosis() {
       })}
       
        initialValues={{ 
-            Age:"",
-            Gender:"",
-            Height:"",
-            Weight:"",
-            HighBP:"",
-            LowBP:"",
-            Cholesterol:"",
-            Glucose:"",
-            Smoking:"",
-            Alcohol:"",
-            Activity:""
+        Age: undefined,
+        Gender: undefined,
+        Height: undefined,
+        Weight: undefined,
+        HighBP: undefined,
+        LowBP: undefined,
+        Cholesterol: undefined,
+        Glucose: undefined,
+        Smoking: undefined,
+        Alcohol: undefined,
+        Activity: undefined,
         }}
  
        onSubmit={(values, { setSubmitting }) => {
@@ -61,21 +62,31 @@ export default function Diagnosis() {
          handleBlur,
          handleSubmit,
          isSubmitting,
-         validateField
+         validateField,
+         setFieldTouched
        }) => (
 
          
-         <Form onSubmit={handleSubmit} autoComplete="off">
+        
+         <Form onSubmit={handleSubmit} className="m-auto text-center">
 
-           <FormSteps isSubmitting={isSubmitting} validateField={validateField}>
-        <div>
-        <FormLabel>How old are you?</FormLabel>
+           <FormSteps
+              isSubmitting={isSubmitting}
+              validateField={validateField}
+              setFieldTouched={setFieldTouched}
+              errors={errors}
+              touched={touched}
+              values={values}
+            >
+    
+    <div>
+           <FormLabel>How old are you?</FormLabel>
             <TextField
                   fullWidth
                   name="Age"
                   id="Age"
                   type="number"
-                  value={values.Age}
+                  value={values.Age === undefined ? '' : values.Age}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   placeholder="Your Age"
@@ -88,91 +99,78 @@ export default function Diagnosis() {
                   error={errors.Age? true: false}
                   helperText={errors.Age && errors.Age}
                   />
-
-        </div>
-
-
-        <div>
-                  <FormLabel component="legend">Select Gender</FormLabel>
-                <RadioGroup
-                type="radio"
-                name="Gender"
-                id="Gender"
-                value={values.Gender}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                row
-              >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label={<img src="assets/male.png" alt="Female" width={100}/>}
-                />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label={<img src="assets/Female.png" alt="Male" width={100}/>}
-                />
-              </RadioGroup>
-        </div>
-
-
-
-{/* 
-          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5, mr:4}}>Choose your gender</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="female"
-            name="radio-buttons-group"
-            value={values.Gender}
-            onChange={handleChange}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-          </RadioGroup>
-          {errors.Gender && touched.Gender && errors.Gender} */}
-
+    </div>
+        
+            <div>
+              <FormLabel>Select Gender</FormLabel>
+              <RadioGroup
+              row
+              name="Gender"
+              id="Gender"
+              type="number"
+              value={values.Gender === undefined ? '' : values.Gender}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value={1}
+                control={<Radio />}
+                label={<img src="assets/Male.png" alt="Male" width={100} />}
+                name="Gender" 
+              />
+              <FormControlLabel
+                value={2}
+                control={<Radio />}
+                label={<img src="assets/Female.png" alt="Female" width={100} />}
+                name="Gender" 
+              />
+            </RadioGroup>
+            {errors.Gender && (
+              <div style={{ color: 'red' }}>{errors.Gender}</div>
+            )}
+                  </div>
 
 <div>
-          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your height</FormLabel>
+          <FormLabel sx={{mt: 5}}>Enter your height</FormLabel>
           <TextField
                   fullWidth
                   name="Height"
                   id="Height"
                   type="number"
-                  value={values.Height}
+                  value={values.Height === undefined ? '' : values.Height}
                   onChange={handleChange}
                   placeholder="Your Height"
                   error={errors.Height? true: false}
                   helperText={errors.Height && errors.Height}
                 />
+</div>
+   
 
-
+                  <div>
            <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your weight</FormLabel>
             <TextField
                   fullWidth
                   name="Weight"
                   id="Weight"
                   type="number"
-                  value={values.Weight}
+                  value={values.Weight === undefined ? '' : values.Weight}
                   onChange={handleChange}
                   placeholder="Your Weight"
                   error={errors.Weight? true: false}
                   helperText={errors.Weight && errors.Weight}
                 />
-  {/* {errors.Weight?<p className='text-danger'>{errors.Weight}</p>: ""} */}
-</div>
+                  </div>
+
+
 
 
 <div>
-           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your hight blood pressure</FormLabel>
+           <FormLabel sx={{mt: 5}}>Enter your hight blood pressure</FormLabel>
             <TextField
                   fullWidth
                   name="HighBP"
                   id="HighBP"
                   type="number"
-                  value={values.HighBP}
+                  value={values.HighBP === undefined ? '' : values.HighBP}
                   onChange={handleChange}
                   placeholder="Your High Blood Pressure"
                   InputProps={{
@@ -184,7 +182,9 @@ export default function Diagnosis() {
                   error={errors.HighBP? true: false}
                   helperText={errors.HighBP && errors.HighBP}
                 />
+</div>
 
+                    <div>
 
            <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Enter your low blood pressure</FormLabel>
             <TextField
@@ -192,7 +192,7 @@ export default function Diagnosis() {
                   name="LowBP"
                   id="LowBP"
                   type="number"
-                  value={values.LowBP}
+                  value={values.LowBP === undefined ? '' : values.LowBP}
                   onChange={handleChange}
                   placeholder="Your Low Blood Pressure"
                   InputProps={{
@@ -204,88 +204,161 @@ export default function Diagnosis() {
                   error={errors.LowBP? true: false}
                   helperText={errors.LowBP && errors.LowBP}
                 />
+                    </div>
 
-</div>
 
 <div>
-
-          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Your Cholesterol</FormLabel>
-           <TextField
-              fullWidth
-              name="Cholesterol"
-              id="Cholesterol"
-              value={values.Cholesterol}
-              defaultValue={1}
-              valueLabelDisplay="auto"
-              step={1}
-              marks
-              min={1}
-              max={3}
-              component={Slider}
-              error={errors.LowBP? true: false}
-              helperText={errors.LowBP && errors.LowBP}
-            /> 
-           {/* {errors.Cholesterol && touched.Cholesterol && errors.Cholesterol} */}
-
-
-           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Your Glucose</FormLabel>
-           <TextField
-              name="Glucose"
-              id="Glucose"
-              value={values.Glucose}
-              defaultValue={1}
-              valueLabelDisplay="auto"
-              step={1}
-              marks
-              min={1}
-              max={3}
-              component={Slider}
-            /> 
-           {/* {errors.Glucose && touched.Glucose && errors.Glucose} */}
-           
-
-           <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Do you smoke</FormLabel>
-           <RadioGroup
-            row
-            type="radio"
-            name="Smoking"
-            id="Smoking"
-            value={values.Smoking}
-            onChange={handleChange}
-          >
-            <FormControlLabel value="female" control={<Radio />} label="Yes" />
-            <FormControlLabel value="male" control={<Radio />} label="No" />
-          </RadioGroup>
-          {/* {errors.Gender && touched.Gender && errors.Gender} */}
-
-          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Do you drink Alcohol</FormLabel>
-          <RadioGroup
-            row
-            type="radio"
-            name="Alcohol"
-            id="Alcohol"
-            value={values.Alcohol}
-            onChange={handleChange}
-          >
-            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-            <FormControlLabel value="No" control={<Radio />} label="No" />
-          </RadioGroup>
-          {/* {errors.Gender && touched.Gender && errors.Gender} */}
+  <FormLabel>Cholestrol</FormLabel>
+  <RadioGroup
+  name="Cholesterol"
+  id="Cholesterol"
+  type="radio"
+  value={values.Cholesterol === undefined ? '' : values.Cholesterol}
+  onChange={handleChange}
+>
+  <FormControlLabel
+    value="1"
+    control={<Radio />}
+    label="Normal"
+    name="Cholesterol" 
+  />
+  <FormControlLabel
+    value="2"
+    control={<Radio />}
+    label="Above Normal"
+    name="Cholesterol" 
+  />
+    <FormControlLabel
+    value="3"
+    control={<Radio />}
+    label="Well Above Normal"
+    name="Cholesterol" 
+  />
+</RadioGroup>
+{errors.Cholesterol && (
+  <div style={{ color: 'red' }}>{errors.Cholesterol}</div>
+)}
+</div>
 
 
-          <FormLabel id="demo-radio-buttons-group-label" sx={{mt: 5}}>Do you do any activites</FormLabel>
-          <RadioGroup
-            row
-            type="radio"
-            name="Activity"
-            id="Activity"
-            value={values.Activity}
-            onChange={handleChange}
-          >
-            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-            <FormControlLabel value="No" control={<Radio />} label="No" />
-          </RadioGroup>
-          {/* {errors.Activity && touched.Activity && errors.Activity} */}
+
+<div>
+  <FormLabel>Gender</FormLabel>
+  <RadioGroup
+  name="Glucose"
+  id="Glucose"
+  type="radio"
+  value={values.Glucose === undefined ? '' : values.Glucose}
+  onChange={handleChange}
+>
+  <FormControlLabel
+    value="1"
+    control={<Radio />}
+    label= "Normal"
+    name="Glucose" 
+  />
+  <FormControlLabel
+    value="2"
+    control={<Radio />}
+    label="Above Normal"
+    name="Glucose" 
+  />
+    <FormControlLabel
+    value="3"
+    control={<Radio />}
+    label= "Well Above Normal"
+    name="Glucose" 
+  />
+</RadioGroup>
+{errors.Glucose && (
+  <div style={{ color: 'red' }}>{errors.Glucose}</div>
+)}
+</div>
+
+
+
+<div>
+  <FormLabel>Smoking?</FormLabel>
+  <RadioGroup
+  name="Smoking"
+  id="Smoking"
+  type="radio"
+  value={values.Smoking === undefined ? '' : values.Smoking}
+  onChange={handleChange}
+>
+  <FormControlLabel
+    value="1"
+    control={<Radio />}
+    label={<img src="assets/yes.png" alt="yes" width={100} />}
+    name="Smoking" 
+  />
+  <FormControlLabel
+    value="0"
+    control={<Radio />}
+    label={<img src="assets/no.png" alt="no" width={100} />}
+    name="Smoking" 
+  />
+</RadioGroup>
+{errors.Smoking && (
+  <div style={{ color: 'red' }}>{errors.Smoking}</div>
+)}
+</div>
+
+
+<div>
+  <FormLabel>Alcohol?</FormLabel>
+  <RadioGroup
+  name="Alcohol"
+  id="Alcohol"
+  type="radio"
+  value={values.Alcohol === undefined ? '' : values.Alcohol}
+  onChange={handleChange}
+>
+  <FormControlLabel
+    value="1"
+    control={<Radio />}
+    label={<img src="assets/yes.png" alt="yes" width={100} />}
+    name="Alcohol" 
+  />
+  <FormControlLabel
+    value="0"
+    control={<Radio />}
+    label={<img src="assets/no.png" alt="no" width={100} />}
+    name="Alcohol" 
+  />
+</RadioGroup>
+{errors.Alcohol && (
+  <div style={{ color: 'red' }}>{errors.Alcohol}</div>
+)}
+</div>
+
+
+
+<div>
+  <FormLabel>Activity?</FormLabel>
+  <RadioGroup
+  name="Activity"
+  id="Activity"
+  type="radio"
+  value={values.Activity === undefined ? '' : values.Activity}
+  onChange={handleChange}
+>
+  <FormControlLabel
+    value="1"
+    control={<Radio />}
+    label={<img src="assets/yes.png" alt="yes" width={100} />}
+    name="Activity" 
+  />
+  <FormControlLabel
+    value="0"
+    control={<Radio />}
+    label={<img src="assets/no.png" alt="no" width={100} />}
+    name="Activity" 
+  />
+</RadioGroup>
+{errors.Activity && (
+  <div style={{ color: 'red' }}>{errors.Activity}</div>
+)}
 </div>
 
          </FormSteps>
@@ -296,53 +369,78 @@ export default function Diagnosis() {
   </Card>
     </>
   )
-
 }
 
 
-const FormSteps = (props)=>{
+const FormSteps = (props) => {
+const childrenArray = React.Children.toArray(props.children);
+  const [step, setStep] = useState(0);
+  console.log(childrenArray[step]);
+  console.log(props.errors);
 
-  const childrenArray = React.Children.toArray(props.children)
-  const [step,setStep] = useState(0)
+  const currentChild = childrenArray[step];
+  const name = currentChild.props.name;
+  const value = props.values[name];
+  // const name = childrenArray[step].props.children[1].props.name;
+  const isError = props.errors[name] ? true : false;
 
-  const goBack = ()=>{
-    setStep(step-1)
-  }
-  const goNext = ()=>{
-    props.validateField("Age")
-    setStep(step+1)
-  }
-  return(
-    <>
-    {childrenArray[step]}
-
-{step>0 && (
-    <Button 
-    disabled={props.isSubmitting}
-    variant="contained"
-    color="secondary"
-    onClick={goBack}>
-             Back
-           </Button>
-)}
-
-{step < childrenArray.length-1 &&(
-           <Button 
-    disabled={props.isSubmitting}
-    variant="contained"
-    onClick={goNext}>
-             Next
-           </Button>
-)}
-    <Button
-    type="submit" 
-    disabled={props.isSubmitting}
-    variant="contained"
-    color="primary"
-    >
-             Submit
-           </Button>
-    </>
-  )
+  const goBack = () => {
+    setStep(step - 1);
+  };
   
-}
+  const goNext = () => {
+    const fieldValue = childrenArray[step].props.children[1].props.value;
+    console.log(fieldValue);
+    if (fieldValue === undefined || fieldValue === "") {
+      props.validateField(name);
+      props.setFieldTouched(name, true);
+    } else if (!isError) {
+      setStep(step + 1);
+    }
+  };
+
+
+    const popUp = (values) => {
+      alert(JSON.stringify(values, null, 2));
+    };
+
+  return (
+    <>
+      {childrenArray[step]}
+
+
+      {step > 0 && (
+        <Button
+          disabled={props.isSubmitting}
+          variant="contained"
+          color="secondary"
+          onClick={goBack}
+        >
+          Back
+        </Button>
+      )}
+
+      {step < childrenArray.length - 1 && (
+        <Button
+          disabled={props.isSubmitting}
+          variant="contained"
+          onClick={goNext}
+        >
+          Next
+        </Button>
+      )}
+
+      {step === childrenArray.length - 1 && (
+        <Button
+          type="submit"
+          disabled={props.isSubmitting}
+          variant="contained"
+          color="primary"
+          onClick={() => popUp(props.values)}
+        >
+          Submit
+        </Button>
+      )}
+    </>
+  );
+};
