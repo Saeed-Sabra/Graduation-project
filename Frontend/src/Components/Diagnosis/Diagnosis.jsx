@@ -2,8 +2,16 @@ import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { AppBar, Button, Card, CardContent, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Toolbar, Typography } from "@mui/material";
 import { number, object } from "yup";
+import axios from "axios";
 
 export default function Diagnosis() {
+  const token = localStorage.getItem('UserToken')
+
+  const sendDiagnosisData = async (values)=>{
+    const {data} = await axios.post('http://localhost:3001/users/prediction',values,{headers:{Authorization:`Bearer ${token}`}})
+    console.log(data)
+    
+}
 
   return(
     <>
@@ -46,13 +54,9 @@ export default function Diagnosis() {
         Alcohol: undefined,
         Activity: undefined,
         }}
- 
-       onSubmit={(values, { setSubmitting }) => {
-         setTimeout(() => {
-           alert(JSON.stringify(values, null, 2));
-           setSubmitting(false);
-         }, 400);
-       }}
+        onSubmit={(values) => {
+          sendDiagnosisData(values);
+        }}
      >
        {({
          values,
@@ -80,7 +84,7 @@ export default function Diagnosis() {
             >
     
     <div>
-          <Typography variant="h6" sx={{mt: 5}} component="legend">How old are you?</Typography>
+          <Typography variant="h6" sx={{mt: 15, mb:3}} component="legend">How old are you?</Typography>
             <TextField
                   fullWidth
                   name="Age"
@@ -102,7 +106,7 @@ export default function Diagnosis() {
     </div>
         
     <div>
-        <Typography variant="h6" component="legend" sx={{ mb: 5 }}>Select Your Gender</Typography>
+        <Typography variant="h6" component="legend" sx={{mb:3}}>Select Your Gender</Typography>
         <RadioGroup
         sx={{ width: '150%', mt: 10 }}
         row
@@ -110,9 +114,7 @@ export default function Diagnosis() {
         id="Gender"
         value={values.Gender === undefined ? '' : String(values.Gender)}
         onChange={(event) => {
-          // Convert the string value to a number
-          const numericValue = parseInt(event.target.value, 10);
-          // Set the numeric value in the state
+          const numericValue = parseInt(event.target.value);
           handleChange({
             target: {
               name: 'Gender',
@@ -142,7 +144,7 @@ export default function Diagnosis() {
 
 <div>
 
-      <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your height</Typography>
+      <Typography variant="h6" component="legend" sx={{mt: 15, mb:3}}>Enter your height</Typography>
           <TextField
                   fullWidth
                   name="Height"
@@ -158,7 +160,7 @@ export default function Diagnosis() {
    
 
           <div>
-            <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your weight</Typography>
+            <Typography variant="h6" component="legend" sx={{mt: 15, mb:3}}>Enter your weight</Typography>
             <TextField
                   fullWidth
                   name="Weight"
@@ -177,7 +179,7 @@ export default function Diagnosis() {
 
 <div>
 
-            <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your hight blood pressure</Typography>
+            <Typography variant="h6" component="legend" sx={{mt: 15, mb:3}}>Enter your hight blood pressure</Typography>
             <TextField
                   fullWidth
                   name="HighBP"
@@ -198,7 +200,7 @@ export default function Diagnosis() {
 </div>
 
                     <div>
-                    <Typography variant="h6" component="legend" sx={{mt: 5}}>Enter your low blood pressure</Typography>
+                    <Typography variant="h6" component="legend" sx={{mt: 15, mb:3}}>Enter your low blood pressure</Typography>
             <TextField
                   fullWidth
                   name="LowBP"
@@ -227,9 +229,7 @@ export default function Diagnosis() {
   type="radio"
   value={values.Cholesterol === undefined ? '' : values.Cholesterol}
   onChange={(event) => {
-    // Convert the string value to a number
-    const numericValue = parseInt(event.target.value, 10);
-    // Set the numeric value in the state
+    const numericValue = parseInt(event.target.value);
     handleChange({
       target: {
         name: 'Cholesterol',
@@ -272,9 +272,7 @@ export default function Diagnosis() {
   type="radio"
   value={values.Glucose === undefined ? '' : values.Glucose}
   onChange={(event) => {
-    // Convert the string value to a number
-    const numericValue = parseInt(event.target.value, 10);
-    // Set the numeric value in the state
+    const numericValue = parseInt(event.target.value);
     handleChange({
       target: {
         name: 'Glucose',
@@ -318,9 +316,7 @@ export default function Diagnosis() {
   type="radio"
   value={values.Smoking === undefined ? '' : values.Smoking}
   onChange={(event) => {
-    // Convert the string value to a number
-    const numericValue = parseInt(event.target.value, 10);
-    // Set the numeric value in the state
+    const numericValue = parseInt(event.target.value);
     handleChange({
       target: {
         name: 'Smoking',
@@ -357,9 +353,7 @@ export default function Diagnosis() {
   type="radio"
   value={values.Alcohol === undefined ? '' : values.Alcohol}
   onChange={(event) => {
-    // Convert the string value to a number
-    const numericValue = parseInt(event.target.value, 10);
-    // Set the numeric value in the state
+    const numericValue = parseInt(event.target.value);
     handleChange({
       target: {
         name: 'Alcohol',
@@ -397,9 +391,7 @@ export default function Diagnosis() {
   type="radio"
   value={values.Activity === undefined ? '' : values.Activity}
   onChange={(event) => {
-    // Convert the string value to a number
-    const numericValue = parseInt(event.target.value, 10);
-    // Set the numeric value in the state
+    const numericValue = parseInt(event.target.value);
     handleChange({
       target: {
         name: 'Activity',
@@ -476,7 +468,7 @@ const childrenArray = React.Children.toArray(props.children);
 
       {step > 0 && (
         <Button
-          sx={{mt: 10 , mr: 5}}
+          sx={{mt:15 , mr: 5}}
           disabled={props.isSubmitting}
           variant="contained"
           color="secondary"
@@ -488,7 +480,7 @@ const childrenArray = React.Children.toArray(props.children);
 
       {step < childrenArray.length - 1 && (
         <Button
-        sx={{mt: 10}}
+        sx={{mt: 15}}
         disabled={props.isSubmitting}
         variant="contained"
         onClick={goNext}
@@ -499,12 +491,12 @@ const childrenArray = React.Children.toArray(props.children);
 
       {step === childrenArray.length - 1 && (
         <Button
-          sx={{mt: 10}}
+          sx={{mt: 15}}
           type="submit"
           disabled={props.isSubmitting}
           variant="contained"
           color="primary"
-          onClick={() => popUp(props.values)}
+          // onClick={() => popUp(props.values)}
         >
           Submit
         </Button>
