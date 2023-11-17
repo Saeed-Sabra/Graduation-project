@@ -4,7 +4,10 @@ const fs = require("fs").promises;
 async function sendEmail(to, subject, link, userName) {
   try {
     // Read the EJS template from the file
-    const template = await fs.readFile("./src/emails/email.ejs", "utf-8");
+    const template = await fs.readFile(
+      "./backend/src/emails/email.ejs",
+      "utf-8"
+    );
 
     // Render the template with dynamic values
     const html = template
