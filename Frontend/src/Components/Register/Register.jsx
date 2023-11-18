@@ -11,6 +11,8 @@ export default function Register() {
   const schema = Yup.object({
     name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
     email: Yup.string().required('Email is required').email('Email Not Valid'),
+    gender: Yup.string().required('Gender is required'),
+    age: Yup.number().required('Gender is required'),
     password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
     confirmPassword: Yup.string().required('Confirm password is required').oneOf([Yup.ref('password')], 'Not matched password'),
   });
@@ -87,12 +89,13 @@ export default function Register() {
     value={formik.values.gender}
     onChange={formik.handleChange}
     error={formik.touched.gender && Boolean(formik.errors.gender)}
-    helpertext={formik.touched.gender && formik.errors.gender}
+    helperText={formik.touched.gender && formik.errors.gender}
   >
-    <MenuItem value={1}>Male</MenuItem>
-    <MenuItem value={2}>Female</MenuItem>
+    <MenuItem value={"Male"}>Male</MenuItem>
+    <MenuItem value={"Female"}>Female</MenuItem>
   </Select>
 </FormControl>
+
 
 
 

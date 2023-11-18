@@ -77,7 +77,7 @@ export default function Login(props) {
           )}
 
           <div className="text-center">
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" className='mt-3'>
               Login
             </Button>
           </div>
