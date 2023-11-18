@@ -8,15 +8,8 @@ import style from './Home.module.css'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../Navbar/Navbar.jsx'
 
-export default function Home({user,setUser}) {
+export default function Home({setUser}) {
 
-  let navigate = useNavigate();
-
-  function logOut(){
-    localStorage.removeItem('UserToken');
-    setUser(null);
-    navigate('/login');
-  }
 
 
   const [loading,setLoading] = useState(false);
@@ -42,7 +35,7 @@ export default function Home({user,setUser}) {
         </div>
       ) : (
         <>
-          <Navbar user={user} logOut={logOut}/>
+         
           <Header />
           <Artical />
           <Instructions />

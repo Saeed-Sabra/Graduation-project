@@ -39,8 +39,8 @@ export default function App() {
 
 
   const routers = createBrowserRouter([
-    {path:"/", element:<Layout />,children:[
-      {index:true, element:<Home user={user} setUser={setUser}/>},
+    {path:"/", element:<Layout user={user} setUser={setUser}/>,children:[
+      {index:true, element:<Home />},
       {path:"register", element:<Register/>},
       {path:"login",element:<Login info={saveCurrentUser}/>},
       {path:"diagnosis", element:<ProtectedRouter><Diagnosis/></ProtectedRouter>},
