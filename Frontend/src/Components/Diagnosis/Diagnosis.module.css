@@ -1,34 +1,15 @@
-.testSec{
-   height: 79vh;
-}
 
-.buttons{
-    margin-top: 4%;
-}
-
-.questionBox{
-    height: 40vh;
-    width: 90vh;
-}
-
-.option:hover img{
-    border: 2px solid blue;
-}
-
-.rangeContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Optionally set a height to center vertically in the viewport */
+  .gender_option {
+    cursor: pointer;
+    border: 2px solid transparent; 
+    transition: border-color 0.3s;
   }
   
-  .rangeWrapper {
-    text-align: center;
+  .gender_option:hover {
+    border-color: #1592e5;
   }
   
-  .range {
-    width: 400px;
-    display: flex;
-    justify-content: center; 
+  .gender_option.selected {
+    border-color: #1592e5;
   }
   
