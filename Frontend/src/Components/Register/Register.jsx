@@ -1,80 +1,147 @@
-import axios from 'axios'
-import { useFormik } from 'formik'
-import React from 'react'
+import React from 'react';
+import { Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 export default function Register() {
-let navigate = useNavigate()
-  let schema = Yup.object({
-    name:Yup.string().required("Name is requiered").min(3,"Minimum 3 characters").max(20,"Maximum 20 characters"),
-    email:Yup.string().required("Email is requiered").email("Email Not Valid"),
-    password:Yup.string().required("Password is requiered").matches(/^[A-Z][a-z0-9]{3,7}$/),
-    confirmPassword:Yup.string().required("Confirm password is requiered").oneOf([Yup.ref('password')], "Not matched password")
-  })
+  const navigate = useNavigate();
 
-  let formik = useFormik({
-    initialValues:{
-      name:'',
-      email:'',
-      password:'',
-      confirmPassword:''
-    },validationSchema:schema,
-    onSubmit: sendRegisterValues
-  })
+  const schema = Yup.object({
+    name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
+    email: Yup.string().required('Email is required').email('Email Not Valid'),
+    password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
+    confirmPassword: Yup.string().required('Confirm password is required').oneOf([Yup.ref('password')], 'Not matched password'),
+  });
 
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      gender:'',
+      age:'',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema: schema,
+    onSubmit: sendRegisterValues,
+  });
 
-  async function sendRegisterValues(values){
-    let {data} = await axios.post('http://localhost:3001/users/signup',values)
-    if(data){
-      navigate('/login')
-    }else{
-      console.log(data)
+  async function sendRegisterValues(values) {
+    try {
+      const { data } = await axios.post('http://localhost:3001/users/signup', values);
+      if (data) {
+        navigate('/login');
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   }
+
   return (
+    <Card sx={{width:600,height:570, mt: 12, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
+      <CardContent>
+      <Typography variant="h5" component="div" className="text-center mb-3">
+          Register
+        </Typography>
+ <form onSubmit={formik.handleSubmit}>
+      <TextField
+        label="Name"
+        type="text"
+        name="name"
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        error={formik.touched.name && Boolean(formik.errors.name)}
+        helperText={formik.touched.name && formik.errors.name}
+      />
 
-<form onSubmit={formik.handleSubmit}>
-  <div className="mb-3">
-    <label className="form-label">Name</label>
-    <input type="text" name='name' className="form-control w-50" 
-      value={formik.values.name}
-      onChange={formik.handleChange}
-    id="exampleInputName1" aria-describedby="nameHelp" />
-  </div>
-  {formik.errors.name?<p className='alert alert-danger'>{formik.errors.name}</p>: ""}
+      <TextField
+        label="Email"
+        type="email"
+        name="email"
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        error={formik.touched.email && Boolean(formik.errors.email)}
+        helperText={formik.touched.email && formik.errors.email}
+      />
 
-  <div className="mb-3">
-    <label className="form-label">Email</label>
-    <input type="email" name='email' className="form-control w-50" 
-      value={formik.values.email}
-      onChange={formik.handleChange}
-    id="exampleInputEmail1" aria-describedby="emailHelp" />
-  </div>
-  {formik.errors.email?<p className='alert alert-danger'>{formik.errors.email}</p>: ""}
 
-  <div className="mb-3">
-    <label className="form-label">Password</label>
-    <input type="password" name='password' className="form-control w-50" 
-      value={formik.values.password}
-      onChange={formik.handleChange}
-    id="exampleInputPassword1" />
-  </div>
-  {formik.errors.password?<p className='alert alert-danger'>{formik.errors.password}</p>: ""}
-  
+<FormControl fullWidth>
+  <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+  <Select
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    label="Gender"
+    name="gender"
+    variant="outlined"
+    margin="dense"
+    value={formik.values.gender}
+    onChange={formik.handleChange}
+    error={formik.touched.gender && Boolean(formik.errors.gender)}
+    helpertext={formik.touched.gender && formik.errors.gender}
+  >
+    <MenuItem value={1}>Male</MenuItem>
+    <MenuItem value={2}>Female</MenuItem>
+  </Select>
+</FormControl>
 
-  <div className="mb-3">
-    <label className="form-label">Confirm Password</label>
-    <input type="password" name='confirmPassword' className="form-control w-50" 
-      value={formik.values.confirmPassword}
-      onChange={formik.handleChange}
-    id="exampleInputConfirmPassword1" />
-  </div>
-  {formik.errors.confirmPassword?<p className='alert alert-danger'>{formik.errors.confirmPassword}</p>: ""}
 
-  <button type="submit" className="btn btn-primary">Register</button>
-</form>
 
-    
-  )
+      <TextField
+        label="Age"
+        type="number"
+        name="age"
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        value={formik.values.age}
+        onChange={formik.handleChange}
+        error={formik.touched.age && Boolean(formik.errors.age)}
+        helperText={formik.touched.age && formik.errors.age}
+      />
+
+
+<TextField
+        label="Password"
+        type="password"
+        name="password"
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        error={formik.touched.password && Boolean(formik.errors.password)}
+        helperText={formik.touched.password && formik.errors.password}
+      />
+
+
+      <TextField
+        label="Confirm Password"
+        type="password"
+        name="confirmPassword"
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        value={formik.values.confirmPassword}
+        onChange={formik.handleChange}
+        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+      />
+
+      <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
+        Register
+      </Button>
+    </form>
+      </CardContent>
+    </Card>   
+  );
 }

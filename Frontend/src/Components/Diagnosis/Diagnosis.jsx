@@ -1,9 +1,11 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
-import {Dialog, DialogTitle, DialogContent, DialogActions, Button, Card, CardContent,
-        FormControlLabel, Radio, RadioGroup, TextField, Typography, Rating } from "@mui/material";
+import {Button, Card, CardContent, FormControlLabel, Radio, RadioGroup, TextField, Typography, Rating } from "@mui/material";
 import { number, object } from "yup";
 import axios from "axios";
+import style from './Diagnosis.module.css'
+
+
 
 export default function Diagnosis() {
   const token = localStorage.getItem('UserToken')
@@ -24,9 +26,6 @@ export default function Diagnosis() {
         <h1 className="modal-title fs-5" id="staticBackdropLabel">Your Result</h1>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
       </div>
-{/* 
-      Your Blood Pressure reading is higher than the acceptable limits and is considered in the long term unhealthy. You can take simple measures to bring down your blood pressure like cutting down
-       of your salt intake and starting daily brisk walks for 15 minutes. */}
 
       <div className="modal-body">
         {result === "Normal" ? 
@@ -118,11 +117,11 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
         Weight: number().positive().required("Weight is requiered"),
         HighBP: number().positive().required("High blood pressure is requiered"),
         LowBP: number().positive().required("Low blood pressure is requiered"),
-        Cholesterol: number().required("Cholesterol is requiered"),
-        Glucose: number().required("Glucose is requiered"),
-        Smoking: number().required("Smoking is requiered"),
-        Alcohol: number().required("Alcohol is requiered"),
-        Activity: number().required("Activity is requiered")
+        Cholesterol: number().required("Your cholesterol rate is requiered"),
+        Glucose: number().required("Your glucose rate is requiered"),
+        Smoking: number().required("Question is requiered"),
+        Alcohol: number().required("Question is requiered"),
+        Activity: number().required("Question is requiered")
       })}
       
        initialValues={{ 
@@ -190,40 +189,90 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
     </div>
         
     <div>
-        <Typography variant="h6" component="legend" sx={{mb:3}}>Select Your Gender</Typography>
-        <RadioGroup
-        sx={{ width: '150%', mt: 10 }}
-        row
-        name="Gender"
-        id="Gender"
-        value={values.Gender === undefined ? '' : String(values.Gender)}
-        onChange={(event) => {
-          const numericValue = parseInt(event.target.value);
-          handleChange({
-            target: {
-              name: 'Gender',
-              value: numericValue,
-            },
-          });
-        }}
-      >
-    <FormControlLabel
+  <Typography variant="h6" component="legend" sx={{ mb: 3 }}>
+    Select Your Gender
+  </Typography>
+  <RadioGroup
+    sx={{ width: '150%', mt: 10 }}
+    row
+    name="Gender"
+    id="Gender"
+    value={values.Gender === undefined ? '' : String(values.Gender)}
+    onChange={(event) => {
+      const numericValue = parseInt(event.target.value);
+      handleChange({
+        target: {
+          name: 'Gender',
+          value: numericValue,
+        },
+      });
+    }}
+  >
+    <Radio
+      checked={values.Gender === 1}
+      onChange={(event) => {
+        const numericValue = parseInt(event.target.value);
+        handleChange({
+          target: {
+            name: 'Gender',
+            value: numericValue,
+          },
+        });
+      }}
       value={1}
-      control={<Radio />}
-      label={<img src="assets/Male.png" alt="Male" width={200} />}
-      name="Gender"
+      style={{ display: 'none' }}
     />
-    <FormControlLabel
+    <label
+  className={`${style.gender_option} ${values.Gender === 1 ? style.selected : ''} me-5`}
+  htmlFor="gender-male"
+      onClick={() => {
+        const numericValue = 1;
+        handleChange({
+          target: {
+            name: 'Gender',
+            value: numericValue,
+          },
+        });
+      }}
+    >
+      <img src="assets/male.webp" alt="Male" width={170} className="me-4" />
+    </label>
+
+    <Radio
+      checked={values.Gender === 2}
+      onChange={(event) => {
+        const numericValue = parseInt(event.target.value);
+        handleChange({
+          target: {
+            name: 'Gender',
+            value: numericValue,
+          },
+        });
+      }}
       value={2}
-      control={<Radio />}
-      label={<img src="assets/Female.png" alt="Female" width={200} />}
-      name="Gender"
+      style={{ display: 'none' }}
     />
+    <label
+  className={`${style.gender_option} ${values.Gender === 2 ? style.selected : ''}`}
+  htmlFor="gender-female"
+      onClick={() => {
+        const numericValue = 2;
+        handleChange({
+          target: {
+            name: 'Gender',
+            value: numericValue,
+          },
+        });
+      }}
+    >
+      <img src="assets/female.webp" alt="Female" width={170} />
+    </label>
   </RadioGroup>
   {errors.Gender && (
     <div style={{ color: 'red' }}>{errors.Gender}</div>
   )}
 </div>
+
 
 
 <div>
@@ -306,7 +355,7 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
 
 
 <div>
-<Typography variant="h6" component="legend" sx={{mt: 5}}>Cholestrol</Typography>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Your Cholestrol</Typography>
   <RadioGroup
   name="Cholesterol"
   id="Cholesterol"
@@ -340,6 +389,12 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
     label="Well Above Normal"
     name="Cholesterol" 
   />
+    <FormControlLabel
+    value="0"
+    control={<Radio />}
+    label="Don't Know"
+    name="Cholesterol" 
+  />
 </RadioGroup>
 {errors.Cholesterol && (
   <div style={{ color: 'red' }}>{errors.Cholesterol}</div>
@@ -349,7 +404,7 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
 
 
 <div>
-<Typography variant="h6" component="legend" sx={{mt: 5}}>Glucose</Typography>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Your Glucose</Typography>
   <RadioGroup
   name="Glucose"
   id="Glucose"
@@ -383,6 +438,12 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
     label= "Well Above Normal"
     name="Glucose" 
   />
+    <FormControlLabel
+    value="0"
+    control={<Radio />}
+    label="Don't Know"
+    name="Glucose" 
+  />
 </RadioGroup>
 {errors.Glucose && (
   <div style={{ color: 'red' }}>{errors.Glucose}</div>
@@ -396,7 +457,7 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
     Do you smoke?
   </Typography>
   <RadioGroup
-    className="ms-5"
+    sx={{ ml: 15 }}
     row
     name="Smoking"
     id="Smoking"
@@ -413,15 +474,16 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
     }}
   >
     <FormControlLabel
+      className="me-5"
       value="1"
       control={<Radio />}
-      label={<img src="assets/yes.png" alt="yes" width={100} />}
+      label={"yes"}
       name="Smoking"
     />
     <FormControlLabel
       value="0"
       control={<Radio />}
-      label={<img src="assets/no.png" alt="no" width={100} />}
+      label={"No"}
       name="Smoking"
     />
   </RadioGroup>
@@ -433,7 +495,7 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
 
 
 <div>
-<Typography variant="h6" component="legend" sx={{mt: 5}}>Do you drink alcohol?</Typography>
+<Typography variant="h6" component="legend" sx={{mt: 5}}>Do You Drink Alcohol?</Typography>
 <RadioGroup
   className="ms-5"
   row
@@ -454,13 +516,13 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
   <FormControlLabel
     value="1"
     control={<Radio />}
-    label={<img src="assets/yes.png" alt="yes" width={100} />}
+    label={"Yes"}
     name="Alcohol" 
   />
   <FormControlLabel
     value="0"
     control={<Radio />}
-    label={<img src="assets/no.png" alt="no" width={100} />}
+    label={"No"}
     name="Alcohol" 
   />
 </RadioGroup>
@@ -473,7 +535,7 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
 
 <div>
   <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
-    Do you do any activities?
+    Do You Do Any Activities?
   </Typography>
   <RadioGroup
   className="ms-5"
@@ -496,13 +558,13 @@ If diagnosed with hypertension you may require a few blood tests and ECG.
     <FormControlLabel
       value="1"
       control={<Radio />}
-      label={<img src="assets/yes.png" alt="yes" width={100} />}
+      label={"Yes"}
       name="Activity"
     />
     <FormControlLabel
       value="0"
       control={<Radio />}
-      label={<img src="assets/no.png" alt="no" width={100} />}
+      label={"No"}
       name="Activity"
     />
   </RadioGroup>
@@ -530,10 +592,7 @@ const childrenArray = React.Children.toArray(props.children);
 
   const currentChild = childrenArray[step];
   const name = currentChild.props.name;
-  const value = props.values[name];
-  // const name = childrenArray[step].props.children[1].props.name;
-  const isError = props.errors[name] ? true : false;
-
+  
   const goBack = () => {
     setStep(step - 1);
   };
@@ -541,11 +600,12 @@ const childrenArray = React.Children.toArray(props.children);
   const goNext = () => {
     const fieldValue = childrenArray[step].props.children[1].props.value;
     console.log(fieldValue);
-    if (fieldValue === undefined || fieldValue === "") {
+    if (fieldValue === undefined || fieldValue === "" ||  childrenArray[step].props.children[1].props.error === true) {
       props.validateField(name);
       props.setFieldTouched(name, true);
-    } else if (!isError) {
-      setStep(step + 1);
+    } else {
+       setStep(step + 1);
+      console.log("test");
     }
   };
 
@@ -554,13 +614,11 @@ const childrenArray = React.Children.toArray(props.children);
       alert(JSON.stringify(values, null, 2));
     };
 
-  
 
   return (
     <>
       {childrenArray[step]}
-
-
+      
       {step > 0 && (
         <Button
           sx={{mt:15 , mr: 5}}
