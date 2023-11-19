@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Admin, Resource } from 'react-admin';
 import jsonServerProvider   from 'ra-data-simple-rest';
-import UserList from './Components/UserList/UserList.jsx';
-
 import Layout from './Components/Layout/Layout.jsx'
 import Home from './Components/Home/Home.jsx'
 import Register from './Components/Register/Register.jsx'
@@ -14,11 +12,8 @@ import Services from './Components/Service/Services.jsx'
 import  { jwtDecode } from "jwt-decode";
 import Diagnosis from './Components/Diagnosis/Diagnosis.jsx'
 import ProtectedRouter from './Components/ProtectedRouter/ProtectedRouter.jsx'
-import UserCreate from './Components/UserCreate/UserCreate.jsx';
-import UserEdit from './Components/UserEdit/UserEdit.jsx';
 import Profile from './Components/Profile/Profile.jsx';
 
-const dataProvider = jsonServerProvider('http://localhost:3000');
 
 export default function App() {
 
@@ -51,13 +46,7 @@ export default function App() {
     ]}
   ])
   return (
-
-<Admin dataProvider={dataProvider}>
-<Resource name="user" list={UserList} create={UserCreate} edit={UserEdit}/>
-</Admin>,
 <RouterProvider router={routers}></RouterProvider>
-
-
   )
 }
 

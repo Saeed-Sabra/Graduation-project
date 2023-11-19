@@ -41,7 +41,8 @@ export default function Profile(props) {
                     <div className="row">
                       <div className="col-lg-6">
                         <p>
-                          <strong>Email:</strong> {userInfo.email}
+                          <strong>Email:</strong> 
+                          {userInfo.email}
                         </p>
                       </div>
                     </div>
