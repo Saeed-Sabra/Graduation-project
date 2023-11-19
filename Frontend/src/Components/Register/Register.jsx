@@ -12,7 +12,7 @@ export default function Register() {
     name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
     email: Yup.string().required('Email is required').email('Email Not Valid'),
     gender: Yup.string().required('Gender is required'),
-    age: Yup.number().required('Gender is required'),
+    age: Yup.number().required('Age is required'),
     password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
     confirmPassword: Yup.string().required('Confirm password is required').oneOf([Yup.ref('password')], 'Not matched password'),
   });
