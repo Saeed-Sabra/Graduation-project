@@ -27,7 +27,7 @@ router.post("/users/signup", async (req, res) => {
     // link=`http://localhost:3001/users/confirmEmail/${token}`
 
     sendEmail(email, "confirm email", link, user.name);
-    
+
     res.status(201).send({ user, successful: true });
   } catch (e) {
     res.status(500).send(e);
@@ -53,6 +53,7 @@ router.get("/users/confirmEmail/:token", async (req, res) => {
     console.error(error);
   }
 });
+
 router.post("/users/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -119,13 +120,6 @@ router.post("/users/prediction", async (req, res) => {
 
     const BP = LowBP + (1 / 3) * (HighBP - LowBP);
 
-    // console.log(BMI);
-    // console.log(BP);
-
-    // const data = [{ BMI, BP, ...req.body }]; // Wrap the request body in a list to match the expected format
-
-    // const data = [req.body]; // Wrap the request body in a list to match the expected format
-
     const data = {
       Age,
       Gender,
@@ -172,84 +166,3 @@ router.post("/users/prediction", async (req, res) => {
 });
 
 module.exports = router;
-
-// router.put("/users/update", async (req, res) => {
-//   try {
-//     const token = req.header("Authorization").replace("Bearer ", "");
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-//     const user = await User.findById({ _id: decoded.userId });
-//     if (!user) {
-//       return res.status(404).send("User not found!");
-//     }
-//     if (!req.body) {
-//       return res.status(400).send("Please enter data to update");
-//     }
-//     if (req.body.name) {
-//       user.name = req.body.name;
-//     }
-
-//     if (req.body.email) {
-//       user.email = req.body.email;
-//     }
-
-//     if (req.body.phoneNumber) {
-//       user.phoneNumber = req.body.phoneNumber;
-//     }
-
-//     if (req.body.gender) {
-//       user.gender = req.body.gender;
-//     }
-
-//     if (req.body.age) {
-//       user.age = req.body.age;
-//     }
-//     if (req.body.password) {
-//       user.password = bcrypt.hashSync(req.body.password, 8);
-//     }
-//     if (!user.isModified()) {
-//       return res.status(400).json({ message: "No information updated." });
-//     }
-
-//     await user.save();
-//     res.status(200).send({ message: "User information updated:", user });
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-// router.post("/users/prediction", async (req, res) => {
-//   try {
-//     const data = [req.body]; // Wrap the request body in a list to match the expected format
-
-//     // Send a POST request to the Python API
-//     const response = await axios.post("http://127.0.0.1:5000/predict", data);
-
-//     // Handle the response from Python
-//     const predictions = response.data.prediction;
-
-//     // const MidInf = new MedInf(req.body);
-//     // await MidInf.save();
-
-//     console.log(predictions);
-//     res.json({ prediction: predictions });
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
-
-// {
-//   "Age(year)": 27,
-//   "Gender": 1,
-//   "Height(cm)": 150,
-//   "Weight(kg)": 57,
-//   "BMI(kg/m^2)": 25.33,
-//   "Systolic Blood Pressure(mmHg)": 121,
-//   "Diastolic Blood Pressure(mmHg)": 80,
-//   "BP": 50,
-//   "Cholesterol": 7,
-//   "Glucose": 0,
-//   "smoke": 0,
-//   "alco": 0,
-//   "active": 1
-// }
