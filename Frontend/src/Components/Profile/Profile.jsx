@@ -27,7 +27,6 @@ export default function Profile(props) {
                   <div className="col-lg-4 text-center">
                     <img
                       src="assets/nobody.png"
-
                       className="rounded-circle shadow-sm img-thumbnail mb-3"
                       style={{ width: "150px", height: "150px" }}
                     />
@@ -39,11 +38,9 @@ export default function Profile(props) {
                     <h3 className="mt-3">Information</h3>
                     <hr className="my-4" />
                     <div className="row">
-                      <div className="col-lg-6">
-                        <p>
-                          <strong>Email:</strong> 
-                          {userInfo.email}
-                        </p>
+                      <div className="col-lg-6 w-100">
+                      <strong>Email:</strong> {userInfo.email}
+
                       </div>
                     </div>
                     <hr className="my-4" />
