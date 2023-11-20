@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2'
 
 export default function Register() {
   let [statusError,setStatusError] = useState('')
@@ -37,6 +38,9 @@ export default function Register() {
     }
   };
     
+  const verifyEmail = () => {
+    Swal.fire("Check Your Email!");
+  }
   const schema = Yup.object({
     name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
     email: Yup.string().required('Email is required').email('Email Not Valid'),
@@ -195,7 +199,7 @@ export default function Register() {
 
           <p className='text-danger'>{statusError}</p>
 
-      <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
+      <Button type="submit" variant="contained" color="primary" sx={{mt:3}} onClick={verifyEmail}>
         Register
       </Button>
     </form>

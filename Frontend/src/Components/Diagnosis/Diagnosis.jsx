@@ -309,7 +309,7 @@
                                 }}
                               >
                                 <Radio
-                                  checked={values.Gender === 1}
+                                  checked={values.Gender === 2}
                                   onChange={(event) => {
                                     const numericValue = parseInt(event.target.value);
                                     handleChange({
@@ -319,16 +319,16 @@
                                       },
                                     });
                                   }}
-                                  value={1}
+                                  value={2}
                                   style={{ display: "none" }}
                                 />
                                 <label
                                   className={`${style.gender_option} ${
-                                    values.Gender === 1 ? style.selected : ""
+                                    values.Gender === 2 ? style.selected : ""
                                   } me-5`}
                                   htmlFor="gender-male"
                                   onClick={() => {
-                                    const numericValue = 1;
+                                    const numericValue = 2;
                                     handleChange({
                                       target: {
                                         name: "Gender",
@@ -346,7 +346,7 @@
                                 </label>
 
                                 <Radio
-                                  checked={values.Gender === 2}
+                                  checked={values.Gender === 1}
                                   onChange={(event) => {
                                     const numericValue = parseInt(event.target.value);
                                     handleChange({
@@ -356,16 +356,16 @@
                                       },
                                     });
                                   }}
-                                  value={2}
+                                  value={1}
                                   style={{ display: "none" }}
                                 />
                                 <label
                                   className={`${style.gender_option} ${
-                                    values.Gender === 2 ? style.selected : ""
+                                    values.Gender === 1 ? style.selected : ""
                                   }`}
                                   htmlFor="gender-female"
                                   onClick={() => {
-                                    const numericValue = 2;
+                                    const numericValue = 1;
                                     handleChange({
                                       target: {
                                         name: "Gender",

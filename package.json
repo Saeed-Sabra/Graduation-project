@@ -17,7 +17,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.14.17",
     "concurrently": "^8.2.2",
-    "formik": "^2.4.5"
+    "formik": "^2.4.5",
+    "sweetalert2": "^11.10.1"
   },
   "devDependencies": {
     "env-cmd": "^8.0.2"
