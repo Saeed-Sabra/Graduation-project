@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 export default function Register() {
+  let [statusError,setStatusError] = useState('')
   const navigate = useNavigate();
 
   const schema = Yup.object({
@@ -32,7 +33,10 @@ export default function Register() {
 
   async function sendRegisterValues(values) {
     try {
-      const { data } = await axios.post('http://localhost:3001/users/signup', values);
+      const { data } = await axios.post('http://localhost:3001/users/signup', values)
+      .catch((err)=>{
+        setStatusError(err.response.data);
+      } );
       if (data) {
         navigate('/login');
       } else {
@@ -139,6 +143,7 @@ export default function Register() {
         error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
         helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
       />
+          <p className='text-danger'>{statusError}</p>
 
       <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
         Register
