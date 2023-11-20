@@ -1,12 +1,13 @@
 import { Button, Card, CardContent, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import style from './Login.module.css';
 import axios from 'axios';
 
 export default function Login(props) {
+  let [statusError,setStatusError] = useState('')
   const navigate = useNavigate();
   const schema = Yup.object({
     email: Yup.string().required('Email is required').email('Email Not Valid'),
@@ -24,14 +25,15 @@ export default function Login(props) {
 
   async function sendLoginValues(values) {
     try {
-      const { data } = await axios.post('http://localhost:3001/users/login', values);
+      const { data } = await axios.post('http://localhost:3001/users/login', values)
+      .catch((err)=>{
+        setStatusError(err.response.data.error);
+      } );
       if (data) {
         localStorage.setItem('UserToken', data.token);
         props.info();
         navigate('/');
-      } else {
-        console.log('error');
-      }
+      } 
     } catch (error) {
       console.error('Error:', error);
     }
@@ -75,7 +77,7 @@ export default function Login(props) {
               {formik.errors.password}
             </Typography>
           )}
-
+ <p className='text-danger'>{statusError}</p>
           <div className="text-center">
             <Button type="submit" variant="contained" color="primary" className='mt-3'>
               Login

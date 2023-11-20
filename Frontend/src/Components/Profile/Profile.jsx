@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@mui/material';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Footer from '../Footer/Footer.jsx';
 
 export default function Profile(props) {
     let [userInfo,setUserInfo] = useState([])
@@ -16,12 +17,12 @@ export default function Profile(props) {
     }
     ,[] )
   return (
-      <div className="container-fluid py-5 ms-5">
-        <div className="row justify-content-center">
+      <div className="container-fluid py-5 mt-5 ms-5 d-flex justify-content-center align-items-center">
+        <div className="row justify-content-center mt-5">
           <div className="col-lg-8">
             <div
               className="card shadow-lg rounded-3"
-              style={{ backgroundColor: "#FFD500" }}>
+              style={{ backgroundColor: "#b3ddf2" }}>
               <div className="card-body p-5">
                 <div className="row">
                   <div className="col-lg-4 text-center">
