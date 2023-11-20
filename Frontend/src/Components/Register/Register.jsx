@@ -38,22 +38,18 @@ export default function Register() {
     }
   };
     
-  const verifyEmail = () => {
-    Swal.fire({
-      title: "Welcome!",
-      text: "Thank you for signing up! we just need to verify your email address to complete setting up your account",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Ok"
-    });
-  }
-
-
 
   const schema = Yup.object({
     name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
-    email: Yup.string().required('Email is required').email('Email Not Valid'),
+    email: Yup.string().required('Email is required').email('Email Not Valid') 
+    .test('is-com', 'Email must end with ".com"', (value) => {
+      if (value && !value.endsWith('.com')) {
+        return false;
+      }
+      return true;
+    }),
     gender: Yup.string().required('Gender is required'),
-    age: Yup.number().required('Age is required'),
+    age: Yup.number().positive().min(15).required('Age is required'),
     password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
     confirmPassword: Yup.string().required('Confirm password is required').oneOf([Yup.ref('password')], 'Not matched password'),
   });
@@ -78,6 +74,17 @@ export default function Register() {
         setStatusError(err.response.data);
       } );
       if (data) {
+        const verifyEmail = () => {
+          Swal.fire({
+            title: "Welcome!",
+            text: "Thank you for signing up! We just need to verify your email address to complete setting up your account.",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Ok",
+          });
+        };
+  
+        verifyEmail();
+  
         navigate('/login');
       } else {
         console.log(data);
@@ -207,7 +214,7 @@ export default function Register() {
 
           <p className='text-danger'>{statusError}</p>
 
-      <Button type="submit" variant="contained" color="primary" sx={{mt:3}} onClick={verifyEmail}>
+      <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
         Register
       </Button>
     </form>
