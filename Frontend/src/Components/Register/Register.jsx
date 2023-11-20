@@ -4,11 +4,39 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Register() {
   let [statusError,setStatusError] = useState('')
   const navigate = useNavigate();
 
+  let [passwordType, setPasswordType] = useState('password');
+  let [passwordIcon, setPasswordIcon] = useState(faEye);
+
+  let [confirmPasswordType, setConfirmPasswordType] = useState('password');
+  let [confirmPasswordIcon, setConfirmPasswordIcon] = useState(faEye);
+
+  const togglePassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      setPasswordIcon(faEyeSlash);
+    } else {
+      setPasswordType('password');
+      setPasswordIcon(faEye);
+    }
+  };
+
+  const toggleConfirmPassword = () => {
+    if (confirmPasswordType === 'password') {
+      setConfirmPasswordType('text');
+      setConfirmPasswordIcon(faEyeSlash);
+    } else {
+      setConfirmPasswordType('password');
+      setConfirmPasswordIcon(faEye);
+    }
+  };
+    
   const schema = Yup.object({
     name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
     email: Yup.string().required('Email is required').email('Email Not Valid'),
@@ -100,9 +128,6 @@ export default function Register() {
   </Select>
 </FormControl>
 
-
-
-
       <TextField
         label="Age"
         type="number"
@@ -116,10 +141,10 @@ export default function Register() {
         helperText={formik.touched.age && formik.errors.age}
       />
 
-
-<TextField
+<div style={{ position: 'relative' }}>
+      <TextField
         label="Password"
-        type="password"
+        type={passwordType}
         name="password"
         fullWidth
         variant="outlined"
@@ -129,20 +154,45 @@ export default function Register() {
         error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={formik.touched.password && formik.errors.password}
       />
-
-
-      <TextField
-        label="Confirm Password"
-        type="password"
-        name="confirmPassword"
-        fullWidth
-        variant="outlined"
-        margin="dense"
-        value={formik.values.confirmPassword}
-        onChange={formik.handleChange}
-        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+      <FontAwesomeIcon
+        icon={passwordIcon}
+        style={{
+          position: 'absolute',
+          right: 10,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
+        }}
+          onClick={togglePassword}
       />
+    </div>
+
+    <div style={{ position: 'relative' }}>
+  <TextField
+    label="Confirm Password"  
+    type={confirmPasswordType}
+    name="confirmPassword"
+    fullWidth
+    variant="outlined"
+    margin="dense"
+    value={formik.values.confirmPassword}
+    onChange={formik.handleChange}
+    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+    helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+  />
+  <FontAwesomeIcon
+    icon={confirmPasswordIcon}
+    style={{
+      position: 'absolute',
+      right: 10,
+      top: '50%',
+      transform: 'translateY(-50%)',
+      cursor: 'pointer',
+    }}
+    onClick={toggleConfirmPassword}
+  />
+</div>
+
           <p className='text-danger'>{statusError}</p>
 
       <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
@@ -153,3 +203,4 @@ export default function Register() {
     </Card>   
   );
 }
+ 

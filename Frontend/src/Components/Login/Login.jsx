@@ -5,10 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import style from './Login.module.css';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login(props) {
   let [statusError,setStatusError] = useState('')
   const navigate = useNavigate();
+
+  let [type, setType] = useState('password');
+  let [icon, setIcon] = useState(faEye);
+
+
+  const togglePassword = () => {
+    if (type === 'password') {
+      setType('text');
+      setIcon(faEyeSlash);
+    } else {
+      setType('password');
+      setIcon(faEye);
+    }
+  };
+
   const schema = Yup.object({
     email: Yup.string().required('Email is required').email('Email Not Valid'),
     password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Email/Password is incorrect')
@@ -62,16 +79,30 @@ export default function Login(props) {
             </Typography>
           )}
 
-          <TextField
-            label="Password"
-            type="password"
-            name="password"
-            fullWidth
-            variant="outlined"
-            margin="dense"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-          />
+<div style={{ position: 'relative' }}>
+      <TextField
+        label="Password"
+        type={type}
+        name="password"
+        fullWidth
+        variant="outlined"
+        margin="dense"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+
+      />
+      <FontAwesomeIcon
+        icon={icon}
+        style={{
+          position: 'absolute',
+          right: 10,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
+        }}
+          onClick={togglePassword}
+      />
+    </div>
           {formik.errors.password && (
             <Typography variant="body2" color="error" component="p" className="alert alert-danger">
               {formik.errors.password}
