@@ -39,8 +39,16 @@ export default function Register() {
   };
     
   const verifyEmail = () => {
-    Swal.fire("Check Your Email!");
+    Swal.fire({
+      title: "Welcome!",
+      text: "Thank you for signing up! we just need to verify your email address to complete setting up your account",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Ok"
+    });
   }
+
+
+
   const schema = Yup.object({
     name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
     email: Yup.string().required('Email is required').email('Email Not Valid'),
