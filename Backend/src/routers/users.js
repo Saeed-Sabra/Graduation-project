@@ -11,6 +11,9 @@ router.post("/users/signup", async (req, res) => {
   const user = new User(req.body);
   const email = req.body.email;
   try {
+    if (User.find({ email: email })) {
+      return res.status(400).send("Email is already used!");
+    }
     if (!req.body.confirmPassword) {
       return res.status(400).send({ error: "Confirm password is required." });
     }
