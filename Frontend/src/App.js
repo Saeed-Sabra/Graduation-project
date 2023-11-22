@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Admin, Resource } from 'react-admin';
-import jsonServerProvider   from 'ra-data-simple-rest';
 import Layout from './Components/Layout/Layout.jsx'
 import Home from './Components/Home/Home.jsx'
 import Register from './Components/Register/Register.jsx'
@@ -40,7 +38,7 @@ export default function App() {
       {path:"login",element:<Login info={saveCurrentUser}/>},
       {path:"diagnosis", element:<ProtectedRouter><Diagnosis/></ProtectedRouter>},
       {path:"profile",element:<ProtectedRouter><Profile info={saveCurrentUser}/></ProtectedRouter>},
-      {path:"notFound",element:<NotFound/>},
+      {path:"*",element:<NotFound/>},
       {path:"about",element:<About/>},
       {path:"history",element:<History/>},
     ]}

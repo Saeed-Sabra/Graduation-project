@@ -5,8 +5,7 @@ import Instructions from '../Instructions/Instructions.jsx'
 import Footer from '../Footer/Footer.jsx'
 import BounceLoader from "react-spinners/BounceLoader";
 import style from './Home.module.css'
-import { useNavigate } from 'react-router-dom'
-import Navbar from '../Navbar/Navbar.jsx'
+
 
 export default function Home({setUser}) {
 
@@ -21,6 +20,7 @@ export default function Home({setUser}) {
       setLoading(false);
     },2000)
   },[])
+  
   return (
     <div className={`${style.wrapper} row`}>
       {loading ? (

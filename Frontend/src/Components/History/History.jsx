@@ -1,6 +1,8 @@
 import { Card, CardContent } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import '../../index.css';
+import BounceLoader from 'react-spinners/BounceLoader';
 
 export default function History() {
   const [history, setHistory] = useState([]);
@@ -15,13 +17,34 @@ export default function History() {
       console.error('Error fetching diagnosis results:', error);
     }
   };
+  
+  const [loading,setLoading] = useState(false);
+  let [color, setColor] = useState("#36a6d6");
 
   useEffect(() => {
     getDiagnosisResults();
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+    },2000)
   }, []);
+
 
   return (
     <>
+      <div>
+      {loading ? (
+    <div className={'loaderContainer'}>
+      <BounceLoader
+        color={color}
+        loading={loading}
+        size={150}
+        aria-label="BounceLoader"
+        data-testid="loader"
+      />
+    </div>
+  ) : (
+    <> 
 <div>
   <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div className="modal-dialog">
@@ -40,7 +63,7 @@ export default function History() {
                     </div>
                     <div className="col-lg-6">
                     <h5>Gender:</h5>
-                {result.Gender==2? <p>Male</p>
+                {result.Gender===2? <p>Male</p>
                   : <p>Female</p>}
                       </div>
                 <div className="col-lg-6 mt-3">
@@ -65,36 +88,36 @@ export default function History() {
 
                 <div className="col-lg-6 mt-3">
                   <h5>Cholesterol:</h5>
-                  {result.Cholesterol==0? <p>Don't Know</p>:""}
-                  {result.Cholesterol==1? <p>Normal</p>:""}
-                  {result.Cholesterol==1? <p>Above Normal</p>:""}
-                  {result.Cholesterol==1? <p>Well Above Normal</p>:""}
+                  {result.Cholesterol===0? <p>Don't Know</p>:""}
+                  {result.Cholesterol===1? <p>Normal</p>:""}
+                  {result.Cholesterol===1? <p>Above Normal</p>:""}
+                  {result.Cholesterol===1? <p>Well Above Normal</p>:""}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                 <h5>Glucose:</h5>
-                  {result.Glucose==0? <p>Don't Know</p>:""}
-                  {result.Glucose==1? <p>Normal</p>:""}
-                  {result.Glucose==1? <p>Above Normal</p>:""}
-                  {result.Glucose==1? <p>Well Above Normal</p>:""}
+                  {result.Glucose===0? <p>Don't Know</p>:""}
+                  {result.Glucose===1? <p>Normal</p>:""}
+                  {result.Glucose===1? <p>Above Normal</p>:""}
+                  {result.Glucose===1? <p>Well Above Normal</p>:""}
                 </div>
 
           <div className="col-lg-6 mt-3">
               <h5>Smoking:</h5>
-              {result.Smoking==0? <p>No</p>:""}
-              {result.Smoking==1? <p>Yes</p>:""}
+              {result.Smoking===0? <p>No</p>:""}
+              {result.Smoking===1? <p>Yes</p>:""}
           </div>
 
           <div className="col-lg-6 mt-3">
           <h5>Alchohol:</h5>
-              {result.Alcohol==0? <p>No</p>:""}
-              {result.Alcohol==1? <p>Yes</p>:""}
+              {result.Alcohol===0? <p>No</p>:""}
+              {result.Alcohol===1? <p>Yes</p>:""}
           </div>
 
           <div className="col-lg-6 mt-3">
           <h5>Activities:</h5>
-              {result.Activity==0? <p>No</p>:""}
-              {result.Activity==1? <p>Yes</p>:""}
+              {result.Activity===0? <p>No</p>:""}
+              {result.Activity===1? <p>Yes</p>:""}
           </div>
 
           <div className="col-lg-6 mt-3">
@@ -146,6 +169,9 @@ export default function History() {
     </table>
         </CardContent>
     </Card>
+    </>
+  )}
+    </div>
     </>
   );
 }

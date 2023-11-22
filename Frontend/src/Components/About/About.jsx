@@ -1,7 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import '../../index.css'
+import BounceLoader from 'react-spinners/BounceLoader';
 
 export default function About() {
+  const [loading,setLoading] = useState(false);
+  let [color, setColor] = useState("#36a6d6");
+
+  useEffect(() =>{
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+    },2000)
+  },[])
+
+
   return (
+    <div>
+    {loading ? (
+      <div className='loaderContainer'>
+        <BounceLoader
+          color={color}
+          loading={loading}
+          size={150}
+          aria-label="BounceLoader"
+          data-testid="loader"
+        />
+      </div>
+    ) : (
+    <>
     <div className='mt-5'>
     <h1>Welcome to Our Graduation Project Website</h1>
     <p>
@@ -20,6 +46,9 @@ export default function About() {
       Discover a wealth of information on lifestyle modifications that can positively impact blood pressure. From dietary recommendations to stress management techniques, we've got you covered.
     </p>
   </div>
+    
+    </>)}
+    </div>
 );
 };
 
