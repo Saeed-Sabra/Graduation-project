@@ -21,6 +21,9 @@ export default function Navbar({user,logOut}) {
         <li className="nav-item">
           <Link className="nav-link" to="about">About</Link>
         </li>
+        <li className="nav-item">
+          <Link className="nav-link" to="history">History</Link>
+        </li>
           {!user?<>
             <li className="nav-item">
           <Link className="nav-link btn bg-primary text-white" to="register">Register</Link>

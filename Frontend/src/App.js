@@ -8,11 +8,11 @@ import Register from './Components/Register/Register.jsx'
 import Login from './Components/Login/Login.jsx'
 import NotFound from './Components/NotFound/NotFound.jsx'
 import About from './Components/About/About.jsx'
-import Services from './Components/Service/Services.jsx'
 import  { jwtDecode } from "jwt-decode";
 import Diagnosis from './Components/Diagnosis/Diagnosis.jsx'
 import ProtectedRouter from './Components/ProtectedRouter/ProtectedRouter.jsx'
 import Profile from './Components/Profile/Profile.jsx';
+import History from './Components/History/History.jsx';
 
 
 export default function App() {
@@ -42,7 +42,7 @@ export default function App() {
       {path:"profile",element:<ProtectedRouter><Profile info={saveCurrentUser}/></ProtectedRouter>},
       {path:"notFound",element:<NotFound/>},
       {path:"about",element:<About/>},
-      {path:"service",element:<Services/>},
+      {path:"history",element:<History/>},
     ]}
   ])
   return (
