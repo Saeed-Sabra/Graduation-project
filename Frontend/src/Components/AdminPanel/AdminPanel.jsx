@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Card, CardContent } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function AdminPanel() {
 
@@ -17,9 +18,30 @@ export default function AdminPanel() {
 
   const deleteUser = async (userId) => {
     try {
-      const { data } = await axios.delete(`http://localhost:3001/admins/users/delete/${userId}`);
+      const { data } = await axios.delete(`http://localhost:3001/admins/users/delete/${userId}`, {headers:{Authorization:`Bearer ${token}`}});
       console.log(data);
-      return data;
+      if(data){
+        const ensurenceMessage = ()=>{
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  title: "Deleted!",
+                  text: "Your file has been deleted.",
+                  icon: "success"
+                });
+              }
+            });
+        }
+        ensurenceMessage();
+      }
     } catch (error) {
       console.error('Error deleting user:', error);
     }

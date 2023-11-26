@@ -85,6 +85,7 @@ export default function AddUser() {
         };
         addedsuccessfully();
   
+        navigate('/admin')
       } else {
         console.log(data);
       }
