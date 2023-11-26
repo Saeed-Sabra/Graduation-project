@@ -11,6 +11,8 @@ import Diagnosis from './Components/Diagnosis/Diagnosis.jsx'
 import ProtectedRouter from './Components/ProtectedRouter/ProtectedRouter.jsx'
 import Profile from './Components/Profile/Profile.jsx';
 import History from './Components/History/History.jsx';
+import AdminPanel from './Components/AdminPanel/AdminPanel.jsx'
+import AddUser from './Components/AddUser/AddUser.jsx'
 
 
 export default function App() {
@@ -41,6 +43,8 @@ export default function App() {
       {path:"*",element:<NotFound/>},
       {path:"about",element:<About/>},
       {path:"history",element:<History/>},
+      {path:"admin",element:<AdminPanel/>},
+      {path:"admin/addUser",element:<AddUser/>},
     ]}
   ])
   return (
