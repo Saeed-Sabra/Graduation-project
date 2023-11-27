@@ -9,8 +9,6 @@ import style from './Home.module.css'
 
 export default function Home({setUser}) {
 
-
-
   const [loading,setLoading] = useState(false);
   let [color, setColor] = useState("#36a6d6");
 

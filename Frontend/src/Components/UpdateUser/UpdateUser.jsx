@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { AppBar, Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Toolbar, Typography } from '@mui/material';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
 export default function UpdateUser() {
+
   let [user, setUser] = useState([]);
   const { id } = useParams();
   const token = localStorage.getItem('UserToken')
@@ -128,7 +129,17 @@ export default function UpdateUser() {
   }
 
     return (
-        <Card sx={{width:600,height:570, mt: 12, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
+      <>
+        <AppBar>
+    <Toolbar>
+      <Typography variant='h6' noWrap>Admin Panel - Users</Typography>
+      <div className='ms-auto d-flex'>
+      <Typography><Link className='text-white me-3 link-underline link-underline-opacity-0' to='/admin'>Dashboard</Link></Typography>
+      <Typography><Link className='text-white me-3 link-underline link-underline-opacity-0' to='/'>Home</Link></Typography>
+      </div>
+    </Toolbar>
+  </AppBar>
+        <Card sx={{width:600,height:570, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
           <CardContent>
           <Typography variant="h5" component="div" className="text-center mb-3">
               Update User Info
@@ -253,6 +264,7 @@ export default function UpdateUser() {
         </form>
           </CardContent>
         </Card>   
+      </>
       );
 }
 

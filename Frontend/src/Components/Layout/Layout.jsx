@@ -1,21 +1,26 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar.jsx'
-import { Outlet, useNavigate } from 'react-router-dom'
-export default function Layout({user,setUser}) {
+import React from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar.jsx';
 
-  let navigate = useNavigate();
+export default function Layout({ user, setUser }) {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  function logOut(){
+  function logOut() {
     localStorage.removeItem('UserToken');
     setUser(null);
     navigate('/login');
   }
+
+  const isAdminPage = location.pathname.startsWith('/admin');
+  const showNavbar = !isAdminPage;
+
   return (
     <>
-     <Navbar user={user} logOut={logOut}/>
-    <div className='container d-flex justify-content-center'>
-    <Outlet></Outlet>
-    </div>
+      {showNavbar && <Navbar user={user} logOut={logOut} />}
+      <div className='container d-flex justify-content-center'>
+        <Outlet />
+      </div>
     </>
-  )
+  );
 }

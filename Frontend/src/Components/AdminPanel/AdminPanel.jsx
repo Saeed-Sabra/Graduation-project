@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Card, CardContent } from '@mui/material';
+import { AppBar, Card, CardContent, Toolbar, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -54,9 +54,20 @@ export default function AdminPanel() {
 
   return (
     <div className='container'>
-      <div className='row'>
+
+<AppBar>
+    <Toolbar>
+      <Typography variant='h6' noWrap>Admin Panel - Users</Typography>
+      <div className='ms-auto d-flex'>
+      <Typography><Link className='text-white me-3 link-underline link-underline-opacity-0' to='/admin'>Dashboard</Link></Typography>
+      <Typography><Link className='text-white me-3 link-underline link-underline-opacity-0' to='/'>Home</Link></Typography>
+      </div>
+    </Toolbar>
+  </AppBar>
+
+      <div className='row mt-5'>
         <div className="col-lg-12 mt-5">
-    <Link className='btn btn-success' to='addUser'>Add User</Link>
+    <Link className='btn btn-success mt-5' to='addUser'>Add User</Link>
         </div>
       </div>
     <Card sx={{mt:3, width:1300, boxShadow: 3}}>
