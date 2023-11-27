@@ -61,7 +61,7 @@ export default function AdminPanel() {
       </div>
     <Card sx={{mt:3, width:1300, boxShadow: 3}}>
       <CardContent>
-    <table class="table table-striped">
+    <table className="table table-striped">
       <thead>
         <tr>
           <th scope="row">#</th>
@@ -82,7 +82,7 @@ export default function AdminPanel() {
               <td>{user.email}</td>
               <td>{user.gender}</td>
               <td>{user.age}</td>
-              <td><button className='btn btn-primary'>Update</button></td>
+              <td><Link className='btn btn-primary' to={`updateUser/${user._id}`}>Update</Link></td>
               <td><button className='btn btn-danger' onClick={()=>deleteUser(user._id)}>Delete</button></td>
             </tr>
           );

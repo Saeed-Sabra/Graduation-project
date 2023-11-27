@@ -13,6 +13,7 @@ import Profile from './Components/Profile/Profile.jsx';
 import History from './Components/History/History.jsx';
 import AdminPanel from './Components/AdminPanel/AdminPanel.jsx'
 import AddUser from './Components/AddUser/AddUser.jsx'
+import UpdateUser from './Components/UpdateUser/UpdateUser.jsx'
 
 
 export default function App() {
@@ -45,16 +46,10 @@ export default function App() {
       {path:"history",element:<History/>},
       {path:"admin",element:<AdminPanel/>},
       {path:"admin/addUser",element:<AddUser/>},
+      {path:"admin/updateUser/:id",element:<UpdateUser/>},
     ]}
   ])
   return (
 <RouterProvider router={routers}></RouterProvider>
   )
 }
-
-// useEffect(() =>{
-//   setLoading(true);
-//   setTimeout(()=>{
-//     setLoading(false);
-//   },8000)
-// },[])
