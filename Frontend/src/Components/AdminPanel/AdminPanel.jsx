@@ -49,7 +49,6 @@ export default function AdminPanel() {
   };
   
   
-
   useEffect( ()=>{
     getUsers();
   },[] )
@@ -83,6 +82,7 @@ export default function AdminPanel() {
           <th scope="row">Gender</th>
           <th scope="row">Age</th>
           <th scope="row">Role</th>
+          <th scope="row">Tests</th>
           <th scope="row">Update</th>
           <th scope="row">Delete</th>
         </tr>
@@ -97,6 +97,7 @@ export default function AdminPanel() {
               <td>{user.gender}</td>
               <td>{user.age}</td>
               <td>{user.isAdmin === true? "Admin" : "User"}</td>
+              <td><Link className='btn btn-secondary' to={`history/${user._id}`}>History</Link></td>
               <td><Link className='btn btn-primary' to={`updateUser/${user._id}`}>Update</Link></td>
               <td><button className='btn btn-danger' onClick={()=>deleteUser(user._id)}>Delete</button></td>
             </tr>

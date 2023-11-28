@@ -14,6 +14,7 @@ import History from './Components/History/History.jsx';
 import AdminPanel from './Components/AdminPanel/AdminPanel.jsx'
 import AddUser from './Components/AddUser/AddUser.jsx'
 import UpdateUser from './Components/UpdateUser/UpdateUser.jsx'
+import AdminHistory from './Components/AdminHistory/AdminHistory.jsx'
 
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
       {path:"*",element:<NotFound/>},
       {path:"about",element:<About/>},
       {path:"history",element:<History/>},
+      {path:"admin/history/:id",element:<AdminHistory/>},
       {path:"admin",element:<AdminPanel/>},
       {path:"admin/addUser",element:<AddUser/>},
       {path:"admin/updateUser/:id",element:<UpdateUser/>},
