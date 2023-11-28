@@ -62,6 +62,7 @@ export default function AddUser() {
       gender:'',
       age:'',
       isAdmin:'',
+      confirmEmail:true,
       password: '',
       confirmPassword: '',
     },
@@ -70,12 +71,17 @@ export default function AddUser() {
   });
 
   async function sendUserData(values) {
+    const token = localStorage.getItem('UserToken');
+
     try {
-      const { data } = await axios.post('http://localhost:3001/users/signup', values)
+      const { data } = await axios.post('http://localhost:3001/admins/users/signup', values, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .catch((err)=>{
         setStatusError(err.response.data);
       } );
       if (data) {
+        console.log(data);
         const addedsuccessfully = () => {
             Swal.fire({
                 position: "center",
@@ -162,23 +168,24 @@ export default function AddUser() {
     
     
     <FormControl className='mt-2' fullWidth>
-      <InputLabel id="demo-simple-select-label1">Role</InputLabel>
-      <Select
-        labelId="demo-simple-select-label1"
-        id="demo-simple-select1"
-        label="isAdmin"
-        name="isAdmin"
-        variant="outlined"
-        margin="dense"
-        value={formik.values.isAdmin}
-        onChange={formik.handleChange}
-        error={formik.touched.isAdmin && Boolean(formik.errors.isAdmin)}
-        helperText={formik.touched.isAdmin && formik.errors.isAdmin}
-      >
-        <MenuItem value={true}>Admin</MenuItem>
-        <MenuItem value={false}>User</MenuItem>
-      </Select>
-    </FormControl>
+  <InputLabel id="demo-simple-select-label1">Role</InputLabel>
+  <Select
+    labelId="demo-simple-select-label1"
+    id="demo-simple-select1"
+    label="isAdmin"
+    name="isAdmin"
+    variant="outlined"
+    margin="dense"
+    value={formik.values.isAdmin}
+    onChange={formik.handleChange}
+    error={formik.touched.isAdmin && Boolean(formik.errors.isAdmin)}
+    helperText={formik.touched.isAdmin && formik.errors.isAdmin}
+  >
+    <MenuItem value={true}>Admin</MenuItem>
+    <MenuItem value={false}>User</MenuItem>
+  </Select>
+</FormControl>
+
 
           <TextField
             label="Age"
@@ -245,7 +252,7 @@ export default function AddUser() {
       />
     </div>
     
-              <p className='text-danger'>{statusError}</p>
+              <p className='text-danger'>{statusError.message}</p>
     
           <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
             Add
