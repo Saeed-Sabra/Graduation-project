@@ -90,7 +90,9 @@ router.put("/admins/users/update/:id", async (req, res) => {
 router.get("/admins/users/tests/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    const medicalInfo = await MedInf.find({ user });
+    const medicalInfo = await MedInf.find({ user })
+      .populate("user", "name")
+      .sort("-createdAt");
 
     if (!medicalInfo) {
       return res.status(404).send({ message: "No medical information found" });
