@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AppBar, Card, CardContent, Toolbar, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import BounceLoader from 'react-spinners/BounceLoader';
 
 export default function AdminPanel() {
 
@@ -36,6 +37,9 @@ export default function AdminPanel() {
           text: "User Deleted Successfully!",
           icon: "success"
         });
+
+        window.location.reload();
+
       }
     } catch (error) {
       console.error('Error deleting user:', error);
@@ -47,15 +51,36 @@ export default function AdminPanel() {
       });
     }
   };
-  
-  
-  useEffect( ()=>{
+
+
+  const [loading,setLoading] = useState(false);
+  let [color, setColor] = useState("#36a6d6");
+
+  useEffect(() => {
     getUsers();
-  },[] )
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+    },2000)
+  }, []);
 
   return (
-    <div className='container'>
-
+    
+<div>
+      {loading ? (
+        <div className={'loaderContainer'}>
+          <BounceLoader
+            color={color}
+            loading={loading}
+            size={150}
+            aria-label="BounceLoader"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        <>
+          
+    <div className='container ms-5'>
 <AppBar>
     <Toolbar>
       <Typography variant='h6' noWrap>Admin Panel - Users</Typography>
@@ -71,7 +96,7 @@ export default function AdminPanel() {
     <Link className='btn btn-success mt-5' to='addUser'>Add User</Link>
         </div>
       </div>
-    <Card sx={{mt:3, width:1300, boxShadow: 3}}>
+    <Card sx={{mt:3, width:1300, boxShadow: 3}} className='text-center'>
       <CardContent>
     <table className="table table-striped">
       <thead>
@@ -108,6 +133,12 @@ export default function AdminPanel() {
       </CardContent>
     </Card>
     </div>
+      </>
+    )}
+      </div>
+ 
+
+
   );
   
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Toolbar, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -7,6 +7,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2'
+import BounceLoader from 'react-spinners/BounceLoader';
 
 export default function AddUser() {
   let [statusError,setStatusError] = useState('')
@@ -102,9 +103,33 @@ export default function AddUser() {
     }
   }
 
+  const [loading,setLoading] = useState(false);
+  let [color, setColor] = useState("#36a6d6");
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+    },2000)
+  }, []);
+
+
     return (
       <>
-      <AppBar>
+    <div>
+      {loading ? (
+        <div className={'loaderContainer'}>
+          <BounceLoader
+            color={color}
+            loading={loading}
+            size={150}
+            aria-label="BounceLoader"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        <>
+          <AppBar>
     <Toolbar>
       <Typography variant='h6' noWrap>Admin Panel - Users</Typography>
       <div className='ms-auto d-flex'>
@@ -259,7 +284,10 @@ export default function AddUser() {
           </Button>
         </form>
           </CardContent>
-        </Card>   
+        </Card> 
+      </>
+    )}
+      </div>
       </>
       );
 }

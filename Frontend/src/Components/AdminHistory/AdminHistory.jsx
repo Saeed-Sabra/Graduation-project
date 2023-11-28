@@ -15,10 +15,6 @@ export default function AdminHistory() {
         console.log(data)
         setHistory(data)
     }
-    useEffect( ()=>{
-        getUserHistory();
-    },[] )
-
   
     const [loading,setLoading] = useState(false);
     let [color, setColor] = useState("#36a6d6");
@@ -59,7 +55,13 @@ export default function AdminHistory() {
               </Toolbar>
             </AppBar>
 
-    <div className="modal fade mt-5">
+
+
+ <h2 style={{ marginTop: '150px', marginBottom: '20px' }}>
+  {history[0]?.user?.name}'s History
+</h2>
+
+    <div className="modal fade">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -151,7 +153,7 @@ export default function AdminHistory() {
   </div>
   
   
-      <Card style={{ marginTop: '150px' }} sx={{ width: 1100, boxShadow: 3 }}>
+      <Card sx={{ width: 1100, boxShadow: 3 }}>
           <CardContent>
   
       <table className="table table-striped">

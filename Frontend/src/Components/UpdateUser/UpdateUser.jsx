@@ -7,6 +7,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import BounceLoader from 'react-spinners/BounceLoader';
 
 export default function UpdateUser() {
 
@@ -131,9 +132,34 @@ export default function UpdateUser() {
     }
   }
 
+  const [loading,setLoading] = useState(false);
+  let [color, setColor] = useState("#36a6d6");
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(()=>{
+      setLoading(false);
+    },2000)
+  }, []);
+
     return (
       <>
-        <AppBar>
+
+  
+<div>
+      {loading ? (
+        <div className={'loaderContainer'}>
+          <BounceLoader
+            color={color}
+            loading={loading}
+            size={150}
+            aria-label="BounceLoader"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        <>
+           <AppBar>
     <Toolbar>
       <Typography variant='h6' noWrap>Admin Panel - Users</Typography>
       <div className='ms-auto d-flex'>
@@ -286,6 +312,10 @@ export default function UpdateUser() {
         </form>
           </CardContent>
         </Card>   
+      </>
+    )}
+      </div>
+ 
       </>
       );
 }
