@@ -61,7 +61,7 @@ export default function AdminHistory() {
   {history[0]?.user?.name}'s History
 </h2>
 
-    <div className="modal fade">
+    <div className="modal fade"  id="myModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -175,8 +175,9 @@ export default function AdminHistory() {
                 <td>{index + 1}</td>
                 <td>{datePart}</td>
                 <td>{result.Result}</td>
-                <td><button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View Details</button></td>
+                <td><button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">View Details</button></td>
                 
+
               </tr>
             );
           })}
