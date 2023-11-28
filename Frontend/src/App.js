@@ -25,6 +25,7 @@ export default function App() {
     const token = localStorage.getItem('UserToken');
     const decoded = jwtDecode(token)
     setUser(decoded);
+    console.log(decoded.isAdmin)
   }
 
   useEffect( ()=>{

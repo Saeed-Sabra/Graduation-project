@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 
 export default function AdminPanel() {
 
-  // let {id} = useParams();
   let [user,setUser] = useState([]);
   const token = localStorage.getItem('UserToken');
 
@@ -18,34 +17,37 @@ export default function AdminPanel() {
 
   const deleteUser = async (userId) => {
     try {
-      const { data } = await axios.delete(`http://localhost:3001/admins/users/delete/${userId}`, {headers:{Authorization:`Bearer ${token}`}});
-      console.log(data);
-      if(data){
-        const ensurenceMessage = ()=>{
-            Swal.fire({
-              title: "Are you sure?",
-              text: "You won't be able to revert this!",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire({
-                  title: "Deleted!",
-                  text: "Your file has been deleted.",
-                  icon: "success"
-                });
-              }
-            });
-        }
-        ensurenceMessage();
+      const { value: confirmed } = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Delete"
+      });
+  
+      if (confirmed) {
+        const { data } = await axios.delete(`http://localhost:3001/admins/users/delete/${userId}`, {headers: {Authorization: `Bearer ${token}`}});
+        console.log(data);
+  
+        Swal.fire({
+          title: "Deleted!",
+          text: "User Deleted Successfully!",
+          icon: "success"
+        });
       }
     } catch (error) {
       console.error('Error deleting user:', error);
+  
+      Swal.fire({
+        title: "Error",
+        text: "Unable to delete user",
+        icon: "error"
+      });
     }
   };
+  
   
 
   useEffect( ()=>{
@@ -77,9 +79,10 @@ export default function AdminPanel() {
         <tr>
           <th scope="row">#</th>
           <th scope="row">Name</th>
-          <th scope="row">Email</th>
+          <th scope="row" className='w-25'>Email</th>
           <th scope="row">Gender</th>
           <th scope="row">Age</th>
+          <th scope="row">Role</th>
           <th scope="row">Update</th>
           <th scope="row">Delete</th>
         </tr>
@@ -93,6 +96,7 @@ export default function AdminPanel() {
               <td>{user.email}</td>
               <td>{user.gender}</td>
               <td>{user.age}</td>
+              <td>{user.isAdmin === true? "Admin" : "User"}</td>
               <td><Link className='btn btn-primary' to={`updateUser/${user._id}`}>Update</Link></td>
               <td><button className='btn btn-danger' onClick={()=>deleteUser(user._id)}>Delete</button></td>
             </tr>

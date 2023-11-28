@@ -53,6 +53,7 @@ export default function UpdateUser() {
         return true;
       }),
     gender: Yup.string(),
+    isAdmin: Yup.boolean(),
     age: Yup.number().positive().min(15),
     password: Yup.string().matches(/^[A-Za-z0-9]{8,20}$/, 'Not Valid Password'),
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Not matched password'),
@@ -63,6 +64,7 @@ export default function UpdateUser() {
       name: '',
       email: '',
       gender: '',
+      isAdmin: '',
       age: '',
     },
     validationSchema: schema,
@@ -82,6 +84,7 @@ export default function UpdateUser() {
           name: data.name,
           email: data.email,
           gender: data.gender,
+          isAdmin: data.isAdmin,
           age: data.age,
         });
       }else {
@@ -139,7 +142,7 @@ export default function UpdateUser() {
       </div>
     </Toolbar>
   </AppBar>
-        <Card sx={{width:600,height:570, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
+        <Card sx={{width:600,height:630, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
           <CardContent>
           <Typography variant="h5" component="div" className="text-center mb-3">
               Update User Info
@@ -191,6 +194,25 @@ export default function UpdateUser() {
       </Select>
     </FormControl>
     
+    <FormControl className='mt-2' fullWidth>
+      <InputLabel id="demo-simple-select-label">Role</InputLabel>
+      <Select
+        labelId="demo-simple-select-label1"
+        id="demo-simple-select1"
+        label="Role"
+        name="isAdmin"
+        variant="outlined"
+        margin="dense"
+        value={formik.values.isAdmin}
+        onChange={formik.handleChange}
+        error={formik.touched.isAdmin && Boolean(formik.errors.isAdmin)}
+        helperText={formik.touched.isAdmin && formik.errors.isAdmin}
+      >
+        <MenuItem value={true}>Admin</MenuItem>
+        <MenuItem value={false}>User</MenuItem>
+      </Select>
+    </FormControl>
+
           <TextField
             label="Age"
             type="number"

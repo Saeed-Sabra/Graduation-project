@@ -49,6 +49,7 @@ export default function AddUser() {
       return true;
     }),
     gender: Yup.string().required('Gender is required'),
+    isAdmin: Yup.boolean().required('Role is required'),
     age: Yup.number().positive().min(15).required('Age is required'),
     password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
     confirmPassword: Yup.string().required('Confirm password is required').oneOf([Yup.ref('password')], 'Not matched password'),
@@ -60,6 +61,7 @@ export default function AddUser() {
       email: '',
       gender:'',
       age:'',
+      isAdmin:'',
       password: '',
       confirmPassword: '',
     },
@@ -106,7 +108,7 @@ export default function AddUser() {
     </Toolbar>
   </AppBar>
   
-        <Card sx={{width:600,height:570, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
+        <Card sx={{width:600,height:630, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
           <CardContent>
           <Typography variant="h5" component="div" className="text-center mb-3">
               Add User
@@ -158,6 +160,26 @@ export default function AddUser() {
       </Select>
     </FormControl>
     
+    
+    <FormControl className='mt-2' fullWidth>
+      <InputLabel id="demo-simple-select-label1">Role</InputLabel>
+      <Select
+        labelId="demo-simple-select-label1"
+        id="demo-simple-select1"
+        label="isAdmin"
+        name="isAdmin"
+        variant="outlined"
+        margin="dense"
+        value={formik.values.isAdmin}
+        onChange={formik.handleChange}
+        error={formik.touched.isAdmin && Boolean(formik.errors.isAdmin)}
+        helperText={formik.touched.isAdmin && formik.errors.isAdmin}
+      >
+        <MenuItem value={true}>Admin</MenuItem>
+        <MenuItem value={false}>User</MenuItem>
+      </Select>
+    </FormControl>
+
           <TextField
             label="Age"
             type="number"
