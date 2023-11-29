@@ -1,12 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Header({user}) {
+    let  {t, i18n}  = useTranslation();
+
   return (
         <div className="row">
             <div className="col-lg-6 d-flex align-items-center">
                 <div>
                     <span className='text-primary'>Health Care</span>
+                    <span className='text-primary'>{t('title')}</span>
                     <h1>Your Health is our priority</h1>
                     <p>Check on your health by answering some questions honestly to get an accurate result</p>
                     <Link className='btn bg-primary text-white p-2 me-4 px-3' to='diagnosis'>Get Started</Link>
