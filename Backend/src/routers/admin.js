@@ -9,7 +9,7 @@ router.get("/admins/users", async (req, res) => {
     if (!users) {
       return res.status(400).send({ error: "No Users Found!" });
     }
-    res.send(users);
+    res.status(200).send(users);
   } catch (error) {
     res.status(500).send(error);
   }
