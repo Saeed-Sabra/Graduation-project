@@ -3,15 +3,39 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../../index.css';
 import BounceLoader from 'react-spinners/BounceLoader';
+import { useTranslation } from 'react-i18next';
 
 export default function History() {
+
+  const { i18n } = useTranslation ();
+
+  const [tests,settests] = useState({
+    "date":"Date",
+    "result":"Result",
+    "checkDetails":"Check Details",
+    "detailsButton":"View Details",
+    "dateAr":"التاريخ",
+    "resultAr":"النتيجة",
+    "checkDetailsAr":"التفاصيل",
+    "detailsButtonAr":"عرض التفاصيل",
+
+  })
+  
+  const date = i18n.language === 'ar' ? tests.dateAr : tests.date;
+  const result = i18n.language === 'ar' ? tests.resultAr : tests.result;
+  const checkDetails = i18n.language === 'ar' ? tests.checkDetailsAr : tests.checkDetails;
+  const detailsButton = i18n.language === 'ar' ? tests.detailsButtonAr : tests.detailsButton;
+
+
+
   const [history, setHistory] = useState([]);
+  const [selectedHistory, setSelectedHistory] = useState(null);
 
   const getDiagnosisResults = async () => {
     try {
       const token = localStorage.getItem('UserToken');
       const { data } = await axios.get('http://localhost:3001/users/history', {headers:{Authorization:`Bearer ${token}`}});
-        console.log(data[0]);
+        console.log(data);
       setHistory(data);
     } catch (error) {
       console.error('Error fetching diagnosis results:', error);
@@ -138,16 +162,16 @@ export default function History() {
 </div>
 
 
-    <Card sx={{width:1100, mt:8, boxShadow: 3}}>
+    <Card sx={{width:1100, mt:8, boxShadow: 3}} style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
         <CardContent>
 
     <table className="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Date</th>
-          <th scope="col">Result</th>
-          <th scope="col">Check Details</th>
+          <th scope="col">{date}</th>
+          <th scope="col">{result}</th>
+          <th scope="col">{checkDetails}</th>
         </tr>
       </thead>
       <tbody>
@@ -160,7 +184,7 @@ export default function History() {
               <td>{index + 1}</td>
               <td>{datePart}</td>
               <td>{result.Result}</td>
-              <td><button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">View Details</button></td>
+              <td><button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={()=>selectedHistory(result)}>{detailsButton}</button></td>
               
             </tr>
           );

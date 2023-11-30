@@ -7,8 +7,84 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2'
+import { useTranslation } from 'react-i18next';
 
 export default function Register() {
+
+  const { i18n } = useTranslation ();
+
+  const [signup,setSignup] = useState({
+    //Form
+    "title":"Register",
+    "name":"Full Name",
+    "email":"Email",
+    "gender":"Gender",
+    "male":"Male",
+    "female":"Female",
+    "age":"Age",
+    "password":"Password",
+    "cPassword":"Confirm Password",
+    "button":"Signup",
+    "titleAr":"انشاء حساب",
+    "nameAr":"الاسم الكامل",
+    "emailAr":"البريد الالكتروني",
+    "genderAr":"الجنس",
+    "maleAr":"ذكر",
+    "femaleAr":"انثى",
+    "ageAr":"العمر",
+    "passwordAr":"كلمة المرور",
+    "cPasswordAr":"تأكيد كلمة المرور",
+    "buttonAr":"انشاء الحساب",
+
+    //Error Messages
+    "nameErr":"Name is required",
+    "emailErr":"Email is required",
+    "genderErr":"Gender",
+
+    "ageErr":"Age is required",
+    "passwordErr":"Password is required",
+    "cPasswordErr":"Confirm Password is required",
+    "nameErrAr":"يرجى ادخال الاسم الكامل",
+    "emailErrAr":" يرجى ادخال البريد الالكتروني",
+    "genderErrAr":" يرجى ادخال الجنس",
+    "ageErrAr":" يرجى ادخال العمر",
+    "passwordErrAr":" يرجى ادخال كلمة المرور",
+    "cPasswordErrAr":" يرجى تأكيد كلمة المرور",
+
+    //sweetAlert
+    "welcoming":"Welcome!",
+    "thanking":"Thank you for signing up! We just need to verify your email address to complete setting up your account.",
+    "ok":"Okay!",
+    "welcomingAr":"مرحبا بك!",
+    "thankingAr":"شكرا لك على التسجيل! نحتاج فقط إلى التحقق من عنوان بريدك الإلكتروني لإكمال إعداد حسابك",
+    "okAr":"حسنا!",
+  })
+  
+  //Form
+  const title = i18n.language === 'ar' ? signup.titleAr : signup.title;
+  const name = i18n.language === 'ar' ? signup.nameAr : signup.name;
+  const email = i18n.language === 'ar' ? signup.emailAr : signup.email;
+  const gender = i18n.language === 'ar' ? signup.genderAr : signup.gender;
+  const male = i18n.language === 'ar' ? signup.maleAr : signup.male;
+  const female = i18n.language === 'ar' ? signup.femaleAr : signup.female;
+  const age = i18n.language === 'ar' ? signup.ageAr : signup.age;
+  const password = i18n.language === 'ar' ? signup.passwordAr : signup.password;
+  const cPassword = i18n.language === 'ar' ? signup.cPasswordAr : signup.cPassword;
+  const button = i18n.language === 'ar' ? signup.buttonAr : signup.button;
+
+//error messages
+  const nameErr = i18n.language === 'ar' ? signup.nameErrAr : signup.nameErr;
+  const emailErr = i18n.language === 'ar' ? signup.emailErrAr : signup.emailErr;
+  const genderErr = i18n.language === 'ar' ? signup.genderErrAr : signup.genderErr;
+  const ageErr = i18n.language === 'ar' ? signup.ageErrAr : signup.ageErr;
+  const passwordErr = i18n.language === 'ar' ? signup.passwordErrAr : signup.passwordErr;
+  const cPasswordErr = i18n.language === 'ar' ? signup.cPasswordErrAr : signup.cPasswordErr;
+
+  //sweetAlert
+  const welcoming = i18n.language === 'ar' ? signup.welcomingAr : signup.welcoming;
+  const thanking = i18n.language === 'ar' ? signup.thankingAr : signup.thanking;
+  const ok = i18n.language === 'ar' ? signup.okAr : signup.ok;
+
   let [statusError,setStatusError] = useState('')
   const navigate = useNavigate();
 
@@ -40,18 +116,18 @@ export default function Register() {
     
 
   const schema = Yup.object({
-    name: Yup.string().required('Name is required').min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
-    email: Yup.string().required('Email is required').email('Email Not Valid') 
+    name: Yup.string().required(nameErr).min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
+    email: Yup.string().required(emailErr).email('Email Not Valid') 
     .test('is-com', 'Email must end with ".com"', (value) => {
       if (value && !value.endsWith('.com')) {
         return false;
       }
       return true;
     }),
-    gender: Yup.string().required('Gender is required'),
-    age: Yup.number().positive().min(15).required('Age is required'),
-    password: Yup.string().required('Password is required').matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
-    confirmPassword: Yup.string().required('Confirm password is required').oneOf([Yup.ref('password')], 'Not matched password'),
+    gender: Yup.string().required(genderErr),
+    age: Yup.number().positive().min(15).required(ageErr),
+    password: Yup.string().required(passwordErr).matches(/^[A-Za-z0-9]{8,20}$/,'Not Valid Password'),
+    confirmPassword: Yup.string().required(cPasswordErr).oneOf([Yup.ref('password')], 'Not matched password'),
   });
 
   const formik = useFormik({
@@ -76,10 +152,10 @@ export default function Register() {
       if (data) {
         const verifyEmail = () => {
           Swal.fire({
-            title: "Welcome!",
-            text: "Thank you for signing up! We just need to verify your email address to complete setting up your account.",
+            title: welcoming,
+            text: thanking,
             confirmButtonColor: "#3085d6",
-            confirmButtonText: "Ok",
+            confirmButtonText: ok,
           });
         };
   
@@ -98,11 +174,11 @@ export default function Register() {
     <Card sx={{width:600,height:570, mt: 12, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
       <CardContent>
       <Typography variant="h5" component="div" className="text-center mb-3">
-          Register
+          {title}
         </Typography>
  <form onSubmit={formik.handleSubmit}>
       <TextField
-        label="Name"
+        label={name}
         type="text"
         name="name"
         fullWidth
@@ -115,7 +191,7 @@ export default function Register() {
       />
 
       <TextField
-        label="Email"
+        label={email}
         type="email"
         name="email"
         fullWidth
@@ -133,7 +209,7 @@ export default function Register() {
   <Select
     labelId="demo-simple-select-label"
     id="demo-simple-select"
-    label="Gender"
+    label={gender}
     name="gender"
     variant="outlined"
     margin="dense"
@@ -142,13 +218,13 @@ export default function Register() {
     error={formik.touched.gender && Boolean(formik.errors.gender)}
     helperText={formik.touched.gender && formik.errors.gender}
   >
-    <MenuItem value={"Male"}>Male</MenuItem>
-    <MenuItem value={"Female"}>Female</MenuItem>
+    <MenuItem value={"Male"}>{male}</MenuItem>
+    <MenuItem value={"Female"}>{female}</MenuItem>
   </Select>
 </FormControl>
 
       <TextField
-        label="Age"
+        label={age}
         type="number"
         name="age"
         fullWidth
@@ -162,7 +238,7 @@ export default function Register() {
 
 <div style={{ position: 'relative' }}>
       <TextField
-        label="Password"
+        label={password}
         type={passwordType}
         name="password"
         fullWidth
@@ -188,7 +264,7 @@ export default function Register() {
 
     <div style={{ position: 'relative' }}>
   <TextField
-    label="Confirm Password"  
+    label={cPassword} 
     type={confirmPasswordType}
     name="confirmPassword"
     fullWidth
@@ -215,7 +291,7 @@ export default function Register() {
           <p className='text-danger'>{statusError}</p>
 
       <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
-        Register
+        {button}
       </Button>
     </form>
       </CardContent>

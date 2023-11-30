@@ -4,8 +4,34 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../Footer/Footer.jsx';
 import BounceLoader from 'react-spinners/BounceLoader.js';
 import style from './Profile.module.css'
+import { useTranslation } from 'react-i18next';
 
 export default function Profile(props) {
+
+  const { i18n } = useTranslation ();
+
+  const [profile,setProfile] = useState({
+    "info":"Information",
+    "email":"Email",
+    "age":"Age",
+    "gender":"Gender",
+    "male":"Male",
+    "female":"Female",
+    "infoAr":"المعلومات الشخصية",
+    "emailAr":"البريد الالكتروني",
+    "ageAr":"العمر",
+    "genderAr":"الجنس",
+    "maleAr":"ذكر",
+    "femaleAr":"انثى",
+  })
+  
+  const info = i18n.language === 'ar' ? profile.infoAr : profile.info;
+  const email = i18n.language === 'ar' ? profile.emailAr : profile.email;
+  const age = i18n.language === 'ar' ? profile.ageAr : profile.age;
+  const gender = i18n.language === 'ar' ? profile.genderAr : profile.gender;
+  const male = i18n.language === 'ar' ? profile.maleAr : profile.male;
+  const female = i18n.language === 'ar' ? profile.femaleAr : profile.female;
+
     let [userInfo,setUserInfo] = useState([])
     const token = localStorage.getItem('UserToken')
 
@@ -42,7 +68,7 @@ export default function Profile(props) {
         </div>
       ) : (
         <>
-        <div className="row justify-content-center mt-5">
+        <div className="row justify-content-center mt-5" style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
           <div className="col-lg-8">
             <div
               className="card shadow-lg rounded-3"
@@ -60,11 +86,11 @@ export default function Profile(props) {
                     </h2>
                   </div>
                   <div className="col-lg-8">
-                    <h3 className="mt-3">Information</h3>
+                    <h3 className="mt-3">{info}</h3>
                     <hr className="my-4" />
                     <div className="row">
                       <div className="col-lg-6 w-100">
-                      <strong>Email:</strong> {userInfo.email}
+                      <strong>{email}:</strong> {userInfo.email}
 
                       </div>
                     </div>
@@ -72,12 +98,12 @@ export default function Profile(props) {
                     <div className="row">
                       <div className="col-lg-6">
                         <p>
-                          <strong>Age:</strong> {userInfo.age}
+                          <strong>{age}:</strong> {userInfo.age}
                         </p>
                       </div>
                       <div className="col-lg-6">
                         <p>
-                          <strong>Gender:</strong> {userInfo.gender}
+                          <strong>{gender}:</strong> {userInfo.gender}
                         </p>
                       </div>
                     </div>

@@ -18,8 +18,305 @@
           import '../../index.css'
 
 import BounceLoader from "react-spinners/BounceLoader";
+import { useTranslation } from "react-i18next";
 
           export default function Diagnosis() {
+
+            const { i18n } = useTranslation ();
+
+            const [diagnosis,setDiagnosis] = useState({
+              //questions
+              "q1":"How old are you?",
+              "q2":"Select Your Gender",
+              "q3":"Enter your height",
+              "q4":"Enter your weight",
+              "q5":"Enter your high blood pressure",
+              "q6":"Enter your low blood pressure",
+              "q7":"Your Cholestrol",
+              "q8":"Your Glucose",
+              "q9":"Do you smoke?",
+              "q10":"Do you drink Alcohol?",
+              "q11":"Do you do any Activities?",
+              "button1":"Next",
+              "button2":"Back",
+              "button3":"Submit",
+
+              "q1Ar":"كم عمرك؟",
+              "q2Ar":"ما هو جنسك؟",
+              "q3Ar":"ادخل طولك",
+              "q4Ar":"ادخل وزنك",
+              "q5Ar":"ادخل ضغط الدم العالي لديك",
+              "q6Ar":"ادخل ضغط الدك المنخفض لديك",
+              "q7Ar":"نسبة الكولسترول لديك",
+              "q8Ar":"نسبة الجلوكوز لديك",
+              "q9Ar":"هل انت مدخن؟",
+              "q10Ar":"هل تشرب الكحول؟",
+              "q11Ar":"هل تقوم بأي أنشطة بدنية؟",
+              "button1Ar":"التالي",
+              "button2Ar":"السابق",
+              "button3Ar":"ارسال",
+
+              //asnwers
+              "a1":"Normal",
+              "a2":"Above Normal",
+              "a3":"Well Above Normal",
+              "a4":"Don't Know",
+              "yes":"Yes",
+              "no":"No",
+
+              "a1Ar":"طبيعي",
+              "a2Ar":"فوق الطبيعي",
+              "a3Ar":"أعلى بكثير من الطبيعي",
+              "a4Ar":"لا أعرف",
+              "yesAr":"نعم",
+              "noAr":"لا",
+
+              //placeholders
+              "l1":"Your Age",
+              "l2":"Your height",
+              "l3":"Your weight",
+              "l4":"Your high blood pressure",
+              "l5":"Your low blood pressure",
+    
+              "l1Ar":"عمرك",
+              "l2Ar":"طولك",
+              "l3Ar":"وزنك",
+              "l4Ar":"ضغط الدم العالي",
+              "l5Ar":"ضغط الدم المنخفض",
+
+
+              //error messages
+              "ageErr":"Age is requiered",
+              "genderErr":"Gender is requiered",
+              "HeightErr":"Height is requiered",
+              "WeightErr":"Weight is requiered",
+              "HighBPErr":"High blood pressure is requiered",
+              "LowBPErr":"Low blood pressure is requiered",
+              "CholesterolErr":"Your Cholestrol is requiered",
+              "GlucoseErr":"Your Glucose is requiered",
+              "qErr":"Question is requiered",
+
+              "qErrAr":"يرجى الاجابة على السؤال",
+
+              //resuls
+
+              "yourResult":"Your Result",
+
+              "normal":`You seem to have a Normal Blood Pressure and you are NOT at
+              risk for Hypertension (high blood pressure). 
+              Repeat the measurement a couple of times so that similar
+              values are consistently obtained. Also check the measuring
+              instrument/apparatus for the correct calibration. The reading
+              should not be taken after a meal or exercise or after any
+              stressful event. When measuring the blood pressure, the cuff
+              should be properly placed and fixed on the arm.`,
+
+              "elevated":`
+              Your Blood Pressure reading is higher than the acceptable
+              limits and is considered in the long term unhealthy. You can
+              take simple measures to bring down your blood pressure like
+              cutting down of your salt intake and starting daily brisk
+              walks for 15 minutes. 
+              Repeat the measurement a couple of times so that similar
+              values are consistently obtained. Also check the measuring
+              instrument/apparatus for the correct calibration. The reading
+              should not be taken after a meal or exercise or after any
+              stressful event. When measuring the blood pressure, the cuff
+              should be properly placed and fixed on the arm.
+              If on repeated testing the value is similar to the one that
+              was indicated previously we recommend that you confirm this
+              diagnosis with your doctor.
+              Some people with high blood pressure (Hypertension) may
+              experience chest pain, shortness of breath, nausea and blurred
+              vision. However in the majority, hypertension doesn’t show any
+              symptoms until complications like heart attack, heart failure,
+              kidney failure and stroke develop.
+              If diagnosed with hypertension you may require a few blood
+              tests and ECG.
+            `,
+              
+            "stage1":`Your Blood Pressure reading is quite high and needs to be
+            controlled with medication.
+            Repeat the measurement a couple of times so that similar
+            values are consistently obtained. Also check the measuring
+            instrument/apparatus for the correct calibration. The reading
+            should not be taken after a meal or exercise or after any
+            stressful event. When measuring the blood pressure, the cuff
+            should be properly placed and fixed on the arm.
+            If on repeated testing the value is similar to the one that
+            was indicated previously we recommend that you confirm this
+            diagnosis with your doctor.
+            Some people with high blood pressure (Hypertension) may
+            experience chest pain, shortness of breath, nausea and blurred
+            vision. However in the majority, hypertension doesn’t show any
+            symptoms until complications like heart attack, heart failure,
+            kidney failure and stroke develop.
+            If diagnosed with hypertension you may require a few blood
+            tests and ECG.`,
+
+            "stage2":`  Your Blood Pressure reading is too high and this can be
+            dangerous for your health and you should seek an immediate
+            appointment with your doctor.
+            Repeat the measurement a couple of times so that similar
+            values are consistently obtained. Also check the measuring
+            instrument/apparatus for the correct calibration. The reading
+            should not be taken after a meal or exercise or after any
+            stressful event. When measuring the blood pressure, the cuff
+            should be properly placed and fixed on the arm.
+            If on repeated testing the value is similar to the one that
+            was indicated previously we recommend that you confirm this
+            diagnosis with your doctor.
+            Some people with high blood pressure (Hypertension) may
+            experience chest pain, shortness of breath, nausea and blurred
+            vision. However in the majority, hypertension doesn’t show any
+            symptoms until complications like heart attack, heart failure,
+            kidney failure and stroke develop.
+            If diagnosed with hypertension you may require a few blood
+            tests and ECG.`,
+
+            "rate":"Rate us",
+
+            "done":"Done",
+            "close":"close",
+
+            "yourResultAr": "نتيجتك",
+
+            "normalAr":`يبدو أن ضغط دمك طبيعي ولست معرضًا لخطر الإصابة بارتفاع ضغط الدم (ارتفاع ضغط الدم).
+            كرر القياس ويتم الحصول على قيم الزوجين باستمرار. تحقق أيضًا من أداة/جهاز
+             القياس للحصول على المعايرة الصحيحة. لا ينبغي أن تؤخذ
+              القراءة بعد تناول وجبة أو ممارسة الرياضة أو بعد أي حدث مرهق. عند قياس ضغط الدم، يجب وضع الكفة بشكل صحيح وتثبيتها على الذراع.`,
+
+            "elevatedAr":`قراءة ضغط الدم لديك أعلى من المستوى المقبول
+              حدود ويعتبر على المدى الطويل غير صحي. أنت تستطيع
+              اتخاذ تدابير بسيطة لخفض ضغط الدم مثل
+              قلل من تناول الملح وابدأ بنشاط يومي
+              يمشي لمدة 15 دقيقة.
+              كرر القياس عدة مرات بحيث يكون مشابهًا
+              يتم الحصول على القيم باستمرار. تحقق أيضًا من القياس
+              أداة/جهاز للمعايرة الصحيحة. القراءة
+              لا ينبغي أن تؤخذ بعد وجبة الطعام أو ممارسة الرياضة أو بعد أي
+              حدث مرهق. عند قياس ضغط الدم، الكفة
+              ينبغي وضعها بشكل صحيح وثابتة على الذراع.
+              إذا كانت القيمة مشابهة لتلك التي عند الاختبار المتكرر
+              تمت الإشارة إليه سابقًا ونوصيك بتأكيد ذلك
+              التشخيص مع طبيبك.
+              بعض الأشخاص الذين يعانون من ارتفاع ضغط الدم (ارتفاع ضغط الدم) قد
+              تجربة ألم في الصدر، وضيق في التنفس، والغثيان وعدم وضوح الرؤية
+              رؤية. ولكن في الأغلبية، لا يظهر ارتفاع ضغط الدم أي شيء
+              الأعراض حتى حدوث مضاعفات مثل النوبة القلبية، وفشل القلب،
+              يتطور الفشل الكلوي والسكتة الدماغية.
+              إذا تم تشخيص إصابتك بارتفاع ضغط الدم، فقد تحتاج إلى القليل من الدم
+              الاختبارات وتخطيط القلب.`,
+
+              "stage1Ar":`قراءة ضغط الدم لديك مرتفعة جدًا ويجب أن تكون كذلك
+              السيطرة عليها بالأدوية.
+              كرر القياس عدة مرات بحيث يكون مشابهًا
+              يتم الحصول على القيم باستمرار. تحقق أيضًا من القياس
+              أداة/جهاز للمعايرة الصحيحة. القراءة
+              لا ينبغي أن تؤخذ بعد وجبة الطعام أو ممارسة الرياضة أو بعد أي
+              حدث مرهق. عند قياس ضغط الدم، الكفة
+              ينبغي وضعها بشكل صحيح وثابتة على الذراع.
+              إذا كانت القيمة مشابهة لتلك التي عند الاختبار المتكرر
+              تمت الإشارة إليه سابقًا ونوصيك بتأكيد ذلك
+              التشخيص مع طبيبك.
+              بعض الأشخاص الذين يعانون من ارتفاع ضغط الدم (ارتفاع ضغط الدم) قد
+              تجربة ألم في الصدر، وضيق في التنفس، والغثيان وعدم وضوح الرؤية
+              رؤية. ولكن في الأغلبية، لا يظهر ارتفاع ضغط الدم أي شيء
+              الأعراض حتى حدوث مضاعفات مثل النوبة القلبية، وفشل القلب،
+              يتطور الفشل الكلوي والسكتة الدماغية.
+              إذا تم تشخيص إصابتك بارتفاع ضغط الدم، فقد تحتاج إلى القليل من الدم
+              الاختبارات وتخطيط القلب.`,
+
+              "stage2Ar":`قراءة ضغط الدم لديك مرتفعة جدًا، وهذا يمكن أن يكون كذلك
+              خطر على صحتك ويجب عليك طلب المساعدة فورًا
+              موعد مع طبيبك.
+              كرر القياس عدة مرات بحيث يكون مشابهًا
+              يتم الحصول على القيم باستمرار. تحقق أيضًا من القياس
+              أداة/جهاز للمعايرة الصحيحة. القراءة
+              لا ينبغي أن تؤخذ بعد وجبة الطعام أو ممارسة الرياضة أو بعد أي
+              حدث مرهق. عند قياس ضغط الدم، الكفة
+              ينبغي وضعها بشكل صحيح وثابتة على الذراع.
+              إذا كانت القيمة مشابهة لتلك التي عند الاختبار المتكرر
+              تمت الإشارة إليه سابقًا ونوصيك بتأكيد ذلك
+              التشخيص مع طبيبك.
+              بعض الأشخاص الذين يعانون من ارتفاع ضغط الدم (ارتفاع ضغط الدم) قد
+              تجربة ألم في الصدر، وضيق في التنفس، والغثيان وعدم وضوح الرؤية
+              رؤية. ولكن في الأغلبية، لا يظهر ارتفاع ضغط الدم أي شيء
+              الأعراض حتى حدوث مضاعفات مثل النوبة القلبية، وفشل القلب،
+              يتطور الفشل الكلوي والسكتة الدماغية.
+              إذا تم تشخيص إصابتك بارتفاع ضغط الدم، فقد تحتاج إلى القليل من الدم
+              الاختبارات وتخطيط القلب.`,
+
+              "rateAr":"قيمنا",
+
+              "doneAr":"حسنا",
+              "closeAr":"اغلاق",
+              
+            })
+            //questions
+            const q1 = i18n.language === 'ar' ? diagnosis.q1Ar : diagnosis.q1;
+            const q2 = i18n.language === 'ar' ? diagnosis.q2Ar : diagnosis.q2;
+            const q3 = i18n.language === 'ar' ? diagnosis.q3Ar : diagnosis.q3;
+            const q4 = i18n.language === 'ar' ? diagnosis.q4Ar : diagnosis.q4;
+            const q5 = i18n.language === 'ar' ? diagnosis.q5Ar : diagnosis.q5;
+            const q6 = i18n.language === 'ar' ? diagnosis.q6Ar : diagnosis.q6;
+            const q7 = i18n.language === 'ar' ? diagnosis.q7Ar : diagnosis.q7;
+            const q8 = i18n.language === 'ar' ? diagnosis.q8Ar : diagnosis.q8;
+            const q9 = i18n.language === 'ar' ? diagnosis.q9Ar : diagnosis.q9;
+            const q10 = i18n.language === 'ar' ? diagnosis.q10Ar : diagnosis.q10;
+            const q11 = i18n.language === 'ar' ? diagnosis.q11Ar : diagnosis.q11;
+            const button1 = i18n.language === 'ar' ? diagnosis.button1Ar : diagnosis.button1;
+            const button2 = i18n.language === 'ar' ? diagnosis.button2Ar : diagnosis.button2;
+            const button3 = i18n.language === 'ar' ? diagnosis.button3Ar : diagnosis.button3;
+
+            //answers
+            const a1 = i18n.language === 'ar' ? diagnosis.a1Ar : diagnosis.a1;
+            const a2 = i18n.language === 'ar' ? diagnosis.a2Ar : diagnosis.a2;
+            const a3 = i18n.language === 'ar' ? diagnosis.a3Ar : diagnosis.a3;
+            const a4 = i18n.language === 'ar' ? diagnosis.a4Ar : diagnosis.a4;
+            const yes = i18n.language === 'ar' ? diagnosis.yesAr : diagnosis.yes;
+            const no = i18n.language === 'ar' ? diagnosis.noAr : diagnosis.no;
+          
+     
+            //placeholders
+            const l1 = i18n.language === 'ar' ? diagnosis.l1Ar : diagnosis.l1;
+            const l2 = i18n.language === 'ar' ? diagnosis.l2Ar : diagnosis.l2;
+            const l3 = i18n.language === 'ar' ? diagnosis.l3Ar : diagnosis.l3;
+            const l4 = i18n.language === 'ar' ? diagnosis.l4Ar : diagnosis.l4;
+            const l5 = i18n.language === 'ar' ? diagnosis.l5Ar : diagnosis.l5;
+
+
+            //error messages
+            const ageErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.ageErr;
+            const genderErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.genderErr;
+            const HeightErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.HeightErr;
+            const WeightErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.WeightErr;
+            const HighBPErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.HighBPErr;
+            const LowBPErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.LowBPErr;
+            const CholesterolErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.CholesterolErr;
+            const GlucoseErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.GlucoseErr;
+            const qErr = i18n.language === 'ar' ? diagnosis.qErrAr : diagnosis.qErr;
+         
+            //results
+            const yourResult = i18n.language === 'ar' ? diagnosis.yourResultAr : diagnosis.yourResult;
+            const rate = i18n.language === 'ar' ? diagnosis.rateAr : diagnosis.rate;
+            const done = i18n.language === 'ar' ? diagnosis.doneAr : diagnosis.done;
+            const close = i18n.language === 'ar' ? diagnosis.closeAr : diagnosis.close;
+
+            const getTranslatedContent = () => {
+              if (result === "Normal") {
+                return i18n.language === 'ar' ? diagnosis.normalAr : diagnosis.normal;
+              } else if (result === "Elevated") {
+                return i18n.language === 'ar' ? diagnosis.elevatedAr : diagnosis.elevated;
+              } else if (result === "Stage1") {
+                return i18n.language === 'ar' ? diagnosis.stage1Ar : diagnosis.stage1;
+              } else if (result === "Stage2") {
+                return i18n.language === 'ar' ? diagnosis.stage2Ar : diagnosis.stage2;
+              }
+            
+              return '';
+            };
+
             const navigate = useNavigate();
 
             const token = localStorage.getItem("UserToken");
@@ -30,8 +327,6 @@ import BounceLoader from "react-spinners/BounceLoader";
                 values,
                 { headers: { Authorization: `Bearer ${token}` } }
               );
-              // console.log(data)
-              //console.log('Result set:', data.predictions[0]);
          
               setResult(data.predictions[0]);
             };
@@ -52,7 +347,6 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             return (
               <>
-              
               <div>
             {loading ? (
               <div className={'loaderContainer'}>
@@ -68,6 +362,7 @@ import BounceLoader from "react-spinners/BounceLoader";
               <>
     
 <div
+  style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
   className="modal fade"
   id="staticBackdrop"
   data-bs-backdrop="static"
@@ -80,7 +375,7 @@ import BounceLoader from "react-spinners/BounceLoader";
     <div className="modal-content">
       <div className="modal-header">
         <h1 className="modal-title fs-5" id="staticBackdropLabel">
-          Your Result
+          {yourResult}
         </h1>
         {result ==="Stage2"?
       <img src="assets/harmful.webp" width={50}/>:""}
@@ -94,107 +389,22 @@ import BounceLoader from "react-spinners/BounceLoader";
 
       <div className="modal-body">
         {result === "Normal" ? (
-          <p>
-            You seem to have a Normal Blood Pressure and you are NOT at
-            risk for Hypertension (high blood pressure). <br />
-            <br />
-            Repeat the measurement a couple of times so that similar
-            values are consistently obtained. Also check the measuring
-            instrument/apparatus for the correct calibration. The reading
-            should not be taken after a meal or exercise or after any
-            stressful event. When measuring the blood pressure, the cuff
-            should be properly placed and fixed on the arm.
-          </p>
+        <p>{getTranslatedContent()}</p>
         ) : null}
 
         {result === "Elevated" ? (
-          <p>
-            Your Blood Pressure reading is higher than the acceptable
-            limits and is considered in the long term unhealthy. You can
-            take simple measures to bring down your blood pressure like
-            cutting down of your salt intake and starting daily brisk
-            walks for 15 minutes. <br />
-            <br />
-            Repeat the measurement a couple of times so that similar
-            values are consistently obtained. Also check the measuring
-            instrument/apparatus for the correct calibration. The reading
-            should not be taken after a meal or exercise or after any
-            stressful event. When measuring the blood pressure, the cuff
-            should be properly placed and fixed on the arm.
-            <br /> <br />
-            If on repeated testing the value is similar to the one that
-            was indicated previously we recommend that you confirm this
-            diagnosis with your doctor.
-            <br /> <br />
-            Some people with high blood pressure (Hypertension) may
-            experience chest pain, shortness of breath, nausea and blurred
-            vision. However in the majority, hypertension doesn’t show any
-            symptoms until complications like heart attack, heart failure,
-            kidney failure and stroke develop.
-            <br /> <br />
-            If diagnosed with hypertension you may require a few blood
-            tests and ECG.
-          </p>
+        <p>{getTranslatedContent()}</p>
         ) : null}
 
         {result === "Stage1" ? (
-          <p>
-            Your Blood Pressure reading is quite high and needs to be
-            controlled with medication.
-            <br /> <br />
-            Repeat the measurement a couple of times so that similar
-            values are consistently obtained. Also check the measuring
-            instrument/apparatus for the correct calibration. The reading
-            should not be taken after a meal or exercise or after any
-            stressful event. When measuring the blood pressure, the cuff
-            should be properly placed and fixed on the arm.
-            <br /> <br />
-            If on repeated testing the value is similar to the one that
-            was indicated previously we recommend that you confirm this
-            diagnosis with your doctor.
-            <br /> <br />
-            Some people with high blood pressure (Hypertension) may
-            experience chest pain, shortness of breath, nausea and blurred
-            vision. However in the majority, hypertension doesn’t show any
-            symptoms until complications like heart attack, heart failure,
-            kidney failure and stroke develop.
-            <br /> <br />
-            If diagnosed with hypertension you may require a few blood
-            tests and ECG.
-          </p>
+          <p>{getTranslatedContent()}</p>
         ) : null}
 
         {result === "Stage2" ? (
-          <p>
-            Your Blood Pressure reading is too high and this can be
-            dangerous for your health and you should seek an immediate
-            appointment with your doctor.
-            <br />
-            <br />
-            Repeat the measurement a couple of times so that similar
-            values are consistently obtained. Also check the measuring
-            instrument/apparatus for the correct calibration. The reading
-            should not be taken after a meal or exercise or after any
-            stressful event. When measuring the blood pressure, the cuff
-            should be properly placed and fixed on the arm.
-            <br />
-            <br />
-            If on repeated testing the value is similar to the one that
-            was indicated previously we recommend that you confirm this
-            diagnosis with your doctor.
-            <br /> <br />
-            Some people with high blood pressure (Hypertension) may
-            experience chest pain, shortness of breath, nausea and blurred
-            vision. However in the majority, hypertension doesn’t show any
-            symptoms until complications like heart attack, heart failure,
-            kidney failure and stroke develop.
-            <br /> <br />
-            If diagnosed with hypertension you may require a few blood
-            tests and ECG.
-          </p>
+          <p>{getTranslatedContent()}</p>
         ) : null}
       </div>
-      <h3 className="text-center">Rate us</h3>
+      <h3 className="text-center">{rate}</h3>
       <Rating
         name="size-large"
         className="m-auto mb-4"
@@ -207,7 +417,7 @@ import BounceLoader from "react-spinners/BounceLoader";
           className="btn btn-secondary"
           data-bs-dismiss="modal"
         >
-          Close
+          {close}
         </button>
         <button
           type="button"
@@ -215,40 +425,37 @@ import BounceLoader from "react-spinners/BounceLoader";
           data-bs-dismiss="modal"
           onClick={goHome}
         >
-          Done
+          {done}
         </button>
       </div>
     </div>
   </div>
 </div>
 
-{/* <Typography variant="h5" className="text-center mt-1">Diagnosis Page</Typography> */}
 <Card sx={{ width: 1100, height: 500, mt: 12, boxShadow: 3 }}>
   <CardContent>
     <Formik
       validationSchema={object().shape({
         Age: number()
-          .required("Age is requiered")
+          .required(ageErr)
           .positive()
           .integer()
           .min(15, "minimum age must be 15")
           .max(90, "maximum age must be 90"),
-        Gender: number().positive().required("Gender is requiered"),
-        Height: number().positive().required("Height is requiered"),
-        Weight: number().positive().required("Weight is requiered"),
+        Gender: number().positive().required(genderErr),
+        Height: number().positive().required(HeightErr),
+        Weight: number().positive().required(WeightErr),
         HighBP: number()
           .positive()
-          .required("High blood pressure is requiered"),
+          .required(HighBPErr),
         LowBP: number()
           .positive()
-          .required("Low blood pressure is requiered"),
-        Cholesterol: number().required(
-          "Your cholesterol rate is requiered"
-        ),
-        Glucose: number().required("Your glucose rate is requiered"),
-        Smoking: number().required("Question is requiered"),
-        Alcohol: number().required("Question is requiered"),
-        Activity: number().required("Question is requiered"),
+          .required(LowBPErr),
+        Cholesterol: number().required(CholesterolErr),
+        Glucose: number().required(GlucoseErr),
+        Smoking: number().required(qErr),
+        Alcohol: number().required(qErr),
+        Activity: number().required(qErr),
       })}
       initialValues={{
         Age: undefined,
@@ -286,6 +493,9 @@ import BounceLoader from "react-spinners/BounceLoader";
             errors={errors}
             touched={touched}
             values={values}
+            button1={button1}  
+            button2={button2}
+            button3={button3}
           >
             <div>
               <Typography
@@ -293,9 +503,10 @@ import BounceLoader from "react-spinners/BounceLoader";
                 sx={{ mt: 15, mb: 3 }}
                 component="legend"
               >
-                How old are you?
+                {q1}
               </Typography>
               <TextField
+              style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 fullWidth
                 name="Age"
                 id="Age"
@@ -303,7 +514,7 @@ import BounceLoader from "react-spinners/BounceLoader";
                 value={values.Age === undefined ? "" : values.Age}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                placeholder="Your Age"
+                placeholder={l1}
                 InputProps={{
                   inputProps: {
                     min: 15,
@@ -317,7 +528,7 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             <div>
               <Typography variant="h6" component="legend" sx={{ mb: 3 }}>
-                Select Your Gender
+                {q2}
               </Typography>
               <RadioGroup
                 sx={{ width: "150%", mt: 10 }}
@@ -421,16 +632,17 @@ import BounceLoader from "react-spinners/BounceLoader";
                 component="legend"
                 sx={{ mt: 15, mb: 3 }}
               >
-                Enter your height
+                {q3}
               </Typography>
               <TextField
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 fullWidth
                 name="Height"
                 id="Height"
                 type="number"
                 value={values.Height === undefined ? "" : values.Height}
                 onChange={handleChange}
-                placeholder="Your Height"
+                placeholder={l2}
                 error={errors.Height ? true : false}
                 helperText={errors.Height && errors.Height}
               />
@@ -442,16 +654,17 @@ import BounceLoader from "react-spinners/BounceLoader";
                 component="legend"
                 sx={{ mt: 15, mb: 3 }}
               >
-                Enter your weight
+                {q4}
               </Typography>
               <TextField
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 fullWidth
                 name="Weight"
                 id="Weight"
                 type="number"
                 value={values.Weight === undefined ? "" : values.Weight}
                 onChange={handleChange}
-                placeholder="Your Weight"
+                placeholder={l3}
                 error={errors.Weight ? true : false}
                 helperText={errors.Weight && errors.Weight}
               />
@@ -463,16 +676,17 @@ import BounceLoader from "react-spinners/BounceLoader";
                 component="legend"
                 sx={{ mt: 15, mb: 3 }}
               >
-                Enter your hight blood pressure
+                {q5}
               </Typography>
               <TextField
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 fullWidth
                 name="HighBP"
                 id="HighBP"
                 type="number"
                 value={values.HighBP === undefined ? "" : values.HighBP}
                 onChange={handleChange}
-                placeholder="Your High Blood Pressure"
+                placeholder={l4}
                 InputProps={{
                   inputProps: {
                     min: 90,
@@ -490,16 +704,17 @@ import BounceLoader from "react-spinners/BounceLoader";
                 component="legend"
                 sx={{ mt: 15, mb: 3 }}
               >
-                Enter your low blood pressure
+                {q6}
               </Typography>
               <TextField
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 fullWidth
                 name="LowBP"
                 id="LowBP"
                 type="number"
                 value={values.LowBP === undefined ? "" : values.LowBP}
                 onChange={handleChange}
-                placeholder="Your Low Blood Pressure"
+                placeholder={l5}
                 InputProps={{
                   inputProps: {
                     min: 60,
@@ -513,9 +728,10 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             <div>
               <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
-                Your Cholestrol
+              {q7}
               </Typography>
               <RadioGroup
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 name="Cholesterol"
                 id="Cholesterol"
                 type="radio"
@@ -537,25 +753,25 @@ import BounceLoader from "react-spinners/BounceLoader";
                 <FormControlLabel
                   value="1"
                   control={<Radio />}
-                  label="Normal"
+                  label={a1}
                   name="Cholesterol"
                 />
                 <FormControlLabel
                   value="2"
                   control={<Radio />}
-                  label="Above Normal"
+                  label={a2}
                   name="Cholesterol"
                 />
                 <FormControlLabel
                   value="3"
                   control={<Radio />}
-                  label="Well Above Normal"
+                  label={a3}
                   name="Cholesterol"
                 />
                 <FormControlLabel
                   value="0"
                   control={<Radio />}
-                  label="Don't Know"
+                  label={a4}
                   name="Cholesterol"
                 />
               </RadioGroup>
@@ -566,9 +782,10 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             <div>
               <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
-                Your Glucose
+              {q8}
               </Typography>
               <RadioGroup
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 name="Glucose"
                 id="Glucose"
                 type="radio"
@@ -586,25 +803,25 @@ import BounceLoader from "react-spinners/BounceLoader";
                 <FormControlLabel
                   value="1"
                   control={<Radio />}
-                  label="Normal"
+                  label={a1}
                   name="Glucose"
                 />
                 <FormControlLabel
                   value="2"
                   control={<Radio />}
-                  label="Above Normal"
+                  label={a2}
                   name="Glucose"
                 />
                 <FormControlLabel
                   value="3"
                   control={<Radio />}
-                  label="Well Above Normal"
+                  label={a3}
                   name="Glucose"
                 />
                 <FormControlLabel
                   value="0"
                   control={<Radio />}
-                  label="Don't Know"
+                  label={a4}
                   name="Glucose"
                 />
               </RadioGroup>
@@ -615,9 +832,10 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             <div>
               <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
-                Do you smoke?
+              {q9}
               </Typography>
               <RadioGroup
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 sx={{ ml: 15 }}
                 row
                 name="Smoking"
@@ -638,13 +856,13 @@ import BounceLoader from "react-spinners/BounceLoader";
                   className="me-5"
                   value="1"
                   control={<Radio />}
-                  label={"yes"}
+                  label={yes}
                   name="Smoking"
                 />
                 <FormControlLabel
                   value="0"
                   control={<Radio />}
-                  label={"No"}
+                  label={no}
                   name="Smoking"
                 />
               </RadioGroup>
@@ -655,9 +873,10 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             <div>
               <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
-                Do You Drink Alcohol?
+              {q10}
               </Typography>
               <RadioGroup
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 sx={{ ml: 17 }}
                 row
                 name="Alcohol"
@@ -677,13 +896,13 @@ import BounceLoader from "react-spinners/BounceLoader";
                 <FormControlLabel
                   value="1"
                   control={<Radio />}
-                  label={"Yes"}
+                  label={yes}
                   name="Alcohol"
                 />
                 <FormControlLabel
                   value="0"
                   control={<Radio />}
-                  label={"No"}
+                  label={no}
                   name="Alcohol"
                 />
               </RadioGroup>
@@ -694,9 +913,10 @@ import BounceLoader from "react-spinners/BounceLoader";
 
             <div>
               <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
-                Do You Do Any Activities?
+              {q11}
               </Typography>
               <RadioGroup
+                style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
                 sx={{ ml: 15 }}
                 row
                 name="Activity"
@@ -718,13 +938,13 @@ import BounceLoader from "react-spinners/BounceLoader";
                 <FormControlLabel
                   value="1"
                   control={<Radio />}
-                  label={"Yes"}
+                  label={yes}
                   name="Activity"
                 />
                 <FormControlLabel
                   value="0"
                   control={<Radio />}
-                  label={"No"}
+                  label={no}
                   name="Activity"
                 />
               </RadioGroup>
@@ -790,7 +1010,7 @@ return (
     color="secondary"
     onClick={goBack}
   >
-    Back
+    {props.button2}
   </Button>
 )}
 
@@ -801,7 +1021,7 @@ return (
     variant="contained"
     onClick={goNext}
   >
-    Next
+    {props.button1}
   </Button>
 )}
 
@@ -816,7 +1036,7 @@ return (
     data-bs-target="#staticBackdrop"
     // onClick={() => popUp(props.values)}
   >
-    Submit
+    {props.button3}
   </Button>
 )}
 
