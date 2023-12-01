@@ -23,7 +23,12 @@ export default function Profile(props) {
     "genderAr":"الجنس",
     "maleAr":"ذكر",
     "femaleAr":"انثى",
+    "genderValues": {
+      "male": "ذكر",
+      "female": "أنثى"
+    }
   })
+  
   
   const info = i18n.language === 'ar' ? profile.infoAr : profile.info;
   const email = i18n.language === 'ar' ? profile.emailAr : profile.email;
@@ -103,7 +108,7 @@ export default function Profile(props) {
                       </div>
                       <div className="col-lg-6">
                         <p>
-                          <strong>{gender}:</strong> {userInfo.gender}
+                          <strong>{gender}:</strong> {userInfo.gender = i18n.language === 'ar' ? profile.maleAr : profile.male} 
                         </p>
                       </div>
                     </div>

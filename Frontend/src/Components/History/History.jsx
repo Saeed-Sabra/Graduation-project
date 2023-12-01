@@ -29,13 +29,14 @@ export default function History() {
 
 
   const [history, setHistory] = useState([]);
-  const [selectedHistory, setSelectedHistory] = useState(null);
+  const [selectedHistory, setselectedHistory] = useState({});
 
   const getDiagnosisResults = async () => {
     try {
       const token = localStorage.getItem('UserToken');
       const { data } = await axios.get('http://localhost:3001/users/history', {headers:{Authorization:`Bearer ${token}`}});
-        console.log(data);
+        console.log(data[0]);
+        // setselectedHistory(data[0]);
       setHistory(data);
     } catch (error) {
       console.error('Error fetching diagnosis results:', error);
@@ -53,6 +54,9 @@ export default function History() {
     },2000)
   }, []);
 
+  const handleViewDetails = (index) => {
+    setselectedHistory(history[index]);
+  };
 
   return (
     <>
@@ -78,80 +82,80 @@ export default function History() {
           <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
         </div>
         <div className="modal-body">
-          {history.map( (result)=>
+          
                 <div className='container text-center'>
                   <div className="row">
                     <div className="col-lg-6">
                     <h5>Age:</h5> 
-                  {result.Age} 
+                  {selectedHistory.Age} 
                     </div>
                     <div className="col-lg-6">
                     <h5>Gender:</h5>
-                {result.Gender===2? <p>Male</p>
+                {selectedHistory.Gender===2? <p>Male</p>
                   : <p>Female</p>}
                       </div>
                 <div className="col-lg-6 mt-3">
                   <h5>Hieght:</h5>
-                  {result.Height}
+                  {selectedHistory.Height}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                 <h5>Weight:</h5>
-                  {result.Weight}
+                  {selectedHistory.Weight}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                     <h5>High Blood Pressure:</h5>
-                    {result.HighBP}
+                    {selectedHistory.HighBP}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                 <h5>Low Blood Pressure:</h5>
-                    {result.LowBP}
+                    {selectedHistory.LowBP}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                   <h5>Cholesterol:</h5>
-                  {result.Cholesterol===0? <p>Don't Know</p>:""}
-                  {result.Cholesterol===1? <p>Normal</p>:""}
-                  {result.Cholesterol===1? <p>Above Normal</p>:""}
-                  {result.Cholesterol===1? <p>Well Above Normal</p>:""}
+                  {selectedHistory.Cholesterol===0? <p>Don't Know</p>:""}
+                  {selectedHistory.Cholesterol===1? <p>Normal</p>:""}
+                  {selectedHistory.Cholesterol===1? <p>Above Normal</p>:""}
+                  {selectedHistory.Cholesterol===1? <p>Well Above Normal</p>:""}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                 <h5>Glucose:</h5>
-                  {result.Glucose===0? <p>Don't Know</p>:""}
-                  {result.Glucose===1? <p>Normal</p>:""}
-                  {result.Glucose===1? <p>Above Normal</p>:""}
-                  {result.Glucose===1? <p>Well Above Normal</p>:""}
+                  {selectedHistory.Glucose===0? <p>Don't Know</p>:""}
+                  {selectedHistory.Glucose===1? <p>Normal</p>:""}
+                  {selectedHistory.Glucose===1? <p>Above Normal</p>:""}
+                  {selectedHistory.Glucose===1? <p>Well Above Normal</p>:""}
                 </div>
 
           <div className="col-lg-6 mt-3">
               <h5>Smoking:</h5>
-              {result.Smoking===0? <p>No</p>:""}
-              {result.Smoking===1? <p>Yes</p>:""}
+              {selectedHistory.Smoking===0? <p>No</p>:""}
+              {selectedHistory.Smoking===1? <p>Yes</p>:""}
           </div>
 
           <div className="col-lg-6 mt-3">
           <h5>Alchohol:</h5>
-              {result.Alcohol===0? <p>No</p>:""}
-              {result.Alcohol===1? <p>Yes</p>:""}
+              {selectedHistory.Alcohol===0? <p>No</p>:""}
+              {selectedHistory.Alcohol===1? <p>Yes</p>:""}
           </div>
 
           <div className="col-lg-6 mt-3">
           <h5>Activities:</h5>
-              {result.Activity===0? <p>No</p>:""}
-              {result.Activity===1? <p>Yes</p>:""}
+              {selectedHistory.Activity===0? <p>No</p>:""}
+              {selectedHistory.Activity===1? <p>Yes</p>:""}
           </div>
 
           <div className="col-lg-6 mt-3">
             <h5 className='text-danger'>Your Result:</h5>
-            {result.Result}
+            {selectedHistory.Result}
           </div>
                   </div>
                 </div>
             
-           )}
+        
         </div>
         <div className="modal-footer m-auto">
           <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -184,7 +188,8 @@ export default function History() {
               <td>{index + 1}</td>
               <td>{datePart}</td>
               <td>{result.Result}</td>
-              <td><button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={()=>selectedHistory(result)}>{detailsButton}</button></td>
+              <td><button type="button" className="btn btn-primary" data-bs-toggle="modal"
+               data-bs-target="#staticBackdrop" onClick={()=>handleViewDetails(index)}>{detailsButton}</button></td>
               
             </tr>
           );

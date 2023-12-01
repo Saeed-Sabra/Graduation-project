@@ -80,25 +80,6 @@ export default function Navbar({user,logOut}) {
             </li>
             {!user ? (
               <>
-                {/* ... (other imports) */}
-
-<div className="dropdown">
-  <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <FontAwesomeIcon icon={faGlobe} className='me-3' />
-  </button>
-  <ul className="dropdown-menu">
-    <li>
-      <span className='flag-icon flag-icon-us'></span>
-      <span onClick={() => i18n.changeLanguage('en')}>English</span>
-    </li>
-    <li>
-      <span className='flag-icon flag-icon-sa'></span>
-      <span onClick={() => i18n.changeLanguage('ar')}>Arabic</span>
-    </li>
-  </ul>
-</div>
-
-
                 <li className="nav-item">
                   <Link className="nav-link btn bg-primary text-white" to="register">
                     {register}
@@ -123,12 +104,12 @@ export default function Navbar({user,logOut}) {
                   </button>
                   <ul class="dropdown-menu">
                     <li className='d-flex btn' onClick={()=>i18n.changeLanguage('en')}>
-                    <img src="assets/US-flag.webp" alt="" width={30} height={20} className='mt-1'/>
+                    <img src="assets/US-flag.webp" alt="" width={30} height={18} className='mt-1'/>
                       <p className='ms-2'>English</p>
                     </li>
                     <li className='d-flex btn' onClick={()=>i18n.changeLanguage('ar')}>
-                     <img src="assets/Saudi_Arabia_Flag.jpg" alt="" width={30} height={20} className='mt-1'/>
-                      <p className='ms-2 mb-1'>Arabic</p>
+                     <img src="assets/Flag_of_Palestine.svg.png" alt="" width={30} height={20} className='mt-1'/>
+                      <p className='ms-2 mb-1'>العربية</p>
                     </li>
                   </ul>
                 </div>
