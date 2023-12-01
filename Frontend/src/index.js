@@ -7,6 +7,9 @@ import './i18n.js';
 import './index.css';
 import App from './App';
 
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap');
+</style>
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

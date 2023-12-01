@@ -37,6 +37,16 @@ export default function Navbar({user,logOut}) {
   const register = i18n.language === 'ar' ? nav.registerAr : nav.register;
   const login = i18n.language === 'ar' ? nav.loginAr : nav.login;
 
+  const changeFontToAr = ()=>{
+    document.body.classList.remove('en');
+    document.body.classList.add('ar');
+  }
+
+  const changeFontToEn = ()=>{
+    document.body.classList.remove('ar');
+    document.body.classList.add('en');
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}>
       <div className="container pt-2">
@@ -103,11 +113,11 @@ export default function Navbar({user,logOut}) {
                   <FontAwesomeIcon icon={faGlobe} className='me-3 text-primary w-50' />
                   </button>
                   <ul class="dropdown-menu">
-                    <li className='d-flex btn' onClick={()=>i18n.changeLanguage('en')}>
+                    <li className='d-flex btn' onClick={()=>{i18n.changeLanguage('en');changeFontToEn()}}>
                     <img src="assets/US-flag.webp" alt="" width={30} height={18} className='mt-1'/>
                       <p className='ms-2'>English</p>
                     </li>
-                    <li className='d-flex btn' onClick={()=>i18n.changeLanguage('ar')}>
+                    <li className='d-flex btn' onClick={()=>{i18n.changeLanguage('ar');changeFontToAr()}}>
                      <img src="assets/Flag_of_Palestine.svg.png" alt="" width={30} height={20} className='mt-1'/>
                       <p className='ms-2 mb-1'>العربية</p>
                     </li>
