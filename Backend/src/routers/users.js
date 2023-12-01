@@ -50,7 +50,7 @@ router.get("/users/confirmEmail/:token", async (req, res) => {
       return res.status(400).json({ message: "your email is not verified" });
     }
     if (user) {
-      return res.status(400).json({ message: "your email is verified" });
+      return res.status(200).json({ message: "your email is verified" });
     }
   } catch (error) {
     console.error(error);
