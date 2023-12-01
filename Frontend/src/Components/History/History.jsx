@@ -42,9 +42,20 @@ export default function History() {
     "CholesterolAr":"الكولسترول",
     "GlucoseAr":"الجلوكوز",
     "SmokingAr":"مدخن",
-    "AlcoholAr":"محول",
+    "AlcoholAr":"كحول",
     "ActivityAr":"أنشطة بدنية",
     "ResultAr":"نتيجة الفحص",
+
+    //results
+    "DontKnow":"Don't know",
+    "Normal": "Normal",
+
+    "AboveNormal":"Above Normal",
+    "WellAboveNormal":"Well Above Normal",
+    "DontKnowAr":"لا أعلم",
+    "NormalAr": "طبيعي",
+    "AboveNormalAr":"أعلى من الطبيعي",
+    "WellAboveNormalAr":"أعلى بكثير من الطبيعي"
 
   })
   
@@ -66,6 +77,12 @@ export default function History() {
   const Alcohol = i18n.language === 'ar' ? tests.AlcoholAr : tests.Alcohol;
   const Activity = i18n.language === 'ar' ? tests.ActivityAr : tests.Activity;
   const Result = i18n.language === 'ar' ? tests.ResultAr : tests.Result;
+
+  //results
+  const DontKnow = i18n.language === 'ar' ? tests.DontKnowAr : tests.DontKnow;
+  const Normal = i18n.language === 'ar' ? tests.NormalAr : tests.Normal;
+  const AboveNormal = i18n.language === 'ar' ? tests.AboveNormalAr : tests.AboveNormal;
+  const WellAboveNormal = i18n.language === 'ar' ? tests.WellAboveNormalAr : tests.WellAboveNormal;
 
   const [history, setHistory] = useState([]);
   const [selectedHistory, setselectedHistory] = useState({});
@@ -155,18 +172,18 @@ export default function History() {
 
                 <div className="col-lg-6 mt-3">
                   <h5>{Cholesterol}</h5>
-                  {selectedHistory.Glucose===0? <p>{t('Dont Know')}</p>:""}
-                  {selectedHistory.Glucose===1? <p>{t('Normal')}</p>:""}
-                  {selectedHistory.Glucose===1? <p>{t('Above Normal')}</p>:""}
-                  {selectedHistory.Glucose===1? <p>{t('Well Above Normal')}</p>:""}
+                  {selectedHistory.Cholesterol===0? <p>{DontKnow}</p>:""}
+                  {selectedHistory.Cholesterol===1? <p>{Normal}</p>:""}
+                  {selectedHistory.Cholesterol===2? <p>{AboveNormal}</p>:""}
+                  {selectedHistory.Cholesterol===3? <p>{WellAboveNormal}</p>:""}
                 </div>
 
                 <div className="col-lg-6 mt-3">
                 <h5>{Glucose}</h5>
-                  {selectedHistory.Glucose===0? <p>{t("Dont Know")}</p>:""}
-                  {selectedHistory.Glucose===1? <p>{t('Normal')}</p>:""}
-                  {selectedHistory.Glucose===1? <p>{t('Above Normal')}</p>:""}
-                  {selectedHistory.Glucose===1? <p>{t('Well Above Normal')}</p>:""}
+                  {selectedHistory.Glucose===0? <p>{DontKnow}</p>:""}
+                  {selectedHistory.Glucose===1? <p>{Normal}</p>:""}
+                  {selectedHistory.Glucose===2? <p>{AboveNormal}</p>:""}
+                  {selectedHistory.Glucose===3? <p>{WellAboveNormal}</p>:""}
                 </div>
 
           <div className="col-lg-6 mt-3">

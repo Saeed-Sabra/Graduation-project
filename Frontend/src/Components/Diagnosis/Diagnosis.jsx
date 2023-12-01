@@ -181,8 +181,8 @@ import { useTranslation } from "react-i18next";
 
             "yourResultAr": "نتيجتك",
 
-            "normalAr":`يبدو أن ضغط دمك طبيعي ولست معرضًا لخطر الإصابة بارتفاع ضغط الدم (ارتفاع ضغط الدم).
-            كرر القياس ويتم الحصول على قيم الزوجين باستمرار. تحقق أيضًا من أداة/جهاز
+            "normalAr":`يبدو أن ضغط دمك طبيعي ولست معرضًا لخطر الإصابة بارتفاع ضغط الدم.
+             تحقق أيضًا من أداة/جهاز
              القياس للحصول على المعايرة الصحيحة. لا ينبغي أن تؤخذ
               القراءة بعد تناول وجبة أو ممارسة الرياضة أو بعد أي حدث مرهق. عند قياس ضغط الدم، يجب وضع الكفة بشكل صحيح وتثبيتها على الذراع.`,
 
@@ -200,7 +200,7 @@ import { useTranslation } from "react-i18next";
               إذا كانت القيمة مشابهة لتلك التي عند الاختبار المتكرر
               تمت الإشارة إليه سابقًا ونوصيك بتأكيد ذلك
               التشخيص مع طبيبك.
-              بعض الأشخاص الذين يعانون من ارتفاع ضغط الدم (ارتفاع ضغط الدم) قد
+              بعض الأشخاص الذين يعانون من ارتفاع ضغط الدم قد
               تجربة ألم في الصدر، وضيق في التنفس، والغثيان وعدم وضوح الرؤية
               رؤية. ولكن في الأغلبية، لا يظهر ارتفاع ضغط الدم أي شيء
               الأعراض حتى حدوث مضاعفات مثل النوبة القلبية، وفشل القلب،
@@ -445,12 +445,8 @@ import { useTranslation } from "react-i18next";
         Gender: number().positive().required(genderErr),
         Height: number().positive().required(HeightErr),
         Weight: number().positive().required(WeightErr),
-        HighBP: number()
-          .positive()
-          .required(HighBPErr),
-        LowBP: number()
-          .positive()
-          .required(LowBPErr),
+        HighBP: number().positive().required(HighBPErr).min(90, "minimum high blood pressure is 90").max(190, "maximum high blood pressure is 190"),
+        LowBP: number().positive().required(LowBPErr).min(60, "minimum low blood pressure is 60").max(130, "maximum low blood pressure is 130"),
         Cholesterol: number().required(CholesterolErr),
         Glucose: number().required(GlucoseErr),
         Smoking: number().required(qErr),

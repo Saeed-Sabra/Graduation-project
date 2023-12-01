@@ -10,7 +10,7 @@ export default function Footer() {
     "span": "PTUK Team!",
     "link1":"About",
     "link2":"Contact",
-    "paragraphAr": "يتم نطوير تقنية التقييم الصحي والتحليل بواسطة",
+    "paragraphAr": "تم نطوير تقنية التقييم الصحي والتحليل بواسطة",
     "spanAr": "!PTUK فريق",
     "link1Ar":"حول",
     "link2Ar":"تواصل معنا"
