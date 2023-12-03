@@ -5,6 +5,7 @@ const router = new express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
+const fs = require("fs").promises;
 const sendEmail = require("../emails/sendEmail");
 
 router.post("/users/signup", async (req, res) => {
@@ -45,14 +46,56 @@ router.get("/users/confirmEmail/:token", async (req, res) => {
       { email: decoded.email, confirmEmail: false },
       { confirmEmail: true }
     );
+
+    const template = await fs.readFile(
+      "./backend/src/emails/confemail.ejs",
+      "utf-8"
+    );
+
     if (!user) {
-      return res.status(400).json({ message: "your email is not verified" });
+      return res
+        .status(200)
+        .send(
+          template
+            .replace(
+              /<img src="\${img}" alt="">/g,
+              `<img src="https://icon-library.com/images/sad-icon/sad-icon-6.jpg" alt="" style = "width: 100%">`
+            )
+            .replace(
+              /\${status}/g,
+              `<h3 style= "color: #FF0000">Sorry! Something went wrong.<br> <br> Your email is Not verified!</h3>`
+            )
+        );
     }
     if (user) {
-      return res.status(200).json({ message: "your email is verified" });
+      return res
+        .status(400)
+        .send(
+          template
+            .replace(
+              /<img src="\${img}" alt="">/g,
+              `<img src="https://img.freepik.com/premium-vector/opened-envelope-document-with-green-check-mark-line-icon-official-confirmation-message-mail-sent-successfully-email-delivery-verification-email-flat-design-vector_662353-720.jpg" alt="" style = "width: 100%"></img>`
+            )
+            .replace(
+              /\${status}/g,
+              `<h3 style= "color: #4CAF50">Congrats! Your email is verified.<br> <br> You can continue using the website.</h3>`
+            )
+        );
     }
   } catch (error) {
-    res.status(500).send(error);
+    return res
+      .status(500)
+      .send(
+        template
+          .replace(
+            /<img src="\${img}" alt="">/g,
+            `<img src="https://icon-library.com/images/sad-icon/sad-icon-6.jpg" alt="" style = "width: 100%">`
+          )
+          .replace(
+            /\${status}/g,
+            `<h3 style= "color: #FF0000">Sorry! Something went wrong.<br> <br> Your email is Not verified!</h3>`
+          )
+      );
   }
 });
 
@@ -65,7 +108,7 @@ router.post("/users/login", async (req, res) => {
     }
 
     if (!user.confirmEmail) {
-      return res.status(400).json({ message: "plz confirm your eamil " });
+      return res.status(400).json({ message: "plz confirm your email" });
     }
 
     if (await bcrypt.compare(req.body.password, user.password)) {
