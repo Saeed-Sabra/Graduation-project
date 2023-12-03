@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 
             const { i18n } = useTranslation ();
 
+            //******************** Translation ********************
             const [diagnosis,setDiagnosis] = useState({
               //questions
               "q1":"How old are you?",

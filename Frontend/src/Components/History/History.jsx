@@ -11,10 +11,12 @@ export default function History() {
 
   const [tests,settests] = useState({
     "date":"Date",
+    "time":"Time",
     "result":"Result",
     "checkDetails":"Check Details",
     "detailsButton":"View Details",
     "dateAr":"التاريخ",
+    "timeAr":"الوقت",
     "resultAr":"النتيجة",
     "checkDetailsAr":"التفاصيل",
     "detailsButtonAr":"عرض التفاصيل",
@@ -60,6 +62,7 @@ export default function History() {
   })
   
   const date = i18n.language === 'ar' ? tests.dateAr : tests.date;
+  const time = i18n.language === 'ar' ? tests.timeAr : tests.time;
   const result = i18n.language === 'ar' ? tests.resultAr : tests.result;
   const checkDetails = i18n.language === 'ar' ? tests.checkDetailsAr : tests.checkDetails;
   const detailsButton = i18n.language === 'ar' ? tests.detailsButtonAr : tests.detailsButton;
@@ -230,26 +233,40 @@ export default function History() {
         <tr>
           <th scope="col">#</th>
           <th scope="col">{date}</th>
+          <th scope="col">{time}</th>
           <th scope="col">{result}</th>
           <th scope="col">{checkDetails}</th>
         </tr>
       </thead>
       <tbody>
-        {history.map((result, index) => {
-          const createdAt = new Date(result.createdAt).toISOString();
-          const datePart = createdAt.split('T')[0];
+      {history.map((result, index) => {
+  const createdAt = new Date(result.createdAt).toISOString();
+  const datePart = createdAt.split('T')[0];
+  let timePart = createdAt.split('T')[1];
 
-          return (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{datePart}</td>
-              <td>{t(result.Result)}</td>
-              <td><button type="button" className="btn btn-primary" data-bs-toggle="modal"
-               data-bs-target="#staticBackdrop" onClick={()=>handleViewDetails(index)}>{detailsButton}</button></td>
-              
-            </tr>
-          );
-        })}
+  timePart = timePart.slice(0, -5);
+
+  return (
+    <tr key={index}>
+      <td>{index + 1}</td>
+      <td>{datePart}</td>
+      <td>{timePart}</td>
+      <td>{t(result.Result)}</td>
+      <td>
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          onClick={() => handleViewDetails(index)}
+        >
+          {detailsButton}
+        </button>
+      </td>
+    </tr>
+  );
+})}
+
       </tbody>
     </table>
         </CardContent>

@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export default function Login(props) {
   const { i18n } = useTranslation ();
 
+  //**************** Translation ****************
   const [login,setLogin] = useState({
     //form
     "title":"Sign In",
@@ -42,6 +43,8 @@ const passwordErr = i18n.language === 'ar' ? login.passwordErrAr : login.passwor
   let [statusError,setStatusError] = useState('')
   const navigate = useNavigate();
 
+
+  // **************** Veiw password ****************
   let [type, setType] = useState('password');
   let [icon, setIcon] = useState(faEye);
 
@@ -56,6 +59,7 @@ const passwordErr = i18n.language === 'ar' ? login.passwordErrAr : login.passwor
     }
   };
 
+  //**************** Validation ****************
   const schema = Yup.object({
     email: Yup.string().required(emailErr).email('Email Not Valid'),
     password: Yup.string().required(passwordErr).matches(/^[A-Za-z0-9]{8,20}$/,'Email/Password is incorrect')
