@@ -8,6 +8,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2';
 
 export default function Login(props) {
   const { i18n } = useTranslation ();
@@ -79,9 +80,16 @@ const passwordErr = i18n.language === 'ar' ? login.passwordErrAr : login.passwor
         localStorage.setItem('UserToken', data.token);
         props.info();
         navigate('/');
-      } 
+      }
     } catch (error) {
       console.error('Error:', error);
+      const checkEmail = ()=>{
+        Swal.fire({
+          title: "Please Verify Your Email",
+          icon: "warning",
+        })
+      }
+      checkEmail()
     }
   }
 

@@ -45,7 +45,6 @@ router.get("/users/confirmEmail/:token", async (req, res) => {
       { email: decoded.email, confirmEmail: false },
       { confirmEmail: true }
     );
-
     if (!user) {
       return res.status(400).json({ message: "your email is not verified" });
     }

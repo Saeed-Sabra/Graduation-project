@@ -94,6 +94,8 @@ export default function Register() {
   let [confirmPasswordType, setConfirmPasswordType] = useState('password');
   let [confirmPasswordIcon, setConfirmPasswordIcon] = useState(faEye);
 
+
+  //************ view password ************
   const togglePassword = () => {
     if (passwordType === 'password') {
       setPasswordType('text');
@@ -114,7 +116,7 @@ export default function Register() {
     }
   };
     
-
+//**************** Validation ****************
   const schema = Yup.object({
     name: Yup.string().required(nameErr).min(3, 'Minimum 3 characters').max(20, 'Maximum 20 characters'),
     email: Yup.string().required(emailErr).email('Email Not Valid') 
