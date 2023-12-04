@@ -1,16 +1,17 @@
 const MedInf = require("../models/medical information");
+const User = require("../models/user");
 const express = require("express");
 const router = new express.Router();
 const jwt = require("jsonwebtoken");
 
 router.get("/users/history", async (req, res) => {
-  const token = req.header("Authorization").replace("Bearer ", "");
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
   try {
-    console.log(decoded.userId);
-    const info = await MedInf.find({ user: decoded.userId })
-      .populate("user", "name")
-      .sort("-createdAt");
+    const token = req.header("Authorization").replace("Bearer ", "");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const info = await MedInf.find({ user: decoded.userId }).sort("-createdAt");
+
+    const user = await User.findById(decoded.userId);
 
     if (!info) {
       return res.status(400).send({
@@ -18,7 +19,7 @@ router.get("/users/history", async (req, res) => {
       });
     }
 
-    res.status(200).send(info);
+    res.status(200).send({ info, user });
   } catch (error) {
     res.status(500).send(error);
   }
