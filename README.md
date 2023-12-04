@@ -12,8 +12,7 @@ Before running the web app, make sure you have the following installed:
 - Python for running the Keras neural network model.
 - Required Python libraries for the model (install using `pip install -r requirements.txt`).
 - Node.js for the backend.
-- Run `npm i` in the Backend folder to install backend dependencies.
-- Run `npm i --force` in the Frontend folder to install frontend dependencies.
+
 
 ## Getting Started
 
@@ -23,8 +22,10 @@ To run the web app, follow these steps:
 2. Install backend dependencies: `cd Backend && npm i`
 3. Install frontend dependencies: `cd Frontend && npm i --force`
 4. Run the project: `npm run con`
+   
+5. **Open the Application**: Open your browser and navigate to [http://localhost:3000](http://localhost:3000) or the specific port where the application automatically opens.
 
-Visit [http://localhost:3000](http://localhost:3000) in your browser to access the application.
+
 
 ## Usage
 
