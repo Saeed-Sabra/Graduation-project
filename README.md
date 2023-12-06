@@ -1,9 +1,8 @@
-# Graduation-project
 # Blood Pressure Prediction System
 
 ## Overview
 
-This web application is designed to predict the blood pressure stage of a user based on a set of questions using a deep learning neural network implemented in Keras. The backend is built with Node.js, the frontend with React, and user data is stored in a MongoDB database. Users have the ability to view their test history, and the system is integrated with articles about blood pressure for educational purposes.
+This web application is built to predict the blood pressure stage of a user based on a set of questions using a deep-learning neural network implemented in Keras. The backend is built with NodeJS and the frontend with ReactJS. The user data is stored in a MongoDB database. Users have the ability to view their test history, and the system is integrated with articles about blood pressure for educational purposes.
 
 ## Prerequisites
 
@@ -18,7 +17,7 @@ Before running the web app, make sure you have the following installed:
 
 To run the web app, follow these steps:
 
-1. Ensure Python is installed and required libraries are installed.
+1. Ensure Python and the required libraries are installed.
 2. Install backend dependencies: `cd Backend && npm i`
 3. Install frontend dependencies: `cd Frontend && npm i --force`
 4. Run the project: `npm run con`
@@ -35,7 +34,7 @@ To run the web app, follow these steps:
 
 3. **Login**: Log in to the system with your registered credentials.
 
-4. **Take a Test**: Complete the test to receive your blood pressure stage prediction.
+4. **Make a Test**: Complete the test to receive your blood pressure stage prediction.
 
 5. **View History**: Check the history section to review your previous test details and results.
 
