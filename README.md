@@ -1,8 +1,9 @@
-# BloodPressure Health Tracker
+
+# Blood Pressure Health Tracker
 
 ## Overview
 
-This web application is built to predict the blood pressure stage of a user based on a set of questions using a deep-learning neural network implemented in Keras. The backend is built with NodeJS and the frontend with ReactJS. The user data is stored in a MongoDB database. Users have the ability to view their test history, and the system is integrated with articles about blood pressure for educational purposes.
+This web application is designed to predict the blood pressure stage of a user based on a set of questions about their (age, height, weight, physical activities, alcohol consumption, low and high blood pressure) using a deep-learning neural network implemented in Keras. The backend is built with NodeJS, and the frontend with ReactJS. User data is stored in a MongoDB database. Users have the ability to view their test history, and the system is integrated with articles about blood pressure for educational purposes.
 
 ## Prerequisites
 
