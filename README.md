@@ -18,11 +18,12 @@ Before running the web app, make sure you have the following installed:
 To run the web app, follow these steps:
 
 1. Ensure Python and the required libraries are installed.
-2. Install backend dependencies: `cd Backend && npm i`
-3. Install frontend dependencies: `cd Frontend && npm i --force`
-4. Run the project: `npm run con`
+2. Run the Machine Learinig Model: `cd Backend/ML && python app.py`  
+3. Install backend dependencies: `cd Backend && npm i`
+4. Install frontend dependencies: `cd Frontend && npm i --force`
+5. Run the project: `npm run con`
    
-5. **Open the Application**: Open your browser and navigate to [http://localhost:3000](http://localhost:3000) or the specific port where the application automatically opens.
+6. **Open the Application**: Open your browser and navigate to [http://localhost:3000](http://localhost:3000) or the specific port where the application automatically opens.
 
 
 
