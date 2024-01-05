@@ -94,9 +94,10 @@ export default function History() {
     try {
       const token = localStorage.getItem('UserToken');
       const { data } = await axios.get('http://localhost:3001/users/history', {headers:{Authorization:`Bearer ${token}`}});
-        console.log(data[0]);
+        console.log(data.info);
+
         // setselectedHistory(data[0]);
-      setHistory(data);
+      setHistory(data.info);
     } catch (error) {
       console.error('Error fetching diagnosis results:', error);
     }
@@ -239,41 +240,41 @@ export default function History() {
         </tr>
       </thead>
       <tbody>
-      {history.map((result, index) => {
+        {history.map((result, index) => {
   const createdAt = new Date(result.createdAt).toISOString();
   const datePart = createdAt.split('T')[0];
   let timePart = createdAt.split('T')[1];
 
   timePart = timePart.slice(0, -5);
-
-  return (
-    <tr key={index}>
+  
+            return (
+              <tr key={index}>
       <td>{index + 1}</td>
       <td>{datePart}</td>
       <td>{timePart}</td>
-      <td>{t(result.Result)}</td>
-      <td>
-        <button
+      <td>{result.Result}</td>
+      <td> <button
           type="button"
           className="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
           onClick={() => handleViewDetails(index)}
         >
-          {detailsButton}
-        </button>
-      </td>
-    </tr>
-  );
-})}
+          View Details
+        </button></td>
+                
 
-      </tbody>
-    </table>
-        </CardContent>
-    </Card>
-    </>
-  )}
-    </div>
-    </>
-  );
+              </tr>
+            );
+          })}
+
+        </tbody>
+      </table>
+          </CardContent>
+      </Card>
+      </>
+    )}
+      </div>
+      </>
+    );
 }

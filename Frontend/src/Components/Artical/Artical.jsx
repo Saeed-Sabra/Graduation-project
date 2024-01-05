@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import i18n from '../../i18n.js';
+import style from './Artical.module.css';
 import { useTranslation } from 'react-i18next';
 
 export default function Artical() {
@@ -29,7 +30,7 @@ export default function Artical() {
         <div className="p-4"> 
           <span>{title}</span>
           <h2 className="mb-4">{header}</h2>
-          <a href="#" className="btn btn-primary">{button}</a>
+          <a href="https://www.medicalnewstoday.com/articles/327151?fbclid=IwAR0lRBYqOS6asCnY_73tms7m8CJSv5rgRyjosp-aKr4pNhyXOIOcWTnX3Fo#prevention-and-control" target='blank' className="btn btn-primary">{button}</a>
         </div>
       </div>
     </div>

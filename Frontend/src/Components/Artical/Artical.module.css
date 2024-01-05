@@ -1,0 +1,19 @@
+
+@media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+    }
+  
+    .col-lg-6 {
+      width: 100%;
+    }
+  
+    .col-lg-6 img {
+      margin-bottom: 20px;
+    }
+  
+    .col-lg-6 .p-4 {
+      text-align: center;
+    }
+  }
+  

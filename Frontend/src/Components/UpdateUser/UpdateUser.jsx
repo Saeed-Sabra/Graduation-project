@@ -168,7 +168,7 @@ export default function UpdateUser() {
       </div>
     </Toolbar>
   </AppBar>
-        <Card sx={{width:600,height:630, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
+        <Card sx={{width:600,height:500, mt: 17, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
           <CardContent>
           <Typography variant="h5" component="div" className="text-center mb-3">
               Update User Info
@@ -251,61 +251,7 @@ export default function UpdateUser() {
             error={formik.touched.age && Boolean(formik.errors.age)}
             helperText={formik.touched.age && formik.errors.age}
           />
-    
-    <div style={{ position: 'relative' }}>
-          <TextField
-            label="Password"
-            type={passwordType}
-            name="password"
-            fullWidth
-            variant="outlined"
-            margin="dense"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-          <FontAwesomeIcon
-            icon={passwordIcon}
-            style={{
-              position: 'absolute',
-              right: 10,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              cursor: 'pointer',
-            }}
-              onClick={togglePassword}
-          />
-        </div>
-    
-        <div style={{ position: 'relative' }}>
-      <TextField
-        label="Confirm Password"  
-        type={confirmPasswordType}
-        name="confirmPassword"
-        fullWidth
-        variant="outlined"
-        margin="dense"
-        value={formik.values.confirmPassword}
-        onChange={formik.handleChange}
-        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-      />
-      <FontAwesomeIcon
-        icon={confirmPasswordIcon}
-        style={{
-          position: 'absolute',
-          right: 10,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          cursor: 'pointer',
-        }}
-        onClick={toggleConfirmPassword}
-      />
-    </div>
-    
-              <p className='text-danger'>{statusError}</p>
-    
+            
           <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
             Update
           </Button>

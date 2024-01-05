@@ -724,7 +724,7 @@ import { useTranslation } from "react-i18next";
             </div>
 
             <div>
-              <Typography variant="h6" component="legend" sx={{ mt: 5 }}>
+              <Typography variant="h6" component="legend" sx={{ mt: 5, ml: 4 }}>
               {q7}
               </Typography>
               <RadioGroup
@@ -833,7 +833,7 @@ import { useTranslation } from "react-i18next";
               </Typography>
               <RadioGroup
                 style={{ direction: i18n.language === 'ar' ? 'rtl' : 'ltr' }}
-                sx={{ ml: 15 }}
+                sx={{ ml: 17 }}
                 row
                 name="Smoking"
                 id="Smoking"
