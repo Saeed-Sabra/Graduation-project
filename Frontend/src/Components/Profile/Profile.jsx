@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer.jsx';
 import BounceLoader from 'react-spinners/BounceLoader.js';
 import style from './Profile.module.css'
 import { useTranslation } from 'react-i18next';
+import {Helmet} from "react-helmet";
 
 export default function Profile(props) {
 
@@ -61,6 +62,10 @@ export default function Profile(props) {
 
   return (
       <div className='container-fluid py-5 mt-5 ms-5 d-flex justify-content-center align-items-center'>
+         <Helmet>
+                <meta charSet="utf-8" />
+                <title>Profile</title>
+            </Helmet>
          {loading ? (
         <div className='loaderContainer'>
           <BounceLoader

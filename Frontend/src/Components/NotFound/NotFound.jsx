@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
+import {Helmet} from "react-helmet";
 
 export default function NotFound() {
   const { i18n } = useTranslation ();
@@ -18,6 +19,10 @@ export default function NotFound() {
 
   return (
     <div className='text-center mt-4'>
+         <Helmet>
+                <meta charSet="utf-8" />
+                <title>Not Found</title>
+            </Helmet>
         <img src={require('./Notfound.png')} alt="notFound" width={500} />
         <h2>{header}</h2>
         <Link className='btn btn-primary' to='/'>{home}</Link>

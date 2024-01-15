@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
+import {Helmet} from "react-helmet";
 
 export default function Login(props) {
   const { i18n } = useTranslation ();
@@ -79,25 +80,32 @@ const passwordErr = i18n.language === 'ar' ? login.passwordErrAr : login.passwor
       const { data } = await axios.post('http://localhost:3001/users/login', values)
       .catch((err)=>{
         setStatusError(err.response.data.error);
+        console.log(data)
       } );
       if (data) {
         localStorage.setItem('UserToken', data.token);
+        console.log(data)
         props.info();
         navigate('/');
       }
     } catch (error) {
       console.error('Error:', error);
-      const checkEmail = ()=>{
-        Swal.fire({
-          title: "Please Verify Your Email",
-          icon: "warning",
-        })
-      }
-      checkEmail()
+      // const checkEmail = ()=>{
+      //   Swal.fire({
+      //     title: "Please Verify Your Email",
+      //     icon: "warning",
+      //   })
+      // }
+      // checkEmail()
     }
   }
 
   return (
+    <>
+                <Helmet>
+                <meta charSet="utf-8" />
+                <title>Login Page</title>
+            </Helmet>
     <Card className={`${style.formSection} shadow my-5 bg-body-tertiary rounded d-flex justify-content-center w-50`}>
       <CardContent>
         <Typography variant="h5" component="div" className="text-center mb-3">
@@ -160,5 +168,6 @@ const passwordErr = i18n.language === 'ar' ? login.passwordErrAr : login.passwor
         </form>
       </CardContent>
     </Card>
+    </>
   );
 }

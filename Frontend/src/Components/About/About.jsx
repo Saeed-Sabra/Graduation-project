@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../../index.css'
 import BounceLoader from 'react-spinners/BounceLoader';
 import { useTranslation } from 'react-i18next';
+import {Helmet} from "react-helmet";
 
 export default function About() {
 
@@ -59,6 +60,11 @@ export default function About() {
 
   return (
     <div>
+              <Helmet>
+                <meta charSet="utf-8" />
+                <title>About</title>
+            </Helmet>
+
     {loading ? (
       <div className='loaderContainer'>
         <BounceLoader

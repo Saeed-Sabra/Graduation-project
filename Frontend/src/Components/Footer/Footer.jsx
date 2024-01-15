@@ -26,7 +26,7 @@ export default function Footer() {
       <p>{paragraph} <span className='text-primary'>{span}</span> </p>
       <div>
         <a href="" >{link1}</a>
-        <a href="" className='me-4'>{link2}</a>
+        <a href="" className=' ms-2 me-4'>{link2}</a>
       </div>
     </div>
   )

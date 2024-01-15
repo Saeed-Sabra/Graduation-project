@@ -32,7 +32,7 @@ export default function Header() {
                <h1>{header}</h1>
                <p>{paragraph}</p>
                <Link className= 'btn bg-primary text-white p-2 px-3'  to='diagnosis'>{button1}</Link>
-               <Link className='btn bg-primary p-2 text-black ms-4 me-4 px-3'>{button2}</Link>
+               <Link className='btn bg-primary p-2 text-black ms-4 me-4 px-3' to='About'>{button2}</Link>
             </div>
          </div>
          <div className="col-lg-6">

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import BounceLoader from 'react-spinners/BounceLoader';
+import {Helmet} from "react-helmet";
 
 export default function UpdateUser() {
 
@@ -144,7 +145,10 @@ export default function UpdateUser() {
 
     return (
       <>
-
+ <Helmet>
+                <meta charSet="utf-8" />
+                <title>Update User</title>
+            </Helmet>
   
 <div>
       {loading ? (

@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2'
 import BounceLoader from 'react-spinners/BounceLoader';
+import {Helmet} from "react-helmet";
 
 export default function AddUser() {
   let [statusError,setStatusError] = useState('')
@@ -116,6 +117,11 @@ export default function AddUser() {
 
     return (
       <>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title>Add User</title>
+            </Helmet>
+
     <div>
       {loading ? (
         <div className={'loaderContainer'}>

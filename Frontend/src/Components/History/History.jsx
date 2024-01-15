@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import '../../index.css';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { useTranslation } from 'react-i18next';
+import {Helmet} from "react-helmet";
 
 export default function History() {
 
@@ -120,6 +121,10 @@ export default function History() {
 
   return (
     <>
+     <Helmet>
+                <meta charSet="utf-8" />
+                <title>History</title>
+            </Helmet>
       <div>
       {loading ? (
     <div className={'loaderContainer'}>
@@ -260,7 +265,7 @@ export default function History() {
           data-bs-target="#staticBackdrop"
           onClick={() => handleViewDetails(index)}
         >
-          View Details
+          {detailsButton}
         </button></td>
                 
 

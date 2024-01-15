@@ -19,6 +19,7 @@
 
 import BounceLoader from "react-spinners/BounceLoader";
 import { useTranslation } from "react-i18next";
+import {Helmet} from "react-helmet";
 
           export default function Diagnosis() {
 
@@ -348,6 +349,11 @@ import { useTranslation } from "react-i18next";
 
             return (
               <>
+                  <Helmet>
+                <meta charSet="utf-8" />
+                <title>Diagnosis</title>
+            </Helmet>
+
               <div>
             {loading ? (
               <div className={'loaderContainer'}>

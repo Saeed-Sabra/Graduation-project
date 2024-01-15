@@ -5,6 +5,7 @@ import Instructions from '../Instructions/Instructions.jsx'
 import Footer from '../Footer/Footer.jsx'
 import BounceLoader from "react-spinners/BounceLoader";
 import style from './Home.module.css'
+import {Helmet} from "react-helmet";
 
 
 export default function Home({setUser}) {
@@ -21,6 +22,11 @@ export default function Home({setUser}) {
   
   return (
     <div className={`${style.wrapper} row`}>
+        <Helmet>
+                <meta charSet="utf-8" />
+                <title>Home Page</title>
+            </Helmet>
+
       {loading ? (
         <div className={style.loaderContainer}>
           <BounceLoader

@@ -88,6 +88,7 @@ export default function Navbar({user,logOut}) {
                 {history}
               </Link>
             </li>
+         
             {!user ? (
               <>
                 <li className="nav-item">
@@ -100,7 +101,9 @@ export default function Navbar({user,logOut}) {
                     {login}
                   </Link>
                 </li>
+                
               </>
+              
             ) : (
               <>
                 <li className="nav-item">
@@ -108,6 +111,14 @@ export default function Navbar({user,logOut}) {
                     {profile}
                   </Link>
                 </li>
+                
+                <li className="nav-item">
+                  <p className="nav-link btn bg-danger text-white ms-2" onClick={logOut}>
+                    {logout}
+                  </p>
+                </li>
+              </>
+            )}
                  <div class="dropdown">
                   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <FontAwesomeIcon icon={faGlobe} className='me-3 text-primary w-50' />
@@ -123,14 +134,6 @@ export default function Navbar({user,logOut}) {
                     </li>
                   </ul>
                 </div>
-                <li className="nav-item">
-                  <p className="nav-link btn bg-danger text-white ms-2" onClick={logOut}>
-                    {logout}
-                  </p>
-                </li>
-              </>
-            )}
-            
           </ul>
         </div>
       </div>

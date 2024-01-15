@@ -4,6 +4,7 @@ import { AppBar, Card, CardContent, Toolbar, Typography } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import BounceLoader from 'react-spinners/BounceLoader';
+import {Helmet} from "react-helmet";
 
 export default function AdminPanel() {
 
@@ -67,6 +68,11 @@ export default function AdminPanel() {
   return (
     
 <div>
+<Helmet>
+                <meta charSet="utf-8" />
+                <title>Dashboard</title>
+            </Helmet>
+
       {loading ? (
         <div className={'loaderContainer'}>
           <BounceLoader

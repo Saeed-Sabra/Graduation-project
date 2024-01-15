@@ -3,6 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import BounceLoader from 'react-spinners/BounceLoader';
+import {Helmet} from "react-helmet";
 
 export default function AdminHistory() {
     let {id} = useParams();
@@ -34,6 +35,10 @@ export default function AdminHistory() {
     
     return (
       <>
+       <Helmet>
+                <meta charSet="utf-8" />
+                <title>History</title>
+            </Helmet>
 <div>
       {loading ? (
         <div className={'loaderContainer'}>

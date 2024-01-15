@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2'
 import { useTranslation } from 'react-i18next';
+import {Helmet} from "react-helmet";
 
 export default function Register() {
 
@@ -173,131 +174,137 @@ export default function Register() {
   }
 
   return (
-    <Card sx={{width:600,height:570, mt: 12, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
-      <CardContent>
-      <Typography variant="h5" component="div" className="text-center mb-3">
-          {title}
-        </Typography>
- <form onSubmit={formik.handleSubmit}>
-      <TextField
-        label={name}
-        type="text"
-        name="name"
-        fullWidth
-        variant="outlined"
-        margin="dense"
-        value={formik.values.name}
-        onChange={formik.handleChange}
-        error={formik.touched.name && Boolean(formik.errors.name)}
-        helperText={formik.touched.name && formik.errors.name}
-      />
-
-      <TextField
-        label={email}
-        type="email"
-        name="email"
-        fullWidth
-        variant="outlined"
-        margin="dense"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
-      />
-
-
-<FormControl fullWidth>
-  <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-  <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    label={gender}
-    name="gender"
-    variant="outlined"
-    margin="dense"
-    value={formik.values.gender}
-    onChange={formik.handleChange}
-    error={formik.touched.gender && Boolean(formik.errors.gender)}
-    helperText={formik.touched.gender && formik.errors.gender}
-  >
-    <MenuItem value={"Male"}>{male}</MenuItem>
-    <MenuItem value={"Female"}>{female}</MenuItem>
-  </Select>
-</FormControl>
-
-      <TextField
-        label={age}
-        type="number"
-        name="age"
-        fullWidth
-        variant="outlined"
-        margin="dense"
-        value={formik.values.age}
-        onChange={formik.handleChange}
-        error={formik.touched.age && Boolean(formik.errors.age)}
-        helperText={formik.touched.age && formik.errors.age}
-      />
-
-<div style={{ position: 'relative' }}>
-      <TextField
-        label={password}
-        type={passwordType}
-        name="password"
-        fullWidth
-        variant="outlined"
-        margin="dense"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
-      />
-      <FontAwesomeIcon
-        icon={passwordIcon}
-        style={{
-          position: 'absolute',
-          right: 10,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          cursor: 'pointer',
-        }}
-          onClick={togglePassword}
-      />
-    </div>
-
-    <div style={{ position: 'relative' }}>
-  <TextField
-    label={cPassword} 
-    type={confirmPasswordType}
-    name="confirmPassword"
-    fullWidth
-    variant="outlined"
-    margin="dense"
-    value={formik.values.confirmPassword}
-    onChange={formik.handleChange}
-    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-    helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-  />
-  <FontAwesomeIcon
-    icon={confirmPasswordIcon}
-    style={{
-      position: 'absolute',
-      right: 10,
-      top: '50%',
-      transform: 'translateY(-50%)',
-      cursor: 'pointer',
-    }}
-    onClick={toggleConfirmPassword}
-  />
-</div>
-
-          <p className='text-danger'>{statusError}</p>
-
-      <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
-        {button}
-      </Button>
-    </form>
-      </CardContent>
-    </Card>   
-  );
+    <>
+    <Helmet>
+                <meta charSet="utf-8" />
+                <title>Sign Up</title>
+            </Helmet>
+            <Card sx={{width:600,height:570, mt: 12, boxShadow: 3, textAlign:"center", display:"flex", justifyContent:"center"}}>
+              <CardContent>
+              <Typography variant="h5" component="div" className="text-center mb-3">
+                  {title}
+                </Typography>
+         <form onSubmit={formik.handleSubmit}>
+              <TextField
+                label={name}
+                type="text"
+                name="name"
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
+              />
+        
+              <TextField
+                label={email}
+                type="email"
+                name="email"
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
+              />
+        
+        
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label={gender}
+            name="gender"
+            variant="outlined"
+            margin="dense"
+            value={formik.values.gender}
+            onChange={formik.handleChange}
+            error={formik.touched.gender && Boolean(formik.errors.gender)}
+            helperText={formik.touched.gender && formik.errors.gender}
+          >
+            <MenuItem value={"Male"}>{male}</MenuItem>
+            <MenuItem value={"Female"}>{female}</MenuItem>
+          </Select>
+        </FormControl>
+        
+              <TextField
+                label={age}
+                type="number"
+                name="age"
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                value={formik.values.age}
+                onChange={formik.handleChange}
+                error={formik.touched.age && Boolean(formik.errors.age)}
+                helperText={formik.touched.age && formik.errors.age}
+              />
+        
+        <div style={{ position: 'relative' }}>
+              <TextField
+                label={password}
+                type={passwordType}
+                name="password"
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                helperText={formik.touched.password && formik.errors.password}
+              />
+              <FontAwesomeIcon
+                icon={passwordIcon}
+                style={{
+                  position: 'absolute',
+                  right: 10,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                }}
+                  onClick={togglePassword}
+              />
+            </div>
+        
+            <div style={{ position: 'relative' }}>
+          <TextField
+            label={cPassword} 
+            type={confirmPasswordType}
+            name="confirmPassword"
+            fullWidth
+            variant="outlined"
+            margin="dense"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+          />
+          <FontAwesomeIcon
+            icon={confirmPasswordIcon}
+            style={{
+              position: 'absolute',
+              right: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              cursor: 'pointer',
+            }}
+            onClick={toggleConfirmPassword}
+          />
+        </div>
+        
+                  <p className='text-danger'>{statusError}</p>
+        
+              <Button type="submit" variant="contained" color="primary" sx={{mt:3}}>
+                {button}
+              </Button>
+            </form>
+              </CardContent>
+            </Card>   
+    </>
+);
 }
  
