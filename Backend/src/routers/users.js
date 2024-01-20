@@ -107,10 +107,6 @@ router.post("/users/login", async (req, res) => {
       return res.status(404).send({ error: "User not found!" });
     }
 
-    if (!user.confirmEmail) {
-      return res.status(400).json({ message: "plz confirm your email" });
-    }
-
     if (await bcrypt.compare(req.body.password, user.password)) {
       const token = jwt.sign(
         { userId: user.id, isAdmin: user.isAdmin },
@@ -123,7 +119,11 @@ router.post("/users/login", async (req, res) => {
       await user.save();
       res.send({ user, token, successful: true });
     } else {
-      return res.status(400).send({ error: "Password is wrong!" });
+      return res.status(400).send({ error: "Password is wrong!", user });
+    }
+
+    if (!user.confirmEmail) {
+      return res.status(400).json({ message: "plz confirm your email" });
     }
   } catch (error) {
     res.status(500).send(error);
