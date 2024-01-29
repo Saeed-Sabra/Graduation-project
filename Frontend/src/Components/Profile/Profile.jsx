@@ -113,7 +113,12 @@ export default function Profile(props) {
                       </div>
                       <div className="col-lg-6">
                         <p>
-                          <strong>{gender}:</strong> {userInfo.gender = i18n.language === 'ar' ? profile.maleAr : profile.male} 
+                        <div className="col-lg-6">
+                              <p>
+                                <strong>{gender}:</strong> {userInfo.gender === 'Male' ? (i18n.language === 'ar' ? profile.maleAr : profile.male) : (i18n.language === 'ar' ? profile.femaleAr : profile.female)}
+                              </p>
+                            </div>
+
                         </p>
                       </div>
                     </div>
