@@ -88,15 +88,17 @@ const passwordErr = i18n.language === 'ar' ? login.passwordErrAr : login.passwor
         props.info();
         navigate('/');
       }
-    } catch (error) {
-      console.error('Error:', error);
-      // const checkEmail = ()=>{
-      //   Swal.fire({
-      //     title: "Please Verify Your Email",
-      //     icon: "warning",
-      //   })
-      // }
-      // checkEmail()
+
+    }
+    catch (error) {
+      const checkEmail = ()=>{
+        Swal.fire({
+          title: "Please Verify Your Email",
+          icon: "warning",
+        })
+      }
+      checkEmail()
+    
     }
   }
 
